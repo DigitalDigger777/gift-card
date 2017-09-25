@@ -1,0 +1,136 @@
+.page {
+    background-color: #F8F8F8;
+    top: 40px;
+    z-index: 99;
+}
+.page.gift-card-list  .weui-flex {
+    margin-top: 10px;
+}
+
+.page.gift-card-list .status {
+    text-align: left;
+}
+
+.page.gift-card-list .owner {
+    border-top-style: dotted;
+    border-top-color: #F8F8F8;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.page.gift-card-list .weui-cell_access {
+    padding: 0px;
+}
+
+.page.gift-card-list .price {
+    color: #ff2850;
+}
+
+.page.gift-card-list .weui-media-box__hd {
+    align-self: flex-start;
+}
+
+.page .weui-btn {
+    background-color: #887650;
+}
+
+.gift-card-header{
+    background-color: #887650;
+    height: 40px;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: bold;
+}
+.gift-card-header component {
+    padding-top: 10px;
+}
+
+.gift-card-header .back{
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.gift-card-header .title{
+    text-align: center;
+}
+
+.gift-card-header .more{
+    text-align: right;
+    padding-right: 20px;
+    font-size: 18px;
+
+}
+
+.badge-expired {
+    background-color: #3e77ff;
+}
+
+.badge-ongoing {
+    background-color: orange;
+}
+
+.badge-bought {
+    background-color: green;
+}
+
+.menu {
+    background-color: #FFFFFF;
+}
+
+.menu p {
+    color: #887650;
+}
+
+.card {
+    background-color: #FFFFFF;
+    margin-top: 10px;
+}
+
+.cardBody {
+    color: #887650;
+}
+
+.gift-card .gift-card-item {
+    color: #887650;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.gift-card-invite {
+    color: #887650;
+    margin-left: 35px;
+    margin-top: 20px;
+}
+
+.gift-card-invite-social {
+    color: #887650;
+    margin-left: 35px;
+    margin-top: 10px;
+}
+
+
+.gift-card-item.gift-card-info{
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-top-width: 1px;
+    border-bottom-width: 1px;;
+}
+
+.gift-card-item.gift-card-info  component:nth-child(2) {
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-style: solid;
+    border-right-width: 1px;
+}
+
+.weui-progress__inner-bar {
+    background-color: purple;
+}
+
+.gift-card-info p{
+    color: rgba(30, 30, 30, 0.49);
+    font-size: 11px;
+}
