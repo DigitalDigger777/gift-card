@@ -134,3 +134,14 @@
     color: rgba(30, 30, 30, 0.49);
     font-size: 11px;
 }
+
+
+.react-weui-ptr__content{
+    overflow: hidden;
+}
+.react-weui-infiniteloader{
+    overflow: hidden;
+}
+.react-weui-infiniteloader__content{
+    overflow: hidden;
+}
