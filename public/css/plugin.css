@@ -1,0 +1,65 @@
+body{
+    color: #887650;
+}
+
+.gift-card{
+    background-color: orange;
+}
+
+.gift-card h4, .card-body p{
+    text-align: center;
+}
+
+.gift-card-row{
+    margin-top: 30px;
+}
+
+.or {
+    width:100%;
+    margin-left: 10px;
+    text-align:center;
+    border-bottom: 1px solid #000;
+    line-height:0.1em;
+    margin:10px 0 20px;
+}
+.or span {
+    background:#fff;
+    padding:0 10px;
+}
+
+.gift-card-row.center{
+    text-align: center;
+}
+
+.btn-gift-card {
+    width: 100% !important;
+}
+
+#plugin .btn {
+    width: 150px;
+}
+
+.amount {
+    background-color: #eeeeee;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #F8F8F8;
+    padding: 10px;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background: #eeeeee;
+    border: 3px solid #F8F8F8;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.circle-text {
+    margin-top: 12px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    height: 25px;
+}
