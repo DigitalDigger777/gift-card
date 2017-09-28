@@ -63,3 +63,112 @@ body{
     border-bottom-width: 1px;
     height: 25px;
 }
+
+/*cart*/
+.gift-card-cart-head {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.gift-card-cart-row {
+    padding: 10px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-color: #eeeeee;
+}
+
+.gift-card-cart-total {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.gift-card-cart-row .price, .gift-card-cart-row .trash {
+    text-align: right;
+}
+
+.gift-card-cart-btn-pay {
+    background-color: #887650;
+    border-color: #887650;
+}
+
+.gift-card-cart-btn-pay:hover {
+    background-color: #887650;
+    border-color: #887650;
+}
+
+
+
+.gift-card-login-footer a {
+    text-decoration: none;
+    color: gainsboro;
+}
+
+.gift-card-login-footer .forgot-password {
+    text-align: left;
+}
+
+.gift-card-login-footer .sign-up {
+    text-align: right;
+}
+
+
+#order-is-accepted .fa-check-circle {
+    font-size: 90px;
+}
+
+#order-is-accepted .icon {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#order-is-accepted .message {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#order-is-accepted .button {
+    text-align: center;
+    margin-top: 30px;
+}
+
+
+
+
+#order-is-accepted-payment-confirm .fa-check-circle {
+    font-size: 90px;
+}
+
+#order-is-accepted-payment-confirm .icon {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#order-is-accepted-payment-confirm .message {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#order-is-accepted-payment-confirm .button {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#order-is-accepted-payment-confirm .actions {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#order-is-accepted-payment-confirm .actions .col:nth-child(1) {
+    text-align: left;
+}
+
+#order-is-accepted-payment-confirm .actions .col:nth-child(2) {
+    text-align: right;
+}
+
+#order-is-accepted-payment-confirm .social i{
+    margin: 10px;
+}

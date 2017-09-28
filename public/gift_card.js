@@ -15178,6 +15178,10 @@ var _Login = __webpack_require__(453);
 
 var _Login2 = _interopRequireDefault(_Login);
 
+var _Registration = __webpack_require__(464);
+
+var _Registration2 = _interopRequireDefault(_Registration);
+
 var _ChangeName = __webpack_require__(454);
 
 var _ChangeName2 = _interopRequireDefault(_ChangeName);
@@ -15235,6 +15239,7 @@ var Index = function (_React$Component) {
                     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _GiftCardList2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/gift-card', component: _GiftCard2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _Login2.default }),
+                    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/registration', component: _Registration2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/change-name', component: _ChangeName2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/change-password', component: _ChangePassword2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/my-account', component: _MyAccount2.default }),
@@ -40344,7 +40349,7 @@ exports = module.exports = __webpack_require__(124)(undefined);
 
 
 // module
-exports.push([module.i, ".page {\n    background-color: #F8F8F8;\n    top: 40px;\n    z-index: 99;\n}\n.page.gift-card-list  .weui-flex {\n    margin-top: 10px;\n}\n\n.page.gift-card-list .status {\n    text-align: left;\n}\n\n.page.gift-card-list .owner {\n    border-top-style: dotted;\n    border-top-color: #F8F8F8;\n    padding-top: 10px;\n    margin-top: 10px;\n}\n\n.page.gift-card-list .weui-cell_access {\n    padding: 0px;\n}\n\n.page.gift-card-list .price {\n    color: #ff2850;\n}\n\n.page.gift-card-list .weui-media-box__hd {\n    align-self: flex-start;\n}\n\n.page .weui-btn {\n    background-color: #887650;\n}\n\n.gift-card-header{\n    background-color: #887650;\n    height: 40px;\n    position: fixed;\n    width: 100%;\n    z-index: 100;\n    color: #FFFFFF;\n    font-size: 14px;\n    font-weight: bold;\n}\n.gift-card-header component {\n    padding-top: 10px;\n}\n\n.gift-card-header .back{\n    padding-left: 20px;\n    cursor: pointer;\n}\n\n.gift-card-header .title{\n    text-align: center;\n}\n\n.gift-card-header .more{\n    text-align: right;\n    padding-right: 20px;\n    font-size: 18px;\n\n}\n\n.badge-expired {\n    background-color: #3e77ff;\n}\n\n.badge-ongoing {\n    background-color: orange;\n}\n\n.badge-bought {\n    background-color: green;\n}\n\n.menu {\n    background-color: #FFFFFF;\n}\n\n.menu p {\n    color: #887650;\n}\n\n.card {\n    background-color: #FFFFFF;\n    margin-top: 10px;\n}\n\n.cardBody {\n    color: #887650;\n}\n\n.gift-card .gift-card-item {\n    color: #887650;\n    text-align: center;\n    margin-top: 10px;\n}\n\n.gift-card-invite {\n    color: #887650;\n    margin-left: 35px;\n    margin-top: 20px;\n}\n\n.gift-card-invite-social {\n    color: #887650;\n    margin-left: 35px;\n    margin-top: 10px;\n}\n\n\n.gift-card-item.gift-card-info{\n    border-top-style: solid;\n    border-bottom-style: solid;\n    border-top-width: 1px;\n    border-bottom-width: 1px;;\n}\n\n.gift-card-item.gift-card-info  component:nth-child(2) {\n    border-left-style: solid;\n    border-left-width: 1px;\n    border-right-style: solid;\n    border-right-width: 1px;\n}\n\n.weui-progress__inner-bar {\n    background-color: purple;\n}\n\n.gift-card-info p{\n    color: rgba(30, 30, 30, 0.49);\n    font-size: 11px;\n}\n\n\n.react-weui-ptr__content{\n    overflow: hidden;\n}\n.react-weui-infiniteloader{\n    overflow: hidden;\n}\n.react-weui-infiniteloader__content{\n    overflow: hidden;\n}", ""]);
+exports.push([module.i, ".page {\n    background-color: #F8F8F8;\n    top: 40px;\n    z-index: 99;\n}\n.page.gift-card-list  .weui-flex {\n    margin-top: 10px;\n}\n\n.page.gift-card-list .status {\n    text-align: left;\n}\n\n.page.gift-card-list .owner {\n    border-top-style: dotted;\n    border-top-color: #F8F8F8;\n    padding-top: 10px;\n    margin-top: 10px;\n}\n\n.page.gift-card-list .weui-cell_access {\n    padding: 0px;\n}\n\n.page.gift-card-list .price {\n    color: #ff2850;\n}\n\n.page.gift-card-list .weui-media-box__hd {\n    align-self: flex-start;\n}\n\n.page .weui-btn {\n    background-color: #887650;\n}\n\n.gift-card-header{\n    background-color: #887650;\n    height: 40px;\n    position: fixed;\n    width: 100%;\n    z-index: 100;\n    color: #FFFFFF;\n    font-size: 14px;\n    font-weight: bold;\n}\n.gift-card-header component {\n    padding-top: 10px;\n}\n\n.gift-card-header .back{\n    padding-left: 20px;\n    cursor: pointer;\n}\n\n.gift-card-header .title{\n    text-align: center;\n}\n\n.gift-card-header .more{\n    text-align: right;\n    padding-right: 20px;\n    font-size: 18px;\n\n}\n\n.badge-expired {\n    background-color: #3e77ff;\n}\n\n.badge-ongoing {\n    background-color: orange;\n}\n\n.badge-bought {\n    background-color: green;\n}\n\n.menu {\n    background-color: #FFFFFF;\n}\n\n.menu p {\n    color: #887650;\n}\n\n.card {\n    background-color: #FFFFFF;\n    margin-top: 10px;\n}\n\n.cardBody {\n    color: #887650;\n}\n\n.gift-card .gift-card-item {\n    color: #887650;\n    text-align: center;\n    margin-top: 10px;\n}\n\n.gift-card-invite {\n    color: #887650;\n    margin-left: 35px;\n    margin-top: 20px;\n}\n\n.gift-card-invite-social {\n    color: #887650;\n    margin-left: 35px;\n    margin-top: 10px;\n}\n\n\n.gift-card-item.gift-card-info{\n    border-top-style: solid;\n    border-bottom-style: solid;\n    border-top-width: 1px;\n    border-bottom-width: 1px;;\n}\n\n.gift-card-item.gift-card-info  component:nth-child(2) {\n    border-left-style: solid;\n    border-left-width: 1px;\n    border-right-style: solid;\n    border-right-width: 1px;\n}\n\n.weui-progress__inner-bar {\n    background-color: purple;\n}\n\n.gift-card-info p{\n    color: rgba(30, 30, 30, 0.49);\n    font-size: 11px;\n}\n\n\n.react-weui-ptr__content{\n    overflow: hidden;\n}\n.react-weui-infiniteloader{\n    overflow: hidden;\n}\n.react-weui-infiniteloader__content{\n    overflow: hidden;\n}\n\n.page.login h4{\n    text-align: center;\n    margin-top: 20px;\n    color: #887650;\n}\n\n.page.login h4+p {\n    text-align: center;\n    margin-top: 10px;\n    color: #887650;\n}\n\n.page.login .login-footer {\n    margin-top: 30px;\n    text-align: center;\n}\n\n.page.login .login-footer a {\n    text-decoration: none;\n    color: #ff2850;\n\n}", ""]);
 
 // exports
 
@@ -40400,7 +40405,17 @@ var ChangeName = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                     _reactWeui.Page,
-                    { className: 'page' },
+                    { className: 'page login' },
+                    _react2.default.createElement(
+                        'h4',
+                        null,
+                        'Drizzle'
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Buy gift card with friends and saving!'
+                    ),
                     _react2.default.createElement(
                         _reactWeui.Form,
                         null,
@@ -40438,6 +40453,28 @@ var ChangeName = function (_React$Component) {
                                 _reactWeui.CellBody,
                                 null,
                                 _react2.default.createElement(_reactWeui.Input, { type: 'password', placeholder: 'Enter Password' })
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _reactWeui.Flex,
+                        { className: 'weui-flex login-footer' },
+                        _react2.default.createElement(
+                            _reactWeui.FlexItem,
+                            null,
+                            _react2.default.createElement(
+                                'a',
+                                { href: '' },
+                                'Forgot Password?'
+                            )
+                        ),
+                        _react2.default.createElement(
+                            _reactWeui.FlexItem,
+                            null,
+                            _react2.default.createElement(
+                                'a',
+                                { href: '/#/registration' },
+                                'Registration'
                             )
                         )
                     ),
@@ -42289,6 +42326,167 @@ var Header = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Header;
+
+/***/ }),
+/* 463 */,
+/* 464 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(28);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _Menu = __webpack_require__(459);
+
+var _Menu2 = _interopRequireDefault(_Menu);
+
+var _Header = __webpack_require__(462);
+
+var _Header2 = _interopRequireDefault(_Header);
+
+var _reactWeui = __webpack_require__(434);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by korman on 25.09.17.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+var Registration = function (_React$Component) {
+    _inherits(Registration, _React$Component);
+
+    function Registration(props) {
+        _classCallCheck(this, Registration);
+
+        return _possibleConstructorReturn(this, (Registration.__proto__ || Object.getPrototypeOf(Registration)).call(this, props));
+    }
+
+    _createClass(Registration, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'section',
+                null,
+                _react2.default.createElement(_Header2.default, null),
+                _react2.default.createElement(
+                    'section',
+                    null,
+                    _react2.default.createElement(
+                        _reactWeui.Page,
+                        { className: 'page' },
+                        _react2.default.createElement(
+                            _reactWeui.Form,
+                            null,
+                            _react2.default.createElement(
+                                _reactWeui.FormCell,
+                                null,
+                                _react2.default.createElement(
+                                    _reactWeui.CellHeader,
+                                    null,
+                                    _react2.default.createElement(
+                                        _reactWeui.Label,
+                                        null,
+                                        'First Name'
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    _reactWeui.CellBody,
+                                    null,
+                                    _react2.default.createElement(_reactWeui.Input, { type: 'text', placeholder: 'Enter First Name' })
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _reactWeui.FormCell,
+                                null,
+                                _react2.default.createElement(
+                                    _reactWeui.CellHeader,
+                                    null,
+                                    _react2.default.createElement(
+                                        _reactWeui.Label,
+                                        null,
+                                        'Last Name'
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    _reactWeui.CellBody,
+                                    null,
+                                    _react2.default.createElement(_reactWeui.Input, { type: 'text', placeholder: 'Enter Last Name' })
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _reactWeui.FormCell,
+                                null,
+                                _react2.default.createElement(
+                                    _reactWeui.CellHeader,
+                                    null,
+                                    _react2.default.createElement(
+                                        _reactWeui.Label,
+                                        null,
+                                        'Email'
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    _reactWeui.CellBody,
+                                    null,
+                                    _react2.default.createElement(_reactWeui.Input, { type: 'email', placeholder: 'Enter Email' })
+                                )
+                            ),
+                            _react2.default.createElement(
+                                _reactWeui.FormCell,
+                                null,
+                                _react2.default.createElement(
+                                    _reactWeui.CellHeader,
+                                    null,
+                                    _react2.default.createElement(
+                                        _reactWeui.Label,
+                                        null,
+                                        'Password'
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    _reactWeui.CellBody,
+                                    null,
+                                    _react2.default.createElement(_reactWeui.Input, { type: 'password', placeholder: 'Enter Password' })
+                                )
+                            )
+                        ),
+                        _react2.default.createElement(
+                            _reactWeui.ButtonArea,
+                            null,
+                            _react2.default.createElement(
+                                _reactWeui.Button,
+                                null,
+                                'Save'
+                            )
+                        ),
+                        _react2.default.createElement(_Menu2.default, null)
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Registration;
+}(_react2.default.Component);
+
+exports.default = Registration;
 
 /***/ })
 /******/ ]);

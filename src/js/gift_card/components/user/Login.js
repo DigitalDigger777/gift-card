@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import ReactDom from 'react-dom';
-import {Page, Form, FormCell, CellBody, CellHeader, Label, Input, ButtonArea, Button} from 'react-weui';
+import {Page, Form, FormCell, CellBody, CellHeader, Label, Input, ButtonArea, Button, Flex, FlexItem} from 'react-weui';
 
 export default class ChangeName extends React.Component {
     constructor(props) {
@@ -13,7 +13,9 @@ export default class ChangeName extends React.Component {
     render(){
         return (
             <section>
-                <Page className="page">
+                <Page className="page login">
+                    <h4>Drizzle</h4>
+                    <p>Buy gift card with friends and saving!</p>
                     <Form>
                         <FormCell>
                             <CellHeader>
@@ -32,7 +34,14 @@ export default class ChangeName extends React.Component {
                             </CellBody>
                         </FormCell>
                     </Form>
-
+                    <Flex className="weui-flex login-footer">
+                        <FlexItem>
+                            <a href="">Forgot Password?</a>
+                        </FlexItem>
+                        <FlexItem>
+                            <a href="/#/registration">Registration</a>
+                        </FlexItem>
+                    </Flex>
                     <ButtonArea>
                         <Button>Login</Button>
                     </ButtonArea>

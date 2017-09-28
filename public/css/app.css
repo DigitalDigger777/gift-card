@@ -145,3 +145,26 @@
 .react-weui-infiniteloader__content{
     overflow: hidden;
 }
+
+.page.login h4{
+    text-align: center;
+    margin-top: 20px;
+    color: #887650;
+}
+
+.page.login h4+p {
+    text-align: center;
+    margin-top: 10px;
+    color: #887650;
+}
+
+.page.login .login-footer {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.page.login .login-footer a {
+    text-decoration: none;
+    color: #ff2850;
+
+}
