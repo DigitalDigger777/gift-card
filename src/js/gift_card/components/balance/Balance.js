@@ -4,6 +4,7 @@
 
 import React from 'react';
 import ReactDom from 'react-dom';
+import axios from 'axios';
 import Config from '../Config';
 import Menu from '../core/Menu';
 import Header from '../core/Header';
@@ -20,37 +21,74 @@ export default class Balance extends React.Component {
         super(props);
         const config = new Config();
         this.state = {
+            items: [],
             baseUrl: config.baseUrl
         };
     }
 
+    componentWillMount(){
+        axios.get(this.state.baseUrl + 'store-credit/balance/rest/0', {
+            params: {
+                token: window.localStorage.getItem('token'),
+                method: 'LIST'
+            }
+        })
+            .then(response => {
+                console.log(response);
+                this.setState({
+                    items: response.data
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
     render(){
-        return (
-            <section>
-                <Header/>
+        if (this.state.items.length > 0) {
+            return (
                 <section>
-                    <InfiniteLoader/>
-                    <Page className="page gift-card-list" infiniteLoader={true}>
-                        <MediaBox className="card" type="appmsg">
-                            <MediaBoxHeader>{appMsgIcon}</MediaBoxHeader>
-                            <MediaBoxBody>
-                                <MediaBoxTitle>
-                                    <Cell access href="/#/balance-list">
-                                        <CellBody>
-                                            Starbucks
-                                            <Flex>
-                                                <FlexItem>Balance: $79.87</FlexItem>
-                                            </Flex>
-                                        </CellBody>
-                                        <CellFooter/>
-                                    </Cell>
-                                </MediaBoxTitle>
-                            </MediaBoxBody>
-                        </MediaBox>
-                        <Menu/>
-                    </Page>
+                    <Header/>
+                    <section>
+                        <InfiniteLoader/>
+                        <Page className="page gift-card-list" infiniteLoader={true}>
+                            {this.state.items.map((item, key) =>
+                                <MediaBox className="card" type="appmsg" key={key}>
+                                    <MediaBoxHeader>{appMsgIcon}</MediaBoxHeader>
+                                    <MediaBoxBody>
+                                        <MediaBoxTitle>
+                                            <Cell access href="/#/balance-list">
+                                                <CellBody>
+                                                    {item.shopper.name}
+                                                    <Flex>
+                                                        <FlexItem>Balance: ${item.balance}</FlexItem>
+                                                    </Flex>
+                                                </CellBody>
+                                                <CellFooter/>
+                                            </Cell>
+                                        </MediaBoxTitle>
+                                    </MediaBoxBody>
+                                </MediaBox>
+                            )}
+
+                            <Menu/>
+                        </Page>
+                    </section>
                 </section>
-            </section>
-        );
+            );
+        } else {
+            return (
+                <section>
+                    <Header/>
+                    <section>
+                        <InfiniteLoader/>
+                        <Page className="page gift-card-list" infiniteLoader={true}>
+
+                            <Menu/>
+                        </Page>
+                    </section>
+                </section>
+            );
+        }
     }
 }

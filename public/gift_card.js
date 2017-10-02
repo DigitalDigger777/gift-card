@@ -41278,6 +41278,10 @@ var _reactDom = __webpack_require__(28);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _axios = __webpack_require__(472);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _Config = __webpack_require__(491);
 
 var _Config2 = _interopRequireDefault(_Config);
@@ -41314,65 +41318,106 @@ var Balance = function (_React$Component) {
 
         var config = new _Config2.default();
         _this.state = {
+            items: [],
             baseUrl: config.baseUrl
         };
         return _this;
     }
 
     _createClass(Balance, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            var _this2 = this;
+
+            _axios2.default.get(this.state.baseUrl + 'store-credit/balance/rest/0', {
+                params: {
+                    token: window.localStorage.getItem('token'),
+                    method: 'LIST'
+                }
+            }).then(function (response) {
+                console.log(response);
+                _this2.setState({
+                    items: response.data
+                });
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
-            return _react2.default.createElement(
-                'section',
-                null,
-                _react2.default.createElement(_Header2.default, null),
-                _react2.default.createElement(
+            if (this.state.items.length > 0) {
+                return _react2.default.createElement(
                     'section',
                     null,
-                    _react2.default.createElement(_reactWeui.InfiniteLoader, null),
+                    _react2.default.createElement(_Header2.default, null),
                     _react2.default.createElement(
-                        _reactWeui.Page,
-                        { className: 'page gift-card-list', infiniteLoader: true },
+                        'section',
+                        null,
+                        _react2.default.createElement(_reactWeui.InfiniteLoader, null),
                         _react2.default.createElement(
-                            _reactWeui.MediaBox,
-                            { className: 'card', type: 'appmsg' },
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxHeader,
-                                null,
-                                appMsgIcon
-                            ),
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxBody,
-                                null,
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxTitle,
-                                    null,
+                            _reactWeui.Page,
+                            { className: 'page gift-card-list', infiniteLoader: true },
+                            this.state.items.map(function (item, key) {
+                                return _react2.default.createElement(
+                                    _reactWeui.MediaBox,
+                                    { className: 'card', type: 'appmsg', key: key },
                                     _react2.default.createElement(
-                                        _reactWeui.Cell,
-                                        { access: true, href: '/#/balance-list' },
+                                        _reactWeui.MediaBoxHeader,
+                                        null,
+                                        appMsgIcon
+                                    ),
+                                    _react2.default.createElement(
+                                        _reactWeui.MediaBoxBody,
+                                        null,
                                         _react2.default.createElement(
-                                            _reactWeui.CellBody,
+                                            _reactWeui.MediaBoxTitle,
                                             null,
-                                            'Starbucks',
                                             _react2.default.createElement(
-                                                _reactWeui.Flex,
-                                                null,
+                                                _reactWeui.Cell,
+                                                { access: true, href: '/#/balance-list' },
                                                 _react2.default.createElement(
-                                                    _reactWeui.FlexItem,
+                                                    _reactWeui.CellBody,
                                                     null,
-                                                    'Balance: $79.87'
-                                                )
+                                                    item.shopper.name,
+                                                    _react2.default.createElement(
+                                                        _reactWeui.Flex,
+                                                        null,
+                                                        _react2.default.createElement(
+                                                            _reactWeui.FlexItem,
+                                                            null,
+                                                            'Balance: $',
+                                                            item.balance
+                                                        )
+                                                    )
+                                                ),
+                                                _react2.default.createElement(_reactWeui.CellFooter, null)
                                             )
-                                        ),
-                                        _react2.default.createElement(_reactWeui.CellFooter, null)
+                                        )
                                     )
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(_Menu2.default, null)
+                                );
+                            }),
+                            _react2.default.createElement(_Menu2.default, null)
+                        )
                     )
-                )
-            );
+                );
+            } else {
+                return _react2.default.createElement(
+                    'section',
+                    null,
+                    _react2.default.createElement(_Header2.default, null),
+                    _react2.default.createElement(
+                        'section',
+                        null,
+                        _react2.default.createElement(_reactWeui.InfiniteLoader, null),
+                        _react2.default.createElement(
+                            _reactWeui.Page,
+                            { className: 'page gift-card-list', infiniteLoader: true },
+                            _react2.default.createElement(_Menu2.default, null)
+                        )
+                    )
+                );
+            }
         }
     }]);
 
@@ -41401,6 +41446,10 @@ var _react2 = _interopRequireDefault(_react);
 var _reactDom = __webpack_require__(28);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _axios = __webpack_require__(472);
+
+var _axios2 = _interopRequireDefault(_axios);
 
 var _Config = __webpack_require__(491);
 

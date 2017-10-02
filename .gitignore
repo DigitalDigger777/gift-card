@@ -1,2 +1,3 @@
 node_modules/
 .idea/
+src/js/gift_card/components/Config.js

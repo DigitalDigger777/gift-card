@@ -4,6 +4,7 @@
 
 import React from 'react';
 import ReactDom from 'react-dom';
+import axios from 'axios';
 import Config from '../Config';
 import Menu from '../core/Menu';
 import Header from '../core/Header';
@@ -23,6 +24,8 @@ export default class BalanceList extends React.Component {
             baseUrl: config.baseUrl
         };
     }
+
+
 
     render(){
         return (
