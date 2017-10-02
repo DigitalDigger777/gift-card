@@ -14,6 +14,7 @@ import ChangePassword from './components/user/ChangePassword';
 import MyAccount from './components/user/MyAccount';
 import Balance from './components/balance/Balance';
 import BalanceList from './components/balance/BalanceList';
+import Auth from './components/user/Auth';
 
 import 'weui';
 import 'react-weui/build/packages/react-weui.css';
@@ -30,7 +31,7 @@ export default class Index extends React.Component{
             <HashRouter history={hashHistory}>
                 <div>
                     <Route exact path="/" component={GiftCardList}/>
-                    <Route exact path="/gift-card" component={GiftCard}/>
+                    <Route exact path="/gift-card/:id" component={GiftCard}/>
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/registration" component={Registration}/>
                     <Route exact path="/change-name" component={ChangeName}/>
@@ -42,6 +43,13 @@ export default class Index extends React.Component{
             </HashRouter>
         );
     }
+}
+
+const auth = new Auth();
+console.log(window.location.hash);
+console.log(auth.checkAuth());
+if (!auth.checkAuth() && window.location.hash != '#/login') {
+    window.location = '/#/login';
 }
 
 ReactDOM.render(<Index/>, document.getElementById('root'));

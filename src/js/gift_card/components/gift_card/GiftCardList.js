@@ -4,6 +4,8 @@
 
 import React from 'react';
 import ReactDom from 'react-dom';
+import Config from '../Config';
+import axios from 'axios';
 import Menu from '../core/Menu';
 import Header from '../core/Header';
 import {Page, Grids, Grid, Footer,
@@ -17,266 +19,103 @@ export default class GiftCardList extends React.Component {
 
     constructor(props) {
         super(props);
+        const config = new Config();
+        this.state = {
+            items: [],
+            baseUrl: config.baseUrl
+        }
+    }
+
+    componentWillMount(){
+        const token = window.localStorage.getItem('token');
+        axios.get(this.state.baseUrl + 'store-credit/store-credit-consumer/rest/my/group-buy', {
+            params: {
+                token: token
+            }
+        })
+            .then(response => {
+                console.log(response);
+                this.setState({
+                    items: response.data
+                });
+                // this.setState({
+                //     firstName: response.data.socialDataProfile.first_name,
+                //     lastName:  response.data.socialDataProfile.last_name,
+                //     email: response.data.socialDataProfile.email,
+                //     showLoading: false
+                // });
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     render(){
-        return (
-            <section>
-                <Header/>
+
+        if (this.state.items.length > 0) {
+            console.log(this.state.items);
+            return (
                 <section>
-                    <InfiniteLoader/>
-                    <Page className="page gift-card-list" infiniteLoader={true}>
-                        <MediaBox className="card" type="appmsg">
-                            <MediaBoxHeader>{appMsgIcon}</MediaBoxHeader>
-                            <MediaBoxBody>
-                                <MediaBoxTitle>
-                                    <Cell access href="/#/gift-card">
-                                        <CellBody>
-                                            Starbucks
-                                        </CellBody>
-                                        <CellFooter/>
-                                    </Cell>
-                                </MediaBoxTitle>
-                                <MediaBoxDescription>
-                                    <div className="cardBody">
-                                        <Flex>
-                                            <FlexItem>$50 Gift Card</FlexItem>
-                                        </Flex>
-                                        <Flex>
-                                            <FlexItem>Sell: <span className="price">$40</span></FlexItem>
-                                            <FlexItem className="status">
-                                                <Badge className="badge-ongoing" preset="body">
-                                                    Ongoing
-                                                </Badge>
-                                            </FlexItem>
-                                        </Flex>
-                                    </div>
-                                    <Flex className="owner">
-                                        <FlexItem>Group Buy Owner: Jacky</FlexItem>
-                                    </Flex>
-                                </MediaBoxDescription>
-                            </MediaBoxBody>
-                        </MediaBox>
-                        <MediaBox className="card" type="appmsg">
-                            <MediaBoxHeader>{appMsgIcon}</MediaBoxHeader>
-                            <MediaBoxBody>
-                                <MediaBoxTitle>
-                                    <Cell access href="/#/gift-card">
-                                        <CellBody>
-                                            Starbucks
-                                        </CellBody>
-                                        <CellFooter/>
-                                    </Cell>
-                                </MediaBoxTitle>
-                                <MediaBoxDescription>
-                                    <Flex>
-                                        <FlexItem>$50 Gift Card</FlexItem>
-                                    </Flex>
-                                    <Flex>
-                                        <FlexItem>Sell: <span className="price">$40</span></FlexItem>
-                                        <FlexItem className="status">
-                                            <Badge className="badge-bought" preset="body">Bought</Badge>
-                                        </FlexItem>
-                                    </Flex>
-                                    <Flex className="owner">
-                                        <FlexItem>Group Buy Owner: Jacky</FlexItem>
-                                    </Flex>
-                                </MediaBoxDescription>
-                            </MediaBoxBody>
-                        </MediaBox>
-                        <MediaBox className="card" type="appmsg">
-                            <MediaBoxHeader>{appMsgIcon}</MediaBoxHeader>
-                            <MediaBoxBody>
-                                <MediaBoxTitle>
-                                    <Cell access href="/#/gift-card">
-                                        <CellBody>
-                                            Starbucks
-                                        </CellBody>
-                                        <CellFooter/>
-                                    </Cell>
-                                </MediaBoxTitle>
-                                <MediaBoxDescription>
-                                    <Flex>
-                                        <FlexItem>$50 Gift Card</FlexItem>
-                                    </Flex>
-                                    <Flex>
-                                        <FlexItem>Sell: <span className="price">$40</span></FlexItem>
-                                        <FlexItem className="status">
-                                            <Badge className="badge-expired" preset="body">Expired</Badge>
-                                        </FlexItem>
-                                    </Flex>
-                                    <Flex className="owner">
-                                        <FlexItem>Group Buy Owner: Jacky</FlexItem>
-                                    </Flex>
-                                </MediaBoxDescription>
-                            </MediaBoxBody>
-                        </MediaBox>
-                        <MediaBox className="card" type="appmsg">
-                            <MediaBoxHeader>{appMsgIcon}</MediaBoxHeader>
-                            <MediaBoxBody>
-                                <MediaBoxTitle>
-                                    <Cell access href="/#/gift-card">
-                                        <CellBody>
-                                            Starbucks
-                                        </CellBody>
-                                        <CellFooter/>
-                                    </Cell>
-                                </MediaBoxTitle>
-                                <MediaBoxDescription>
-                                    <Flex>
-                                        <FlexItem>$50 Gift Card</FlexItem>
-                                    </Flex>
-                                    <Flex>
-                                        <FlexItem>Sell: <span className="price">$40</span></FlexItem>
-                                        <FlexItem className="status">
-                                            <Badge className="badge-ongoing" preset="body">Ongoing</Badge>
-                                        </FlexItem>
-                                    </Flex>
-                                    <Flex className="owner">
-                                        <FlexItem>Group Buy Owner: Jacky</FlexItem>
-                                    </Flex>
-                                </MediaBoxDescription>
-                            </MediaBoxBody>
-                        </MediaBox>
-                        <MediaBox className="card" type="appmsg">
-                            <MediaBoxHeader>{appMsgIcon}</MediaBoxHeader>
-                            <MediaBoxBody>
-                                <MediaBoxTitle>
-                                    <Cell access href="/#/gift-card">
-                                        <CellBody>
-                                            Starbucks
-                                        </CellBody>
-                                        <CellFooter/>
-                                    </Cell>
-                                </MediaBoxTitle>
-                                <MediaBoxDescription>
-                                    <Flex>
-                                        <FlexItem>$50 Gift Card</FlexItem>
-                                    </Flex>
-                                    <Flex>
-                                        <FlexItem>Sell: <span className="price">$40</span></FlexItem>
-                                        <FlexItem className="status">
-                                            <Badge className="badge-ongoing" preset="body">Ongoing</Badge>
-                                        </FlexItem>
-                                    </Flex>
-                                    <Flex className="owner">
-                                        <FlexItem>Group Buy Owner: Jacky</FlexItem>
-                                    </Flex>
-                                </MediaBoxDescription>
-                            </MediaBoxBody>
-                        </MediaBox>
-                        <MediaBox className="card" type="appmsg">
-                            <MediaBoxHeader>{appMsgIcon}</MediaBoxHeader>
-                            <MediaBoxBody>
-                                <MediaBoxTitle>
-                                    <Cell access href="/#/gift-card">
-                                        <CellBody>
-                                            Starbucks
-                                        </CellBody>
-                                        <CellFooter/>
-                                    </Cell>
-                                </MediaBoxTitle>
-                                <MediaBoxDescription>
-                                    <Flex>
-                                        <FlexItem>$50 Gift Card</FlexItem>
-                                    </Flex>
-                                    <Flex>
-                                        <FlexItem>Sell: <span className="price">$40</span></FlexItem>
-                                        <FlexItem className="status">
-                                            <Badge className="badge-ongoing" preset="body">Ongoing</Badge>
-                                        </FlexItem>
-                                    </Flex>
-                                    <Flex className="owner">
-                                        <FlexItem>Group Buy Owner: Jacky</FlexItem>
-                                    </Flex>
-                                </MediaBoxDescription>
-                            </MediaBoxBody>
-                        </MediaBox>
-                        <MediaBox className="card" type="appmsg">
-                            <MediaBoxHeader>{appMsgIcon}</MediaBoxHeader>
-                            <MediaBoxBody>
-                                <MediaBoxTitle>
-                                    <Cell access href="/#/gift-card">
-                                        <CellBody>
-                                            Starbucks
-                                        </CellBody>
-                                        <CellFooter/>
-                                    </Cell>
-                                </MediaBoxTitle>
-                                <MediaBoxDescription>
-                                    <Flex>
-                                        <FlexItem>$50 Gift Card</FlexItem>
-                                    </Flex>
-                                    <Flex>
-                                        <FlexItem>Sell: <span className="price">$40</span></FlexItem>
-                                        <FlexItem className="status">
-                                            <Badge className="badge-ongoing" preset="body">Ongoing</Badge>
-                                        </FlexItem>
-                                    </Flex>
-                                    <Flex className="owner">
-                                        <FlexItem>Group Buy Owner: Jacky</FlexItem>
-                                    </Flex>
-                                </MediaBoxDescription>
-                            </MediaBoxBody>
-                        </MediaBox>
-                        <MediaBox className="card" type="appmsg">
-                            <MediaBoxHeader>{appMsgIcon}</MediaBoxHeader>
-                            <MediaBoxBody>
-                                <MediaBoxTitle>
-                                    <Cell access href="/#/gift-card">
-                                        <CellBody>
-                                            Starbucks
-                                        </CellBody>
-                                        <CellFooter/>
-                                    </Cell>
-                                </MediaBoxTitle>
-                                <MediaBoxDescription>
-                                    <Flex>
-                                        <FlexItem>$50 Gift Card</FlexItem>
-                                    </Flex>
-                                    <Flex>
-                                        <FlexItem>Sell: <span className="price">$40</span></FlexItem>
-                                        <FlexItem className="status">
-                                            <Badge className="badge-ongoing" preset="body">Ongoing</Badge>
-                                        </FlexItem>
-                                    </Flex>
-                                    <Flex className="owner">
-                                        <FlexItem>Group Buy Owner: Jacky</FlexItem>
-                                    </Flex>
-                                </MediaBoxDescription>
-                            </MediaBoxBody>
-                        </MediaBox>
-                        <MediaBox className="card" type="appmsg">
-                            <MediaBoxHeader>{appMsgIcon}</MediaBoxHeader>
-                            <MediaBoxBody>
-                                <MediaBoxTitle>
-                                    <Cell access href="/#/gift-card">
-                                        <CellBody>
-                                            Starbucks
-                                        </CellBody>
-                                        <CellFooter/>
-                                    </Cell>
-                                </MediaBoxTitle>
-                                <MediaBoxDescription>
-                                    <Flex>
-                                        <FlexItem>$50 Gift Card</FlexItem>
-                                    </Flex>
-                                    <Flex>
-                                        <FlexItem>Sell: <span className="price">$40</span></FlexItem>
-                                        <FlexItem className="status">
-                                            <Badge className="badge-ongoing" preset="body">Ongoing</Badge>
-                                        </FlexItem>
-                                    </Flex>
-                                    <Flex className="owner">
-                                        <FlexItem>Group Buy Owner: Jacky</FlexItem>
-                                    </Flex>
-                                </MediaBoxDescription>
-                            </MediaBoxBody>
-                        </MediaBox>
-                        <Menu/>
-                    </Page>
+                    <Header/>
+                    <section>
+                        <InfiniteLoader/>
+                        <Page className="page gift-card-list" infiniteLoader={true}>
+                            { this.state.items.map((item, key) =>
+                                <MediaBox className="card" type="appmsg" key={key}>
+                                    <MediaBoxHeader>{appMsgIcon}</MediaBoxHeader>
+                                    <MediaBoxBody>
+                                        <MediaBoxTitle>
+                                            <Cell access href={`/#/gift-card/${item.id}`}>
+                                                <CellBody>
+                                                    {item.storeCredit.shopper.name}
+                                                </CellBody>
+                                                <CellFooter/>
+                                            </Cell>
+                                        </MediaBoxTitle>
+                                        <div className="weui-media-box__desc">
+                                            <div className="cardBody">
+                                                <Flex>
+                                                    <FlexItem>${item.storeCredit.storeCreditValue} Gift Card</FlexItem>
+                                                </Flex>
+                                                <Flex>
+                                                    <FlexItem>Sell: <span className="price">${item.storeCredit.storeCreditValue}</span></FlexItem>
+                                                    <FlexItem className="status">
+                                                        <Badge className="badge-ongoing" preset="body">
+                                                            Ongoing
+                                                        </Badge>
+                                                        {/*<FlexItem className="status">*/}
+                                                        {/*<Badge className="badge-bought" preset="body">Bought</Badge>*/}
+                                                        {/*</FlexItem>*/}
+                                                        {/*<FlexItem className="status">*/}
+                                                        {/*<Badge className="badge-expired" preset="body">Expired</Badge>*/}
+                                                        {/*</FlexItem>*/}
+                                                    </FlexItem>
+                                                </Flex>
+                                            </div>
+                                            <Flex className="owner">
+                                                <FlexItem>Group Buy Owner: {item.ownerConsumer.socialDataProfile.nickname}</FlexItem>
+                                            </Flex>
+                                        </div>
+                                    </MediaBoxBody>
+                                </MediaBox>
+                            )}
+                            <Menu/>
+                        </Page>
+                    </section>
                 </section>
-            </section>
-        );
+            );
+        } else {
+            return (
+                <section>
+                    <Header/>
+                    <section>
+                        <InfiniteLoader/>
+                        <Page className="page gift-card-list" infiniteLoader={true}>
+
+                        </Page>
+                    </section>
+                </section>
+            );
+        }
     }
 }

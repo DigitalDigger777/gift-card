@@ -4,6 +4,7 @@
 
 import React from 'react';
 import ReactDom from 'react-dom';
+import Config from '../Config';
 import Menu from '../core/Menu';
 import Header from '../core/Header';
 import {Page, Grids, Grid, Footer,
@@ -17,6 +18,10 @@ export default class BalanceList extends React.Component {
 
     constructor(props) {
         super(props);
+        const config = new Config();
+        this.state = {
+            baseUrl: config.baseUrl
+        };
     }
 
     render(){

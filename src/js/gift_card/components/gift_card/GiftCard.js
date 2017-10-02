@@ -4,6 +4,8 @@
 
 import React from 'react';
 import ReactDom from 'react-dom';
+import Config from '../Config';
+import axios from 'axios';
 import Menu from '../core/Menu';
 import Header from '../core/Header';
 
@@ -18,9 +20,42 @@ export default class GiftCard extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log(props);
+        const config = new Config();
+        this.state = {
+            id: props.match.params.id,
+            shopper: '',
+            baseUrl: config.baseUrl
+        }
+    }
+
+    componentWillMount(){
+        axios.get(this.state.baseUrl + 'store-credit/group-buy/rest/' + this.state.id)
+            .then(response => {
+                console.log(response);
+                let sell = 0;
+                response.data.partners.map(item => {
+                    sell += item.amount;
+                });
+
+                this.setState({
+                    shopper: response.data.storeCredit.shopper.name,
+                    storeCreditValue: response.data.storeCredit.storeCreditValue,
+                    owner: response.data.ownerConsumer.socialDataProfile.nickname,
+                    totalUsers: response.data.partners.length,
+                    sell: sell,
+                    percentOfGoal: function(){
+                        return Math.round(sell/(response.data.storeCredit.storeCreditValue/100), 2);
+                    }()
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     render(){
+        console.log(this.state);
         return (
             <section>
                 <Header/>
@@ -37,9 +72,9 @@ export default class GiftCard extends React.Component {
                         <Flex className="weui-flex gift-card-item gift-card-info">
                             <FlexItem>
                                 <Grids>
-                                    <Grid>$80 <p>Sell</p></Grid>
-                                    <Grid>Jacky Group <p>Buy Owner</p></Grid>
-                                    <Grid>3 <p>Total Users</p></Grid>
+                                    <Grid>${this.state.sell} <p>Sell</p></Grid>
+                                    <Grid>{this.state.owner} <p>Group Buy Owner</p></Grid>
+                                    <Grid>{this.state.totalUsers} <p>Total Users</p></Grid>
                                 </Grids>
                             </FlexItem>
                         </Flex>
@@ -48,12 +83,12 @@ export default class GiftCard extends React.Component {
                         </Flex>
                         <Flex className="weui-flex gift-card-item">
                             <FlexItem>
-                                <Progress value="100" showCancel={false} style={{paddingLeft: '10px', paddingRight: '10px'}}/>
+                                <Progress defaultValue="100" showCancel={false} style={{paddingLeft: '10px', paddingRight: '10px'}}/>
                             </FlexItem>
                         </Flex>
                         <Flex className="weui-flex gift-card-item">
-                            <FlexItem>50% of $80 goal</FlexItem>
-                            <FlexItem>$40 Bought by 3 Users</FlexItem>
+                            <FlexItem>{this.state.percentOfGoal}% of ${this.state.storeCreditValue} goal</FlexItem>
+                            <FlexItem>${this.state.sell} Bought by {this.state.totalUsers} Users</FlexItem>
                         </Flex>
                         <Flex className="weui-flex gift-card-invite">
                             <FlexItem>Invite your friend to buy together:</FlexItem>

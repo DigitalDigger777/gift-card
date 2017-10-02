@@ -15202,6 +15202,10 @@ var _BalanceList = __webpack_require__(458);
 
 var _BalanceList2 = _interopRequireDefault(_BalanceList);
 
+var _Auth = __webpack_require__(492);
+
+var _Auth2 = _interopRequireDefault(_Auth);
+
 __webpack_require__(185);
 
 __webpack_require__(184);
@@ -15237,7 +15241,7 @@ var Index = function (_React$Component) {
                     'div',
                     null,
                     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _GiftCardList2.default }),
-                    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/gift-card', component: _GiftCard2.default }),
+                    _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/gift-card/:id', component: _GiftCard2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', component: _Login2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/registration', component: _Registration2.default }),
                     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/change-name', component: _ChangeName2.default }),
@@ -15255,6 +15259,13 @@ var Index = function (_React$Component) {
 
 exports.default = Index;
 
+
+var auth = new _Auth2.default();
+console.log(window.location.hash);
+console.log(auth.checkAuth());
+if (!auth.checkAuth() && window.location.hash != '#/login') {
+    window.location = '/#/login';
+}
 
 _reactDom2.default.render(_react2.default.createElement(Index, null), document.getElementById('root'));
 
@@ -40375,6 +40386,14 @@ var _reactDom = __webpack_require__(28);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _Config = __webpack_require__(491);
+
+var _Config2 = _interopRequireDefault(_Config);
+
+var _axios = __webpack_require__(472);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _reactWeui = __webpack_require__(434);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -40394,12 +40413,64 @@ var ChangeName = function (_React$Component) {
     function ChangeName(props) {
         _classCallCheck(this, ChangeName);
 
-        return _possibleConstructorReturn(this, (ChangeName.__proto__ || Object.getPrototypeOf(ChangeName)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (ChangeName.__proto__ || Object.getPrototypeOf(ChangeName)).call(this, props));
+
+        var config = new _Config2.default();
+
+        _this.state = {
+            email: '',
+            password: '',
+            showLoading: false,
+            baseUrl: config.baseUrl
+        };
+        return _this;
     }
 
     _createClass(ChangeName, [{
+        key: 'updateEmail',
+        value: function updateEmail(e) {
+            this.setState({
+                email: e.target.value
+            });
+        }
+    }, {
+        key: 'updatePassword',
+        value: function updatePassword(e) {
+            this.setState({
+                password: e.target.value
+            });
+        }
+    }, {
+        key: 'login',
+        value: function login() {
+            var _this2 = this;
+
+            this.setState({
+                showLoading: true
+            });
+
+            _axios2.default.post(this.state.baseUrl + 'store-credit/store-credit-consumer/rest/login', {
+                email: this.state.email,
+                password: this.state.password
+            }).then(function (response) {
+                console.log(response);
+                window.localStorage.setItem('token', response.data.token);
+                _this2.setState({
+                    showLoading: false
+                });
+                window.location = '/#/';
+            }).catch(function (error) {
+                console.log(error);
+                _this2.setState({
+                    showLoading: false
+                });
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var _this3 = this;
+
             return _react2.default.createElement(
                 'section',
                 null,
@@ -40434,7 +40505,9 @@ var ChangeName = function (_React$Component) {
                             _react2.default.createElement(
                                 _reactWeui.CellBody,
                                 null,
-                                _react2.default.createElement(_reactWeui.Input, { type: 'text', placeholder: 'Enter email' })
+                                _react2.default.createElement(_reactWeui.Input, { type: 'text', placeholder: 'Enter email', onChange: function onChange(e) {
+                                        return _this3.updateEmail(e);
+                                    } })
                             )
                         ),
                         _react2.default.createElement(
@@ -40452,7 +40525,9 @@ var ChangeName = function (_React$Component) {
                             _react2.default.createElement(
                                 _reactWeui.CellBody,
                                 null,
-                                _react2.default.createElement(_reactWeui.Input, { type: 'password', placeholder: 'Enter Password' })
+                                _react2.default.createElement(_reactWeui.Input, { type: 'password', placeholder: 'Enter Password', onChange: function onChange(e) {
+                                        return _this3.updatePassword(e);
+                                    } })
                             )
                         )
                     ),
@@ -40483,9 +40558,14 @@ var ChangeName = function (_React$Component) {
                         null,
                         _react2.default.createElement(
                             _reactWeui.Button,
-                            null,
+                            { onClick: this.login.bind(this) },
                             'Login'
                         )
+                    ),
+                    _react2.default.createElement(
+                        _reactWeui.Toast,
+                        { icon: 'loading', show: this.state.showLoading },
+                        'Loading...'
                     )
                 )
             );
@@ -40518,6 +40598,14 @@ var _reactDom = __webpack_require__(28);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _Config = __webpack_require__(491);
+
+var _Config2 = _interopRequireDefault(_Config);
+
+var _axios = __webpack_require__(472);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _Menu = __webpack_require__(459);
 
 var _Menu2 = _interopRequireDefault(_Menu);
@@ -40544,75 +40632,198 @@ var ChangeName = function (_React$Component) {
     function ChangeName(props) {
         _classCallCheck(this, ChangeName);
 
-        return _possibleConstructorReturn(this, (ChangeName.__proto__ || Object.getPrototypeOf(ChangeName)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (ChangeName.__proto__ || Object.getPrototypeOf(ChangeName)).call(this, props));
+
+        var config = new _Config2.default();
+
+        _this.state = {
+            firstName: '',
+            lastName: '',
+            showLoading: true,
+            showSuccess: false,
+            baseUrl: config.baseUrl
+        };
+        return _this;
     }
 
     _createClass(ChangeName, [{
+        key: 'updateFirstName',
+        value: function updateFirstName(e) {
+            this.setState({
+                firstName: e.target.value
+            });
+        }
+    }, {
+        key: 'updateLastName',
+        value: function updateLastName(e) {
+            this.setState({
+                lastName: e.target.value
+            });
+        }
+    }, {
+        key: 'save',
+        value: function save() {
+            var _this2 = this;
+
+            this.setState({ showLoading: true });
+
+            _axios2.default.put(this.state.baseUrl + 'store-credit/store-credit-consumer/rest/0', {
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                token: window.localStorage.getItem('token')
+            }).then(function (response) {
+                _this2.setState({
+                    showLoading: false
+                });
+
+                _this2.setState({
+                    showSuccess: true
+                });
+
+                setTimeout(function () {
+                    _this2.setState({
+                        showSuccess: false
+                    });
+                }, 3000);
+            }).catch(function (error) {
+                console.log(error);
+                this.setState({ showLoading: false });
+            });
+        }
+    }, {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            var _this3 = this;
+
+            var token = window.localStorage.getItem('token');
+
+            if (token) {
+                _axios2.default.get(this.state.baseUrl + 'store-credit/store-credit-consumer/rest/0', {
+                    params: {
+                        token: token
+                    }
+                }).then(function (response) {
+                    console.log(response);
+
+                    var nickname = response.data.socialDataProfile.nickname.split(' ');
+                    _this3.setState({
+                        firstName: nickname[0],
+                        lastName: typeof nickname[1] != 'undefined' ? nickname[1] : '',
+                        email: typeof response.data.socialDataProfile.email == 'undefined' ? response.data.email : response.data.socialDataProfile.email,
+                        showLoading: false
+                    });
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
-            return _react2.default.createElement(
-                'section',
-                null,
-                _react2.default.createElement(_Header2.default, null),
-                _react2.default.createElement(
+            var _this4 = this;
+
+            if (typeof this.state.email != 'undefined') {
+                return _react2.default.createElement(
                     'section',
                     null,
+                    _react2.default.createElement(_Header2.default, null),
                     _react2.default.createElement(
-                        _reactWeui.Page,
-                        { className: 'page' },
+                        'section',
+                        null,
                         _react2.default.createElement(
-                            _reactWeui.Form,
-                            null,
+                            _reactWeui.Page,
+                            { className: 'page' },
                             _react2.default.createElement(
-                                _reactWeui.FormCell,
+                                _reactWeui.Form,
                                 null,
                                 _react2.default.createElement(
-                                    _reactWeui.CellHeader,
+                                    _reactWeui.FormCell,
                                     null,
                                     _react2.default.createElement(
-                                        _reactWeui.Label,
+                                        _reactWeui.CellHeader,
                                         null,
-                                        'First Name'
+                                        _react2.default.createElement(
+                                            _reactWeui.Label,
+                                            null,
+                                            'First Name'
+                                        )
+                                    ),
+                                    _react2.default.createElement(
+                                        _reactWeui.CellBody,
+                                        null,
+                                        _react2.default.createElement(_reactWeui.Input, { type: 'text', placeholder: 'Enter First Name',
+                                            defaultValue: this.state.firstName,
+                                            onChange: function onChange(e) {
+                                                return _this4.updateFirstName(e);
+                                            } })
                                     )
                                 ),
                                 _react2.default.createElement(
-                                    _reactWeui.CellBody,
+                                    _reactWeui.FormCell,
                                     null,
-                                    _react2.default.createElement(_reactWeui.Input, { type: 'text', placeholder: 'Enter First Name' })
+                                    _react2.default.createElement(
+                                        _reactWeui.CellHeader,
+                                        null,
+                                        _react2.default.createElement(
+                                            _reactWeui.Label,
+                                            null,
+                                            'Last Name'
+                                        )
+                                    ),
+                                    _react2.default.createElement(
+                                        _reactWeui.CellBody,
+                                        null,
+                                        _react2.default.createElement(_reactWeui.Input, { type: 'text', placeholder: 'Enter Last Name',
+                                            defaultValue: this.state.lastName,
+                                            onChange: function onChange(e) {
+                                                return _this4.updateLastName(e);
+                                            } })
+                                    )
                                 )
                             ),
                             _react2.default.createElement(
-                                _reactWeui.FormCell,
+                                _reactWeui.ButtonArea,
                                 null,
                                 _react2.default.createElement(
-                                    _reactWeui.CellHeader,
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactWeui.Label,
-                                        null,
-                                        'Last Name'
-                                    )
-                                ),
-                                _react2.default.createElement(
-                                    _reactWeui.CellBody,
-                                    null,
-                                    _react2.default.createElement(_reactWeui.Input, { type: 'text', placeholder: 'Enter Last Name' })
+                                    _reactWeui.Button,
+                                    { onClick: this.save.bind(this) },
+                                    'Save'
                                 )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            _reactWeui.ButtonArea,
-                            null,
+                            ),
+                            _react2.default.createElement(_Menu2.default, null),
                             _react2.default.createElement(
-                                _reactWeui.Button,
-                                null,
-                                'Save'
+                                _reactWeui.Toast,
+                                { icon: 'success-no-circle', show: this.state.showSuccess },
+                                'Done'
+                            ),
+                            _react2.default.createElement(
+                                _reactWeui.Toast,
+                                { icon: 'loading', show: this.state.showLoading },
+                                'Loading...'
                             )
-                        ),
-                        _react2.default.createElement(_Menu2.default, null)
+                        )
                     )
-                )
-            );
+                );
+            } else {
+                return _react2.default.createElement(
+                    'section',
+                    null,
+                    _react2.default.createElement(_Header2.default, null),
+                    _react2.default.createElement(
+                        'section',
+                        null,
+                        _react2.default.createElement(
+                            _reactWeui.Page,
+                            { className: 'page' },
+                            _react2.default.createElement(
+                                _reactWeui.Toast,
+                                { icon: 'loading', show: this.state.showLoading },
+                                'Loading...'
+                            )
+                        )
+                    )
+                );
+            }
         }
     }]);
 
@@ -40642,6 +40853,14 @@ var _reactDom = __webpack_require__(28);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _Config = __webpack_require__(491);
+
+var _Config2 = _interopRequireDefault(_Config);
+
+var _axios = __webpack_require__(472);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _Menu = __webpack_require__(459);
 
 var _Menu2 = _interopRequireDefault(_Menu);
@@ -40668,12 +40887,104 @@ var ChangePassword = function (_React$Component) {
     function ChangePassword(props) {
         _classCallCheck(this, ChangePassword);
 
-        return _possibleConstructorReturn(this, (ChangePassword.__proto__ || Object.getPrototypeOf(ChangePassword)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (ChangePassword.__proto__ || Object.getPrototypeOf(ChangePassword)).call(this, props));
+
+        var config = new _Config2.default();
+
+        _this.state = {
+            currentPassword: '',
+            newPassword: '',
+            confirmPassword: '',
+            showLoading: false,
+            showSuccess: false,
+            errorMessage: '',
+            showError: false,
+            baseUrl: config.baseUrl
+        };
+        return _this;
     }
 
     _createClass(ChangePassword, [{
+        key: 'updateCurrentPassword',
+        value: function updateCurrentPassword(e) {
+            this.setState({
+                currentPassword: e.target.value
+            });
+        }
+    }, {
+        key: 'updateNewPassword',
+        value: function updateNewPassword(e) {
+            this.setState({
+                newPassword: e.target.value
+            });
+        }
+    }, {
+        key: 'updateConfirmPassword',
+        value: function updateConfirmPassword(e) {
+            this.setState({
+                confirmPassword: e.target.value
+            });
+        }
+    }, {
+        key: 'save',
+        value: function save() {
+            var _this2 = this;
+
+            this.setState({
+                showLoading: true
+            });
+
+            if (this.state.currentPassword != '' && this.state.newPassword != '' && this.state.confirmPassword != '') {
+                _axios2.default.put(this.state.baseUrl + 'store-credit/store-credit-consumer/rest/change-password', {
+                    currentPassword: this.state.currentPassword,
+                    password: this.state.newPassword,
+                    confirmPassword: this.state.confirmPassword,
+                    token: window.localStorage.getItem('token')
+                }).then(function (response) {
+                    console.log(response);
+                    _this2.setState({
+                        showLoading: false,
+                        showSuccess: true
+                    });
+
+                    setTimeout(function () {
+                        _this2.setState({
+                            showSuccess: false
+                        });
+                    }, 3000);
+                }).catch(function (error) {
+                    console.log(error.response.data);
+                    _this2.setState({
+                        showLoading: false,
+                        showError: true,
+                        errorMessage: error.response.data.message
+                    });
+
+                    setTimeout(function () {
+                        _this2.setState({
+                            showError: false
+                        });
+                    }, 3000);
+                });
+            } else {
+                this.setState({
+                    showLoading: false,
+                    showError: true,
+                    errorMessage: 'fields is empty'
+                });
+
+                setTimeout(function () {
+                    _this2.setState({
+                        showError: false
+                    });
+                }, 3000);
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var _this3 = this;
+
             return _react2.default.createElement(
                 'section',
                 null,
@@ -40698,7 +41009,9 @@ var ChangePassword = function (_React$Component) {
                                 _react2.default.createElement(
                                     _reactWeui.CellBody,
                                     null,
-                                    _react2.default.createElement(_reactWeui.Input, { type: 'password', placeholder: 'Enter current password' })
+                                    _react2.default.createElement(_reactWeui.Input, { type: 'password', placeholder: 'Enter current password', onChange: function onChange(e) {
+                                            return _this3.updateCurrentPassword(e);
+                                        } })
                                 )
                             ),
                             _react2.default.createElement(
@@ -40707,7 +41020,9 @@ var ChangePassword = function (_React$Component) {
                                 _react2.default.createElement(
                                     _reactWeui.CellBody,
                                     null,
-                                    _react2.default.createElement(_reactWeui.Input, { type: 'password', placeholder: 'Enter new password' })
+                                    _react2.default.createElement(_reactWeui.Input, { type: 'password', placeholder: 'Enter new password', onChange: function onChange(e) {
+                                            return _this3.updateNewPassword(e);
+                                        } })
                                 )
                             ),
                             _react2.default.createElement(
@@ -40716,7 +41031,9 @@ var ChangePassword = function (_React$Component) {
                                 _react2.default.createElement(
                                     _reactWeui.CellBody,
                                     null,
-                                    _react2.default.createElement(_reactWeui.Input, { type: 'password', placeholder: 'Enter confirm password' })
+                                    _react2.default.createElement(_reactWeui.Input, { type: 'password', placeholder: 'Enter confirm password', onChange: function onChange(e) {
+                                            return _this3.updateConfirmPassword(e);
+                                        } })
                                 )
                             )
                         ),
@@ -40725,11 +41042,26 @@ var ChangePassword = function (_React$Component) {
                             null,
                             _react2.default.createElement(
                                 _reactWeui.Button,
-                                null,
+                                { onClick: this.save.bind(this) },
                                 'Save'
                             )
                         ),
-                        _react2.default.createElement(_Menu2.default, null)
+                        _react2.default.createElement(_Menu2.default, null),
+                        _react2.default.createElement(
+                            _reactWeui.Toast,
+                            { icon: 'loading', show: this.state.showLoading },
+                            'Loading...'
+                        ),
+                        _react2.default.createElement(
+                            _reactWeui.Toast,
+                            { icon: 'success-no-circle', show: this.state.showSuccess },
+                            'Done'
+                        ),
+                        _react2.default.createElement(
+                            _reactWeui.Toast,
+                            { icon: 'warn', show: this.state.showError },
+                            this.state.errorMessage
+                        )
                     )
                 )
             );
@@ -40762,6 +41094,14 @@ var _reactDom = __webpack_require__(28);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _Config = __webpack_require__(491);
+
+var _Config2 = _interopRequireDefault(_Config);
+
+var _axios = __webpack_require__(472);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _Menu = __webpack_require__(459);
 
 var _Menu2 = _interopRequireDefault(_Menu);
@@ -40789,64 +41129,126 @@ var MyAccount = function (_React$Component) {
     function MyAccount(props) {
         _classCallCheck(this, MyAccount);
 
-        return _possibleConstructorReturn(this, (MyAccount.__proto__ || Object.getPrototypeOf(MyAccount)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (MyAccount.__proto__ || Object.getPrototypeOf(MyAccount)).call(this, props));
+
+        var config = new _Config2.default();
+
+        _this.state = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            showLoading: true,
+            baseUrl: config.baseUrl
+        };
+        return _this;
     }
 
     _createClass(MyAccount, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            var _this2 = this;
+
+            var token = window.localStorage.getItem('token');
+
+            if (token) {
+                _axios2.default.get(this.state.baseUrl + 'store-credit/store-credit-consumer/rest/0', {
+                    params: {
+                        token: token
+                    }
+                }).then(function (response) {
+                    console.log(response);
+
+                    _this2.setState({
+                        nickname: response.data.socialDataProfile.nickname,
+                        email: typeof response.data.socialDataProfile.email == 'undefined' ? response.data.email : response.data.socialDataProfile.email,
+                        showLoading: false
+                    });
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
-            return _react2.default.createElement(
-                'section',
-                null,
-                _react2.default.createElement(_Header2.default, null),
-                _react2.default.createElement(
+
+            if (this.state.email != '' && typeof this.state.email != 'undefined') {
+
+                return _react2.default.createElement(
                     'section',
                     null,
+                    _react2.default.createElement(_Header2.default, null),
                     _react2.default.createElement(
-                        _reactWeui.Page,
-                        { className: 'page' },
+                        'section',
+                        null,
                         _react2.default.createElement(
-                            'h1',
-                            { style: { textAlign: 'center' } },
-                            'Jerry Jiang'
-                        ),
-                        _react2.default.createElement(
-                            _reactWeui.Cells,
-                            null,
+                            _reactWeui.Page,
+                            { className: 'page' },
                             _react2.default.createElement(
-                                _reactWeui.Cell,
-                                { access: true, href: '/#/change-name' },
-                                _react2.default.createElement(
-                                    _reactWeui.CellBody,
-                                    null,
-                                    'Name: Jerry Jiang'
-                                ),
-                                _react2.default.createElement(_reactWeui.CellFooter, null)
+                                'h1',
+                                { style: { textAlign: 'center' } },
+                                this.state.nickname
                             ),
                             _react2.default.createElement(
-                                _reactWeui.Cell,
-                                { access: true },
+                                _reactWeui.Cells,
+                                null,
                                 _react2.default.createElement(
-                                    _reactWeui.CellBody,
-                                    null,
-                                    'Email: eisenbergtech@gmail.com'
+                                    _reactWeui.Cell,
+                                    { access: true, href: '/#/change-name' },
+                                    _react2.default.createElement(
+                                        _reactWeui.CellBody,
+                                        null,
+                                        'Name: ',
+                                        this.state.nickname
+                                    ),
+                                    _react2.default.createElement(_reactWeui.CellFooter, null)
+                                ),
+                                _react2.default.createElement(
+                                    _reactWeui.Cell,
+                                    { access: true },
+                                    _react2.default.createElement(
+                                        _reactWeui.CellBody,
+                                        null,
+                                        'Email: ',
+                                        this.state.email
+                                    )
+                                ),
+                                _react2.default.createElement(
+                                    _reactWeui.Cell,
+                                    { access: true, href: '/#/change-password' },
+                                    _react2.default.createElement(
+                                        _reactWeui.CellBody,
+                                        null,
+                                        'Change Password'
+                                    ),
+                                    _react2.default.createElement(_reactWeui.CellFooter, null)
                                 )
                             ),
-                            _react2.default.createElement(
-                                _reactWeui.Cell,
-                                { access: true, href: '/#/change-password' },
-                                _react2.default.createElement(
-                                    _reactWeui.CellBody,
-                                    null,
-                                    'Change Password'
-                                ),
-                                _react2.default.createElement(_reactWeui.CellFooter, null)
-                            )
-                        ),
-                        _react2.default.createElement(_Menu2.default, null)
+                            _react2.default.createElement(_Menu2.default, null)
+                        )
                     )
-                )
-            );
+                );
+            } else {
+
+                return _react2.default.createElement(
+                    'section',
+                    null,
+                    _react2.default.createElement(_Header2.default, null),
+                    _react2.default.createElement(
+                        'section',
+                        null,
+                        _react2.default.createElement(
+                            _reactWeui.Page,
+                            { className: 'page' },
+                            _react2.default.createElement(
+                                _reactWeui.Toast,
+                                { icon: 'loading', show: this.state.showLoading },
+                                'Loading...'
+                            )
+                        )
+                    )
+                );
+            }
         }
     }]);
 
@@ -40876,6 +41278,10 @@ var _reactDom = __webpack_require__(28);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _Config = __webpack_require__(491);
+
+var _Config2 = _interopRequireDefault(_Config);
+
 var _Menu = __webpack_require__(459);
 
 var _Menu2 = _interopRequireDefault(_Menu);
@@ -40904,7 +41310,13 @@ var Balance = function (_React$Component) {
     function Balance(props) {
         _classCallCheck(this, Balance);
 
-        return _possibleConstructorReturn(this, (Balance.__proto__ || Object.getPrototypeOf(Balance)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Balance.__proto__ || Object.getPrototypeOf(Balance)).call(this, props));
+
+        var config = new _Config2.default();
+        _this.state = {
+            baseUrl: config.baseUrl
+        };
+        return _this;
     }
 
     _createClass(Balance, [{
@@ -40990,6 +41402,10 @@ var _reactDom = __webpack_require__(28);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _Config = __webpack_require__(491);
+
+var _Config2 = _interopRequireDefault(_Config);
+
 var _Menu = __webpack_require__(459);
 
 var _Menu2 = _interopRequireDefault(_Menu);
@@ -41018,7 +41434,13 @@ var BalanceList = function (_React$Component) {
     function BalanceList(props) {
         _classCallCheck(this, BalanceList);
 
-        return _possibleConstructorReturn(this, (BalanceList.__proto__ || Object.getPrototypeOf(BalanceList)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (BalanceList.__proto__ || Object.getPrototypeOf(BalanceList)).call(this, props));
+
+        var config = new _Config2.default();
+        _this.state = {
+            baseUrl: config.baseUrl
+        };
+        return _this;
     }
 
     _createClass(BalanceList, [{
@@ -41354,6 +41776,14 @@ var _reactDom = __webpack_require__(28);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _Config = __webpack_require__(491);
+
+var _Config2 = _interopRequireDefault(_Config);
+
+var _axios = __webpack_require__(472);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _Menu = __webpack_require__(459);
 
 var _Menu2 = _interopRequireDefault(_Menu);
@@ -41382,12 +41812,48 @@ var GiftCard = function (_React$Component) {
     function GiftCard(props) {
         _classCallCheck(this, GiftCard);
 
-        return _possibleConstructorReturn(this, (GiftCard.__proto__ || Object.getPrototypeOf(GiftCard)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (GiftCard.__proto__ || Object.getPrototypeOf(GiftCard)).call(this, props));
+
+        console.log(props);
+        var config = new _Config2.default();
+        _this.state = {
+            id: props.match.params.id,
+            shopper: '',
+            baseUrl: config.baseUrl
+        };
+        return _this;
     }
 
     _createClass(GiftCard, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            var _this2 = this;
+
+            _axios2.default.get(this.state.baseUrl + 'store-credit/group-buy/rest/' + this.state.id).then(function (response) {
+                console.log(response);
+                var sell = 0;
+                response.data.partners.map(function (item) {
+                    sell += item.amount;
+                });
+
+                _this2.setState({
+                    shopper: response.data.storeCredit.shopper.name,
+                    storeCreditValue: response.data.storeCredit.storeCreditValue,
+                    owner: response.data.ownerConsumer.socialDataProfile.nickname,
+                    totalUsers: response.data.partners.length,
+                    sell: sell,
+                    percentOfGoal: function () {
+                        return Math.round(sell / (response.data.storeCredit.storeCreditValue / 100), 2);
+                    }()
+                });
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
+            console.log(this.state);
             return _react2.default.createElement(
                 'section',
                 null,
@@ -41428,7 +41894,9 @@ var GiftCard = function (_React$Component) {
                                     _react2.default.createElement(
                                         _reactWeui.Grid,
                                         null,
-                                        '$80 ',
+                                        '$',
+                                        this.state.sell,
+                                        ' ',
                                         _react2.default.createElement(
                                             'p',
                                             null,
@@ -41438,17 +41906,19 @@ var GiftCard = function (_React$Component) {
                                     _react2.default.createElement(
                                         _reactWeui.Grid,
                                         null,
-                                        'Jacky Group ',
+                                        this.state.owner,
+                                        ' ',
                                         _react2.default.createElement(
                                             'p',
                                             null,
-                                            'Buy Owner'
+                                            'Group Buy Owner'
                                         )
                                     ),
                                     _react2.default.createElement(
                                         _reactWeui.Grid,
                                         null,
-                                        '3 ',
+                                        this.state.totalUsers,
+                                        ' ',
                                         _react2.default.createElement(
                                             'p',
                                             null,
@@ -41473,7 +41943,7 @@ var GiftCard = function (_React$Component) {
                             _react2.default.createElement(
                                 _reactWeui.FlexItem,
                                 null,
-                                _react2.default.createElement(_reactWeui.Progress, { value: '100', showCancel: false, style: { paddingLeft: '10px', paddingRight: '10px' } })
+                                _react2.default.createElement(_reactWeui.Progress, { defaultValue: '100', showCancel: false, style: { paddingLeft: '10px', paddingRight: '10px' } })
                             )
                         ),
                         _react2.default.createElement(
@@ -41482,12 +41952,19 @@ var GiftCard = function (_React$Component) {
                             _react2.default.createElement(
                                 _reactWeui.FlexItem,
                                 null,
-                                '50% of $80 goal'
+                                this.state.percentOfGoal,
+                                '% of $',
+                                this.state.storeCreditValue,
+                                ' goal'
                             ),
                             _react2.default.createElement(
                                 _reactWeui.FlexItem,
                                 null,
-                                '$40 Bought by 3 Users'
+                                '$',
+                                this.state.sell,
+                                ' Bought by ',
+                                this.state.totalUsers,
+                                ' Users'
                             )
                         ),
                         _react2.default.createElement(
@@ -41541,6 +42018,14 @@ var _reactDom = __webpack_require__(28);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _Config = __webpack_require__(491);
+
+var _Config2 = _interopRequireDefault(_Config);
+
+var _axios = __webpack_require__(472);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _Menu = __webpack_require__(459);
 
 var _Menu2 = _interopRequireDefault(_Menu);
@@ -41569,679 +42054,157 @@ var GiftCardList = function (_React$Component) {
     function GiftCardList(props) {
         _classCallCheck(this, GiftCardList);
 
-        return _possibleConstructorReturn(this, (GiftCardList.__proto__ || Object.getPrototypeOf(GiftCardList)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (GiftCardList.__proto__ || Object.getPrototypeOf(GiftCardList)).call(this, props));
+
+        var config = new _Config2.default();
+        _this.state = {
+            items: [],
+            baseUrl: config.baseUrl
+        };
+        return _this;
     }
 
     _createClass(GiftCardList, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            var _this2 = this;
+
+            var token = window.localStorage.getItem('token');
+            _axios2.default.get(this.state.baseUrl + 'store-credit/store-credit-consumer/rest/my/group-buy', {
+                params: {
+                    token: token
+                }
+            }).then(function (response) {
+                console.log(response);
+                _this2.setState({
+                    items: response.data
+                });
+                // this.setState({
+                //     firstName: response.data.socialDataProfile.first_name,
+                //     lastName:  response.data.socialDataProfile.last_name,
+                //     email: response.data.socialDataProfile.email,
+                //     showLoading: false
+                // });
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
-            return _react2.default.createElement(
-                'section',
-                null,
-                _react2.default.createElement(_Header2.default, null),
-                _react2.default.createElement(
+
+            if (this.state.items.length > 0) {
+                console.log(this.state.items);
+                return _react2.default.createElement(
                     'section',
                     null,
-                    _react2.default.createElement(_reactWeui.InfiniteLoader, null),
+                    _react2.default.createElement(_Header2.default, null),
                     _react2.default.createElement(
-                        _reactWeui.Page,
-                        { className: 'page gift-card-list', infiniteLoader: true },
+                        'section',
+                        null,
+                        _react2.default.createElement(_reactWeui.InfiniteLoader, null),
                         _react2.default.createElement(
-                            _reactWeui.MediaBox,
-                            { className: 'card', type: 'appmsg' },
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxHeader,
-                                null,
-                                appMsgIcon
-                            ),
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxBody,
-                                null,
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxTitle,
-                                    null,
+                            _reactWeui.Page,
+                            { className: 'page gift-card-list', infiniteLoader: true },
+                            this.state.items.map(function (item, key) {
+                                return _react2.default.createElement(
+                                    _reactWeui.MediaBox,
+                                    { className: 'card', type: 'appmsg', key: key },
                                     _react2.default.createElement(
-                                        _reactWeui.Cell,
-                                        { access: true, href: '/#/gift-card' },
-                                        _react2.default.createElement(
-                                            _reactWeui.CellBody,
-                                            null,
-                                            'Starbucks'
-                                        ),
-                                        _react2.default.createElement(_reactWeui.CellFooter, null)
-                                    )
-                                ),
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxDescription,
-                                    null,
+                                        _reactWeui.MediaBoxHeader,
+                                        null,
+                                        appMsgIcon
+                                    ),
                                     _react2.default.createElement(
-                                        'div',
-                                        { className: 'cardBody' },
+                                        _reactWeui.MediaBoxBody,
+                                        null,
                                         _react2.default.createElement(
-                                            _reactWeui.Flex,
+                                            _reactWeui.MediaBoxTitle,
                                             null,
                                             _react2.default.createElement(
-                                                _reactWeui.FlexItem,
-                                                null,
-                                                '$50 Gift Card'
+                                                _reactWeui.Cell,
+                                                { access: true, href: '/#/gift-card/' + item.id },
+                                                _react2.default.createElement(
+                                                    _reactWeui.CellBody,
+                                                    null,
+                                                    item.storeCredit.shopper.name
+                                                ),
+                                                _react2.default.createElement(_reactWeui.CellFooter, null)
                                             )
                                         ),
                                         _react2.default.createElement(
-                                            _reactWeui.Flex,
-                                            null,
+                                            'div',
+                                            { className: 'weui-media-box__desc' },
                                             _react2.default.createElement(
-                                                _reactWeui.FlexItem,
-                                                null,
-                                                'Sell: ',
+                                                'div',
+                                                { className: 'cardBody' },
                                                 _react2.default.createElement(
-                                                    'span',
-                                                    { className: 'price' },
-                                                    '$40'
+                                                    _reactWeui.Flex,
+                                                    null,
+                                                    _react2.default.createElement(
+                                                        _reactWeui.FlexItem,
+                                                        null,
+                                                        '$',
+                                                        item.storeCredit.storeCreditValue,
+                                                        ' Gift Card'
+                                                    )
+                                                ),
+                                                _react2.default.createElement(
+                                                    _reactWeui.Flex,
+                                                    null,
+                                                    _react2.default.createElement(
+                                                        _reactWeui.FlexItem,
+                                                        null,
+                                                        'Sell: ',
+                                                        _react2.default.createElement(
+                                                            'span',
+                                                            { className: 'price' },
+                                                            '$',
+                                                            item.storeCredit.storeCreditValue
+                                                        )
+                                                    ),
+                                                    _react2.default.createElement(
+                                                        _reactWeui.FlexItem,
+                                                        { className: 'status' },
+                                                        _react2.default.createElement(
+                                                            _reactWeui.Badge,
+                                                            { className: 'badge-ongoing', preset: 'body' },
+                                                            'Ongoing'
+                                                        )
+                                                    )
                                                 )
                                             ),
                                             _react2.default.createElement(
-                                                _reactWeui.FlexItem,
-                                                { className: 'status' },
+                                                _reactWeui.Flex,
+                                                { className: 'owner' },
                                                 _react2.default.createElement(
-                                                    _reactWeui.Badge,
-                                                    { className: 'badge-ongoing', preset: 'body' },
-                                                    'Ongoing'
+                                                    _reactWeui.FlexItem,
+                                                    null,
+                                                    'Group Buy Owner: ',
+                                                    item.ownerConsumer.socialDataProfile.nickname
                                                 )
                                             )
                                         )
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        { className: 'owner' },
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            'Group Buy Owner: Jacky'
-                                        )
                                     )
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            _reactWeui.MediaBox,
-                            { className: 'card', type: 'appmsg' },
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxHeader,
-                                null,
-                                appMsgIcon
-                            ),
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxBody,
-                                null,
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxTitle,
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactWeui.Cell,
-                                        { access: true, href: '/#/gift-card' },
-                                        _react2.default.createElement(
-                                            _reactWeui.CellBody,
-                                            null,
-                                            'Starbucks'
-                                        ),
-                                        _react2.default.createElement(_reactWeui.CellFooter, null)
-                                    )
-                                ),
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxDescription,
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        null,
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            '$50 Gift Card'
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        null,
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            'Sell: ',
-                                            _react2.default.createElement(
-                                                'span',
-                                                { className: 'price' },
-                                                '$40'
-                                            )
-                                        ),
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            { className: 'status' },
-                                            _react2.default.createElement(
-                                                _reactWeui.Badge,
-                                                { className: 'badge-bought', preset: 'body' },
-                                                'Bought'
-                                            )
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        { className: 'owner' },
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            'Group Buy Owner: Jacky'
-                                        )
-                                    )
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            _reactWeui.MediaBox,
-                            { className: 'card', type: 'appmsg' },
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxHeader,
-                                null,
-                                appMsgIcon
-                            ),
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxBody,
-                                null,
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxTitle,
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactWeui.Cell,
-                                        { access: true, href: '/#/gift-card' },
-                                        _react2.default.createElement(
-                                            _reactWeui.CellBody,
-                                            null,
-                                            'Starbucks'
-                                        ),
-                                        _react2.default.createElement(_reactWeui.CellFooter, null)
-                                    )
-                                ),
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxDescription,
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        null,
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            '$50 Gift Card'
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        null,
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            'Sell: ',
-                                            _react2.default.createElement(
-                                                'span',
-                                                { className: 'price' },
-                                                '$40'
-                                            )
-                                        ),
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            { className: 'status' },
-                                            _react2.default.createElement(
-                                                _reactWeui.Badge,
-                                                { className: 'badge-expired', preset: 'body' },
-                                                'Expired'
-                                            )
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        { className: 'owner' },
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            'Group Buy Owner: Jacky'
-                                        )
-                                    )
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            _reactWeui.MediaBox,
-                            { className: 'card', type: 'appmsg' },
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxHeader,
-                                null,
-                                appMsgIcon
-                            ),
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxBody,
-                                null,
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxTitle,
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactWeui.Cell,
-                                        { access: true, href: '/#/gift-card' },
-                                        _react2.default.createElement(
-                                            _reactWeui.CellBody,
-                                            null,
-                                            'Starbucks'
-                                        ),
-                                        _react2.default.createElement(_reactWeui.CellFooter, null)
-                                    )
-                                ),
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxDescription,
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        null,
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            '$50 Gift Card'
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        null,
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            'Sell: ',
-                                            _react2.default.createElement(
-                                                'span',
-                                                { className: 'price' },
-                                                '$40'
-                                            )
-                                        ),
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            { className: 'status' },
-                                            _react2.default.createElement(
-                                                _reactWeui.Badge,
-                                                { className: 'badge-ongoing', preset: 'body' },
-                                                'Ongoing'
-                                            )
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        { className: 'owner' },
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            'Group Buy Owner: Jacky'
-                                        )
-                                    )
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            _reactWeui.MediaBox,
-                            { className: 'card', type: 'appmsg' },
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxHeader,
-                                null,
-                                appMsgIcon
-                            ),
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxBody,
-                                null,
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxTitle,
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactWeui.Cell,
-                                        { access: true, href: '/#/gift-card' },
-                                        _react2.default.createElement(
-                                            _reactWeui.CellBody,
-                                            null,
-                                            'Starbucks'
-                                        ),
-                                        _react2.default.createElement(_reactWeui.CellFooter, null)
-                                    )
-                                ),
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxDescription,
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        null,
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            '$50 Gift Card'
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        null,
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            'Sell: ',
-                                            _react2.default.createElement(
-                                                'span',
-                                                { className: 'price' },
-                                                '$40'
-                                            )
-                                        ),
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            { className: 'status' },
-                                            _react2.default.createElement(
-                                                _reactWeui.Badge,
-                                                { className: 'badge-ongoing', preset: 'body' },
-                                                'Ongoing'
-                                            )
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        { className: 'owner' },
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            'Group Buy Owner: Jacky'
-                                        )
-                                    )
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            _reactWeui.MediaBox,
-                            { className: 'card', type: 'appmsg' },
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxHeader,
-                                null,
-                                appMsgIcon
-                            ),
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxBody,
-                                null,
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxTitle,
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactWeui.Cell,
-                                        { access: true, href: '/#/gift-card' },
-                                        _react2.default.createElement(
-                                            _reactWeui.CellBody,
-                                            null,
-                                            'Starbucks'
-                                        ),
-                                        _react2.default.createElement(_reactWeui.CellFooter, null)
-                                    )
-                                ),
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxDescription,
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        null,
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            '$50 Gift Card'
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        null,
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            'Sell: ',
-                                            _react2.default.createElement(
-                                                'span',
-                                                { className: 'price' },
-                                                '$40'
-                                            )
-                                        ),
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            { className: 'status' },
-                                            _react2.default.createElement(
-                                                _reactWeui.Badge,
-                                                { className: 'badge-ongoing', preset: 'body' },
-                                                'Ongoing'
-                                            )
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        { className: 'owner' },
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            'Group Buy Owner: Jacky'
-                                        )
-                                    )
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            _reactWeui.MediaBox,
-                            { className: 'card', type: 'appmsg' },
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxHeader,
-                                null,
-                                appMsgIcon
-                            ),
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxBody,
-                                null,
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxTitle,
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactWeui.Cell,
-                                        { access: true, href: '/#/gift-card' },
-                                        _react2.default.createElement(
-                                            _reactWeui.CellBody,
-                                            null,
-                                            'Starbucks'
-                                        ),
-                                        _react2.default.createElement(_reactWeui.CellFooter, null)
-                                    )
-                                ),
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxDescription,
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        null,
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            '$50 Gift Card'
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        null,
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            'Sell: ',
-                                            _react2.default.createElement(
-                                                'span',
-                                                { className: 'price' },
-                                                '$40'
-                                            )
-                                        ),
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            { className: 'status' },
-                                            _react2.default.createElement(
-                                                _reactWeui.Badge,
-                                                { className: 'badge-ongoing', preset: 'body' },
-                                                'Ongoing'
-                                            )
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        { className: 'owner' },
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            'Group Buy Owner: Jacky'
-                                        )
-                                    )
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            _reactWeui.MediaBox,
-                            { className: 'card', type: 'appmsg' },
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxHeader,
-                                null,
-                                appMsgIcon
-                            ),
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxBody,
-                                null,
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxTitle,
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactWeui.Cell,
-                                        { access: true, href: '/#/gift-card' },
-                                        _react2.default.createElement(
-                                            _reactWeui.CellBody,
-                                            null,
-                                            'Starbucks'
-                                        ),
-                                        _react2.default.createElement(_reactWeui.CellFooter, null)
-                                    )
-                                ),
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxDescription,
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        null,
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            '$50 Gift Card'
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        null,
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            'Sell: ',
-                                            _react2.default.createElement(
-                                                'span',
-                                                { className: 'price' },
-                                                '$40'
-                                            )
-                                        ),
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            { className: 'status' },
-                                            _react2.default.createElement(
-                                                _reactWeui.Badge,
-                                                { className: 'badge-ongoing', preset: 'body' },
-                                                'Ongoing'
-                                            )
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        { className: 'owner' },
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            'Group Buy Owner: Jacky'
-                                        )
-                                    )
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(
-                            _reactWeui.MediaBox,
-                            { className: 'card', type: 'appmsg' },
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxHeader,
-                                null,
-                                appMsgIcon
-                            ),
-                            _react2.default.createElement(
-                                _reactWeui.MediaBoxBody,
-                                null,
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxTitle,
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactWeui.Cell,
-                                        { access: true, href: '/#/gift-card' },
-                                        _react2.default.createElement(
-                                            _reactWeui.CellBody,
-                                            null,
-                                            'Starbucks'
-                                        ),
-                                        _react2.default.createElement(_reactWeui.CellFooter, null)
-                                    )
-                                ),
-                                _react2.default.createElement(
-                                    _reactWeui.MediaBoxDescription,
-                                    null,
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        null,
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            '$50 Gift Card'
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        null,
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            'Sell: ',
-                                            _react2.default.createElement(
-                                                'span',
-                                                { className: 'price' },
-                                                '$40'
-                                            )
-                                        ),
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            { className: 'status' },
-                                            _react2.default.createElement(
-                                                _reactWeui.Badge,
-                                                { className: 'badge-ongoing', preset: 'body' },
-                                                'Ongoing'
-                                            )
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _reactWeui.Flex,
-                                        { className: 'owner' },
-                                        _react2.default.createElement(
-                                            _reactWeui.FlexItem,
-                                            null,
-                                            'Group Buy Owner: Jacky'
-                                        )
-                                    )
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(_Menu2.default, null)
+                                );
+                            }),
+                            _react2.default.createElement(_Menu2.default, null)
+                        )
                     )
-                )
-            );
+                );
+            } else {
+                return _react2.default.createElement(
+                    'section',
+                    null,
+                    _react2.default.createElement(_Header2.default, null),
+                    _react2.default.createElement(
+                        'section',
+                        null,
+                        _react2.default.createElement(_reactWeui.InfiniteLoader, null),
+                        _react2.default.createElement(_reactWeui.Page, { className: 'page gift-card-list', infiniteLoader: true })
+                    )
+                );
+            }
         }
     }]);
 
@@ -42345,9 +42308,17 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _axios = __webpack_require__(472);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _reactDom = __webpack_require__(28);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _Config = __webpack_require__(491);
+
+var _Config2 = _interopRequireDefault(_Config);
 
 var _Menu = __webpack_require__(459);
 
@@ -42375,12 +42346,85 @@ var Registration = function (_React$Component) {
     function Registration(props) {
         _classCallCheck(this, Registration);
 
-        return _possibleConstructorReturn(this, (Registration.__proto__ || Object.getPrototypeOf(Registration)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Registration.__proto__ || Object.getPrototypeOf(Registration)).call(this, props));
+
+        var config = new _Config2.default();
+
+        _this.state = {
+            showLoading: false,
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            baseUrl: config.baseUrl
+        };
+        return _this;
     }
 
     _createClass(Registration, [{
+        key: 'showLoading',
+        value: function showLoading() {
+            var _this2 = this;
+
+            this.setState({ showLoading: true });
+
+            this.state.loadingTimer = setTimeout(function () {
+                _this2.setState({ showLoading: false });
+            }, 2000);
+        }
+    }, {
+        key: 'save',
+        value: function save() {
+            var _this3 = this;
+
+            this.setState({ showLoading: true });
+
+            _axios2.default.post(this.state.baseUrl + 'store-credit/store-credit-consumer/rest/0', {
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                email: this.state.email,
+                password: this.state.password
+            }).then(function (response) {
+                _this3.setState({ showLoading: false });
+                window.location = '/#/login';
+            }).catch(function (error) {
+                console.log(error);
+                this.setState({ showLoading: false });
+            });
+        }
+    }, {
+        key: 'updateFirstName',
+        value: function updateFirstName(e) {
+            this.setState({
+                firstName: e.target.value
+            });
+        }
+    }, {
+        key: 'updateLastName',
+        value: function updateLastName(e) {
+            this.setState({
+                lastName: e.target.value
+            });
+        }
+    }, {
+        key: 'updateEmail',
+        value: function updateEmail(e) {
+            this.setState({
+                email: e.target.value
+            });
+        }
+    }, {
+        key: 'updatePassword',
+        value: function updatePassword(e) {
+            this.setState({
+                password: e.target.value
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var _this4 = this;
+
             return _react2.default.createElement(
                 'section',
                 null,
@@ -42409,7 +42453,9 @@ var Registration = function (_React$Component) {
                                 _react2.default.createElement(
                                     _reactWeui.CellBody,
                                     null,
-                                    _react2.default.createElement(_reactWeui.Input, { type: 'text', placeholder: 'Enter First Name' })
+                                    _react2.default.createElement(_reactWeui.Input, { type: 'text', name: 'firstName', placeholder: 'Enter First Name', onChange: function onChange(e) {
+                                            return _this4.updateFirstName(e);
+                                        } })
                                 )
                             ),
                             _react2.default.createElement(
@@ -42427,7 +42473,9 @@ var Registration = function (_React$Component) {
                                 _react2.default.createElement(
                                     _reactWeui.CellBody,
                                     null,
-                                    _react2.default.createElement(_reactWeui.Input, { type: 'text', placeholder: 'Enter Last Name' })
+                                    _react2.default.createElement(_reactWeui.Input, { type: 'text', name: 'lastName', placeholder: 'Enter Last Name', onChange: function onChange(e) {
+                                            return _this4.updateLastName(e);
+                                        } })
                                 )
                             ),
                             _react2.default.createElement(
@@ -42445,7 +42493,9 @@ var Registration = function (_React$Component) {
                                 _react2.default.createElement(
                                     _reactWeui.CellBody,
                                     null,
-                                    _react2.default.createElement(_reactWeui.Input, { type: 'email', placeholder: 'Enter Email' })
+                                    _react2.default.createElement(_reactWeui.Input, { type: 'email', name: 'email', placeholder: 'Enter Email', onChange: function onChange(e) {
+                                            return _this4.updateEmail(e);
+                                        } })
                                 )
                             ),
                             _react2.default.createElement(
@@ -42463,7 +42513,9 @@ var Registration = function (_React$Component) {
                                 _react2.default.createElement(
                                     _reactWeui.CellBody,
                                     null,
-                                    _react2.default.createElement(_reactWeui.Input, { type: 'password', placeholder: 'Enter Password' })
+                                    _react2.default.createElement(_reactWeui.Input, { type: 'password', name: 'password', placeholder: 'Enter Password', onChange: function onChange(e) {
+                                            return _this4.updatePassword(e);
+                                        } })
                                 )
                             )
                         ),
@@ -42472,11 +42524,15 @@ var Registration = function (_React$Component) {
                             null,
                             _react2.default.createElement(
                                 _reactWeui.Button,
-                                null,
+                                { onClick: this.save.bind(this) },
                                 'Save'
                             )
                         ),
-                        _react2.default.createElement(_Menu2.default, null)
+                        _react2.default.createElement(
+                            _reactWeui.Toast,
+                            { icon: 'loading', show: this.state.showLoading },
+                            'Loading...'
+                        )
                     )
                 )
             );
@@ -42487,6 +42543,1686 @@ var Registration = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Registration;
+
+/***/ }),
+/* 465 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var bind = __webpack_require__(471);
+var isBuffer = __webpack_require__(490);
+
+/*global toString:true*/
+
+// utils is a library of generic helper functions non-specific to axios
+
+var toString = Object.prototype.toString;
+
+/**
+ * Determine if a value is an Array
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Array, otherwise false
+ */
+function isArray(val) {
+  return toString.call(val) === '[object Array]';
+}
+
+/**
+ * Determine if a value is an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an ArrayBuffer, otherwise false
+ */
+function isArrayBuffer(val) {
+  return toString.call(val) === '[object ArrayBuffer]';
+}
+
+/**
+ * Determine if a value is a FormData
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an FormData, otherwise false
+ */
+function isFormData(val) {
+  return (typeof FormData !== 'undefined') && (val instanceof FormData);
+}
+
+/**
+ * Determine if a value is a view on an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
+ */
+function isArrayBufferView(val) {
+  var result;
+  if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
+    result = ArrayBuffer.isView(val);
+  } else {
+    result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
+  }
+  return result;
+}
+
+/**
+ * Determine if a value is a String
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a String, otherwise false
+ */
+function isString(val) {
+  return typeof val === 'string';
+}
+
+/**
+ * Determine if a value is a Number
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Number, otherwise false
+ */
+function isNumber(val) {
+  return typeof val === 'number';
+}
+
+/**
+ * Determine if a value is undefined
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if the value is undefined, otherwise false
+ */
+function isUndefined(val) {
+  return typeof val === 'undefined';
+}
+
+/**
+ * Determine if a value is an Object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Object, otherwise false
+ */
+function isObject(val) {
+  return val !== null && typeof val === 'object';
+}
+
+/**
+ * Determine if a value is a Date
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Date, otherwise false
+ */
+function isDate(val) {
+  return toString.call(val) === '[object Date]';
+}
+
+/**
+ * Determine if a value is a File
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a File, otherwise false
+ */
+function isFile(val) {
+  return toString.call(val) === '[object File]';
+}
+
+/**
+ * Determine if a value is a Blob
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Blob, otherwise false
+ */
+function isBlob(val) {
+  return toString.call(val) === '[object Blob]';
+}
+
+/**
+ * Determine if a value is a Function
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Function, otherwise false
+ */
+function isFunction(val) {
+  return toString.call(val) === '[object Function]';
+}
+
+/**
+ * Determine if a value is a Stream
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Stream, otherwise false
+ */
+function isStream(val) {
+  return isObject(val) && isFunction(val.pipe);
+}
+
+/**
+ * Determine if a value is a URLSearchParams object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a URLSearchParams object, otherwise false
+ */
+function isURLSearchParams(val) {
+  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
+}
+
+/**
+ * Trim excess whitespace off the beginning and end of a string
+ *
+ * @param {String} str The String to trim
+ * @returns {String} The String freed of excess whitespace
+ */
+function trim(str) {
+  return str.replace(/^\s*/, '').replace(/\s*$/, '');
+}
+
+/**
+ * Determine if we're running in a standard browser environment
+ *
+ * This allows axios to run in a web worker, and react-native.
+ * Both environments support XMLHttpRequest, but not fully standard globals.
+ *
+ * web workers:
+ *  typeof window -> undefined
+ *  typeof document -> undefined
+ *
+ * react-native:
+ *  navigator.product -> 'ReactNative'
+ */
+function isStandardBrowserEnv() {
+  if (typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
+    return false;
+  }
+  return (
+    typeof window !== 'undefined' &&
+    typeof document !== 'undefined'
+  );
+}
+
+/**
+ * Iterate over an Array or an Object invoking a function for each item.
+ *
+ * If `obj` is an Array callback will be called passing
+ * the value, index, and complete array for each item.
+ *
+ * If 'obj' is an Object callback will be called passing
+ * the value, key, and complete object for each property.
+ *
+ * @param {Object|Array} obj The object to iterate
+ * @param {Function} fn The callback to invoke for each item
+ */
+function forEach(obj, fn) {
+  // Don't bother if no value provided
+  if (obj === null || typeof obj === 'undefined') {
+    return;
+  }
+
+  // Force an array if not already something iterable
+  if (typeof obj !== 'object' && !isArray(obj)) {
+    /*eslint no-param-reassign:0*/
+    obj = [obj];
+  }
+
+  if (isArray(obj)) {
+    // Iterate over array values
+    for (var i = 0, l = obj.length; i < l; i++) {
+      fn.call(null, obj[i], i, obj);
+    }
+  } else {
+    // Iterate over object keys
+    for (var key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        fn.call(null, obj[key], key, obj);
+      }
+    }
+  }
+}
+
+/**
+ * Accepts varargs expecting each argument to be an object, then
+ * immutably merges the properties of each object and returns result.
+ *
+ * When multiple objects contain the same key the later object in
+ * the arguments list will take precedence.
+ *
+ * Example:
+ *
+ * ```js
+ * var result = merge({foo: 123}, {foo: 456});
+ * console.log(result.foo); // outputs 456
+ * ```
+ *
+ * @param {Object} obj1 Object to merge
+ * @returns {Object} Result of all merge properties
+ */
+function merge(/* obj1, obj2, obj3, ... */) {
+  var result = {};
+  function assignValue(val, key) {
+    if (typeof result[key] === 'object' && typeof val === 'object') {
+      result[key] = merge(result[key], val);
+    } else {
+      result[key] = val;
+    }
+  }
+
+  for (var i = 0, l = arguments.length; i < l; i++) {
+    forEach(arguments[i], assignValue);
+  }
+  return result;
+}
+
+/**
+ * Extends object a by mutably adding to it the properties of object b.
+ *
+ * @param {Object} a The object to be extended
+ * @param {Object} b The object to copy properties from
+ * @param {Object} thisArg The object to bind function to
+ * @return {Object} The resulting value of object a
+ */
+function extend(a, b, thisArg) {
+  forEach(b, function assignValue(val, key) {
+    if (thisArg && typeof val === 'function') {
+      a[key] = bind(val, thisArg);
+    } else {
+      a[key] = val;
+    }
+  });
+  return a;
+}
+
+module.exports = {
+  isArray: isArray,
+  isArrayBuffer: isArrayBuffer,
+  isBuffer: isBuffer,
+  isFormData: isFormData,
+  isArrayBufferView: isArrayBufferView,
+  isString: isString,
+  isNumber: isNumber,
+  isObject: isObject,
+  isUndefined: isUndefined,
+  isDate: isDate,
+  isFile: isFile,
+  isBlob: isBlob,
+  isFunction: isFunction,
+  isStream: isStream,
+  isURLSearchParams: isURLSearchParams,
+  isStandardBrowserEnv: isStandardBrowserEnv,
+  forEach: forEach,
+  merge: merge,
+  extend: extend,
+  trim: trim
+};
+
+
+/***/ }),
+/* 466 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(465);
+var normalizeHeaderName = __webpack_require__(487);
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(467);
+  } else if (typeof process !== 'undefined') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(467);
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 467 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(465);
+var settle = __webpack_require__(479);
+var buildURL = __webpack_require__(482);
+var parseHeaders = __webpack_require__(488);
+var isURLSameOrigin = __webpack_require__(486);
+var createError = __webpack_require__(470);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(481);
+
+module.exports = function xhrAdapter(config) {
+  return new Promise(function dispatchXhrRequest(resolve, reject) {
+    var requestData = config.data;
+    var requestHeaders = config.headers;
+
+    if (utils.isFormData(requestData)) {
+      delete requestHeaders['Content-Type']; // Let the browser set it
+    }
+
+    var request = new XMLHttpRequest();
+    var loadEvent = 'onreadystatechange';
+    var xDomain = false;
+
+    // For IE 8/9 CORS support
+    // Only supports POST and GET calls and doesn't returns the response headers.
+    // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
+    if (process.env.NODE_ENV !== 'test' &&
+        typeof window !== 'undefined' &&
+        window.XDomainRequest && !('withCredentials' in request) &&
+        !isURLSameOrigin(config.url)) {
+      request = new window.XDomainRequest();
+      loadEvent = 'onload';
+      xDomain = true;
+      request.onprogress = function handleProgress() {};
+      request.ontimeout = function handleTimeout() {};
+    }
+
+    // HTTP basic authentication
+    if (config.auth) {
+      var username = config.auth.username || '';
+      var password = config.auth.password || '';
+      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
+    }
+
+    request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
+
+    // Set the request timeout in MS
+    request.timeout = config.timeout;
+
+    // Listen for ready state
+    request[loadEvent] = function handleLoad() {
+      if (!request || (request.readyState !== 4 && !xDomain)) {
+        return;
+      }
+
+      // The request errored out and we didn't get a response, this will be
+      // handled by onerror instead
+      // With one exception: request that using file: protocol, most browsers
+      // will return status as 0 even though it's a successful request
+      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+        return;
+      }
+
+      // Prepare the response
+      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
+      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
+      var response = {
+        data: responseData,
+        // IE sends 1223 instead of 204 (https://github.com/mzabriskie/axios/issues/201)
+        status: request.status === 1223 ? 204 : request.status,
+        statusText: request.status === 1223 ? 'No Content' : request.statusText,
+        headers: responseHeaders,
+        config: config,
+        request: request
+      };
+
+      settle(resolve, reject, response);
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle low level network errors
+    request.onerror = function handleError() {
+      // Real errors are hidden from us by the browser
+      // onerror should only fire if it's a network error
+      reject(createError('Network Error', config, null, request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Handle timeout
+    request.ontimeout = function handleTimeout() {
+      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED',
+        request));
+
+      // Clean up request
+      request = null;
+    };
+
+    // Add xsrf header
+    // This is only done if running in a standard browser environment.
+    // Specifically not if we're in a web worker, or react-native.
+    if (utils.isStandardBrowserEnv()) {
+      var cookies = __webpack_require__(484);
+
+      // Add xsrf header
+      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
+          cookies.read(config.xsrfCookieName) :
+          undefined;
+
+      if (xsrfValue) {
+        requestHeaders[config.xsrfHeaderName] = xsrfValue;
+      }
+    }
+
+    // Add headers to the request
+    if ('setRequestHeader' in request) {
+      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
+        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
+          // Remove Content-Type if data is undefined
+          delete requestHeaders[key];
+        } else {
+          // Otherwise add header to the request
+          request.setRequestHeader(key, val);
+        }
+      });
+    }
+
+    // Add withCredentials to request if needed
+    if (config.withCredentials) {
+      request.withCredentials = true;
+    }
+
+    // Add responseType to request if needed
+    if (config.responseType) {
+      try {
+        request.responseType = config.responseType;
+      } catch (e) {
+        // Expected DOMException thrown by browsers not compatible XMLHttpRequest Level 2.
+        // But, this can be suppressed for 'json' type as it can be parsed by default 'transformResponse' function.
+        if (config.responseType !== 'json') {
+          throw e;
+        }
+      }
+    }
+
+    // Handle progress if needed
+    if (typeof config.onDownloadProgress === 'function') {
+      request.addEventListener('progress', config.onDownloadProgress);
+    }
+
+    // Not all browsers support upload events
+    if (typeof config.onUploadProgress === 'function' && request.upload) {
+      request.upload.addEventListener('progress', config.onUploadProgress);
+    }
+
+    if (config.cancelToken) {
+      // Handle cancellation
+      config.cancelToken.promise.then(function onCanceled(cancel) {
+        if (!request) {
+          return;
+        }
+
+        request.abort();
+        reject(cancel);
+        // Clean up request
+        request = null;
+      });
+    }
+
+    if (requestData === undefined) {
+      requestData = null;
+    }
+
+    // Send the request
+    request.send(requestData);
+  });
+};
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 468 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * A `Cancel` is an object that is thrown when an operation is canceled.
+ *
+ * @class
+ * @param {string=} message The message.
+ */
+function Cancel(message) {
+  this.message = message;
+}
+
+Cancel.prototype.toString = function toString() {
+  return 'Cancel' + (this.message ? ': ' + this.message : '');
+};
+
+Cancel.prototype.__CANCEL__ = true;
+
+module.exports = Cancel;
+
+
+/***/ }),
+/* 469 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function isCancel(value) {
+  return !!(value && value.__CANCEL__);
+};
+
+
+/***/ }),
+/* 470 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var enhanceError = __webpack_require__(478);
+
+/**
+ * Create an Error with the specified message, config, error code, request and response.
+ *
+ * @param {string} message The error message.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The created error.
+ */
+module.exports = function createError(message, config, code, request, response) {
+  var error = new Error(message);
+  return enhanceError(error, config, code, request, response);
+};
+
+
+/***/ }),
+/* 471 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function bind(fn, thisArg) {
+  return function wrap() {
+    var args = new Array(arguments.length);
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+    return fn.apply(thisArg, args);
+  };
+};
+
+
+/***/ }),
+/* 472 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(473);
+
+/***/ }),
+/* 473 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(465);
+var bind = __webpack_require__(471);
+var Axios = __webpack_require__(475);
+var defaults = __webpack_require__(466);
+
+/**
+ * Create an instance of Axios
+ *
+ * @param {Object} defaultConfig The default config for the instance
+ * @return {Axios} A new instance of Axios
+ */
+function createInstance(defaultConfig) {
+  var context = new Axios(defaultConfig);
+  var instance = bind(Axios.prototype.request, context);
+
+  // Copy axios.prototype to instance
+  utils.extend(instance, Axios.prototype, context);
+
+  // Copy context to instance
+  utils.extend(instance, context);
+
+  return instance;
+}
+
+// Create the default instance to be exported
+var axios = createInstance(defaults);
+
+// Expose Axios class to allow class inheritance
+axios.Axios = Axios;
+
+// Factory for creating new instances
+axios.create = function create(instanceConfig) {
+  return createInstance(utils.merge(defaults, instanceConfig));
+};
+
+// Expose Cancel & CancelToken
+axios.Cancel = __webpack_require__(468);
+axios.CancelToken = __webpack_require__(474);
+axios.isCancel = __webpack_require__(469);
+
+// Expose all/spread
+axios.all = function all(promises) {
+  return Promise.all(promises);
+};
+axios.spread = __webpack_require__(489);
+
+module.exports = axios;
+
+// Allow use of default import syntax in TypeScript
+module.exports.default = axios;
+
+
+/***/ }),
+/* 474 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Cancel = __webpack_require__(468);
+
+/**
+ * A `CancelToken` is an object that can be used to request cancellation of an operation.
+ *
+ * @class
+ * @param {Function} executor The executor function.
+ */
+function CancelToken(executor) {
+  if (typeof executor !== 'function') {
+    throw new TypeError('executor must be a function.');
+  }
+
+  var resolvePromise;
+  this.promise = new Promise(function promiseExecutor(resolve) {
+    resolvePromise = resolve;
+  });
+
+  var token = this;
+  executor(function cancel(message) {
+    if (token.reason) {
+      // Cancellation has already been requested
+      return;
+    }
+
+    token.reason = new Cancel(message);
+    resolvePromise(token.reason);
+  });
+}
+
+/**
+ * Throws a `Cancel` if cancellation has been requested.
+ */
+CancelToken.prototype.throwIfRequested = function throwIfRequested() {
+  if (this.reason) {
+    throw this.reason;
+  }
+};
+
+/**
+ * Returns an object that contains a new `CancelToken` and a function that, when called,
+ * cancels the `CancelToken`.
+ */
+CancelToken.source = function source() {
+  var cancel;
+  var token = new CancelToken(function executor(c) {
+    cancel = c;
+  });
+  return {
+    token: token,
+    cancel: cancel
+  };
+};
+
+module.exports = CancelToken;
+
+
+/***/ }),
+/* 475 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var defaults = __webpack_require__(466);
+var utils = __webpack_require__(465);
+var InterceptorManager = __webpack_require__(476);
+var dispatchRequest = __webpack_require__(477);
+var isAbsoluteURL = __webpack_require__(485);
+var combineURLs = __webpack_require__(483);
+
+/**
+ * Create a new instance of Axios
+ *
+ * @param {Object} instanceConfig The default config for the instance
+ */
+function Axios(instanceConfig) {
+  this.defaults = instanceConfig;
+  this.interceptors = {
+    request: new InterceptorManager(),
+    response: new InterceptorManager()
+  };
+}
+
+/**
+ * Dispatch a request
+ *
+ * @param {Object} config The config specific for this request (merged with this.defaults)
+ */
+Axios.prototype.request = function request(config) {
+  /*eslint no-param-reassign:0*/
+  // Allow for axios('example/url'[, config]) a la fetch API
+  if (typeof config === 'string') {
+    config = utils.merge({
+      url: arguments[0]
+    }, arguments[1]);
+  }
+
+  config = utils.merge(defaults, this.defaults, { method: 'get' }, config);
+  config.method = config.method.toLowerCase();
+
+  // Support baseURL config
+  if (config.baseURL && !isAbsoluteURL(config.url)) {
+    config.url = combineURLs(config.baseURL, config.url);
+  }
+
+  // Hook up interceptors middleware
+  var chain = [dispatchRequest, undefined];
+  var promise = Promise.resolve(config);
+
+  this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
+    chain.unshift(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
+    chain.push(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  while (chain.length) {
+    promise = promise.then(chain.shift(), chain.shift());
+  }
+
+  return promise;
+};
+
+// Provide aliases for supported request methods
+utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, config) {
+    return this.request(utils.merge(config || {}, {
+      method: method,
+      url: url
+    }));
+  };
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  /*eslint func-names:0*/
+  Axios.prototype[method] = function(url, data, config) {
+    return this.request(utils.merge(config || {}, {
+      method: method,
+      url: url,
+      data: data
+    }));
+  };
+});
+
+module.exports = Axios;
+
+
+/***/ }),
+/* 476 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(465);
+
+function InterceptorManager() {
+  this.handlers = [];
+}
+
+/**
+ * Add a new interceptor to the stack
+ *
+ * @param {Function} fulfilled The function to handle `then` for a `Promise`
+ * @param {Function} rejected The function to handle `reject` for a `Promise`
+ *
+ * @return {Number} An ID used to remove interceptor later
+ */
+InterceptorManager.prototype.use = function use(fulfilled, rejected) {
+  this.handlers.push({
+    fulfilled: fulfilled,
+    rejected: rejected
+  });
+  return this.handlers.length - 1;
+};
+
+/**
+ * Remove an interceptor from the stack
+ *
+ * @param {Number} id The ID that was returned by `use`
+ */
+InterceptorManager.prototype.eject = function eject(id) {
+  if (this.handlers[id]) {
+    this.handlers[id] = null;
+  }
+};
+
+/**
+ * Iterate over all the registered interceptors
+ *
+ * This method is particularly useful for skipping over any
+ * interceptors that may have become `null` calling `eject`.
+ *
+ * @param {Function} fn The function to call for each interceptor
+ */
+InterceptorManager.prototype.forEach = function forEach(fn) {
+  utils.forEach(this.handlers, function forEachHandler(h) {
+    if (h !== null) {
+      fn(h);
+    }
+  });
+};
+
+module.exports = InterceptorManager;
+
+
+/***/ }),
+/* 477 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(465);
+var transformData = __webpack_require__(480);
+var isCancel = __webpack_require__(469);
+var defaults = __webpack_require__(466);
+
+/**
+ * Throws a `Cancel` if cancellation has been requested.
+ */
+function throwIfCancellationRequested(config) {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested();
+  }
+}
+
+/**
+ * Dispatch a request to the server using the configured adapter.
+ *
+ * @param {object} config The config that is to be used for the request
+ * @returns {Promise} The Promise to be fulfilled
+ */
+module.exports = function dispatchRequest(config) {
+  throwIfCancellationRequested(config);
+
+  // Ensure headers exist
+  config.headers = config.headers || {};
+
+  // Transform request data
+  config.data = transformData(
+    config.data,
+    config.headers,
+    config.transformRequest
+  );
+
+  // Flatten headers
+  config.headers = utils.merge(
+    config.headers.common || {},
+    config.headers[config.method] || {},
+    config.headers || {}
+  );
+
+  utils.forEach(
+    ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
+    function cleanHeaderConfig(method) {
+      delete config.headers[method];
+    }
+  );
+
+  var adapter = config.adapter || defaults.adapter;
+
+  return adapter(config).then(function onAdapterResolution(response) {
+    throwIfCancellationRequested(config);
+
+    // Transform response data
+    response.data = transformData(
+      response.data,
+      response.headers,
+      config.transformResponse
+    );
+
+    return response;
+  }, function onAdapterRejection(reason) {
+    if (!isCancel(reason)) {
+      throwIfCancellationRequested(config);
+
+      // Transform response data
+      if (reason && reason.response) {
+        reason.response.data = transformData(
+          reason.response.data,
+          reason.response.headers,
+          config.transformResponse
+        );
+      }
+    }
+
+    return Promise.reject(reason);
+  });
+};
+
+
+/***/ }),
+/* 478 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Update an Error with the specified config, error code, and response.
+ *
+ * @param {Error} error The error to update.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The error.
+ */
+module.exports = function enhanceError(error, config, code, request, response) {
+  error.config = config;
+  if (code) {
+    error.code = code;
+  }
+  error.request = request;
+  error.response = response;
+  return error;
+};
+
+
+/***/ }),
+/* 479 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var createError = __webpack_require__(470);
+
+/**
+ * Resolve or reject a Promise based on response status.
+ *
+ * @param {Function} resolve A function that resolves the promise.
+ * @param {Function} reject A function that rejects the promise.
+ * @param {object} response The response.
+ */
+module.exports = function settle(resolve, reject, response) {
+  var validateStatus = response.config.validateStatus;
+  // Note: status is not exposed by XDomainRequest
+  if (!response.status || !validateStatus || validateStatus(response.status)) {
+    resolve(response);
+  } else {
+    reject(createError(
+      'Request failed with status code ' + response.status,
+      response.config,
+      null,
+      response.request,
+      response
+    ));
+  }
+};
+
+
+/***/ }),
+/* 480 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(465);
+
+/**
+ * Transform the data for a request or a response
+ *
+ * @param {Object|String} data The data to be transformed
+ * @param {Array} headers The headers for the request or response
+ * @param {Array|Function} fns A single function or Array of functions
+ * @returns {*} The resulting transformed data
+ */
+module.exports = function transformData(data, headers, fns) {
+  /*eslint no-param-reassign:0*/
+  utils.forEach(fns, function transform(fn) {
+    data = fn(data, headers);
+  });
+
+  return data;
+};
+
+
+/***/ }),
+/* 481 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// btoa polyfill for IE<10 courtesy https://github.com/davidchambers/Base64.js
+
+var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+
+function E() {
+  this.message = 'String contains an invalid character';
+}
+E.prototype = new Error;
+E.prototype.code = 5;
+E.prototype.name = 'InvalidCharacterError';
+
+function btoa(input) {
+  var str = String(input);
+  var output = '';
+  for (
+    // initialize result and counter
+    var block, charCode, idx = 0, map = chars;
+    // if the next str index does not exist:
+    //   change the mapping table to "="
+    //   check if d has no fractional digits
+    str.charAt(idx | 0) || (map = '=', idx % 1);
+    // "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8
+    output += map.charAt(63 & block >> 8 - idx % 1 * 8)
+  ) {
+    charCode = str.charCodeAt(idx += 3 / 4);
+    if (charCode > 0xFF) {
+      throw new E();
+    }
+    block = block << 8 | charCode;
+  }
+  return output;
+}
+
+module.exports = btoa;
+
+
+/***/ }),
+/* 482 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(465);
+
+function encode(val) {
+  return encodeURIComponent(val).
+    replace(/%40/gi, '@').
+    replace(/%3A/gi, ':').
+    replace(/%24/g, '$').
+    replace(/%2C/gi, ',').
+    replace(/%20/g, '+').
+    replace(/%5B/gi, '[').
+    replace(/%5D/gi, ']');
+}
+
+/**
+ * Build a URL by appending params to the end
+ *
+ * @param {string} url The base of the url (e.g., http://www.google.com)
+ * @param {object} [params] The params to be appended
+ * @returns {string} The formatted url
+ */
+module.exports = function buildURL(url, params, paramsSerializer) {
+  /*eslint no-param-reassign:0*/
+  if (!params) {
+    return url;
+  }
+
+  var serializedParams;
+  if (paramsSerializer) {
+    serializedParams = paramsSerializer(params);
+  } else if (utils.isURLSearchParams(params)) {
+    serializedParams = params.toString();
+  } else {
+    var parts = [];
+
+    utils.forEach(params, function serialize(val, key) {
+      if (val === null || typeof val === 'undefined') {
+        return;
+      }
+
+      if (utils.isArray(val)) {
+        key = key + '[]';
+      }
+
+      if (!utils.isArray(val)) {
+        val = [val];
+      }
+
+      utils.forEach(val, function parseValue(v) {
+        if (utils.isDate(v)) {
+          v = v.toISOString();
+        } else if (utils.isObject(v)) {
+          v = JSON.stringify(v);
+        }
+        parts.push(encode(key) + '=' + encode(v));
+      });
+    });
+
+    serializedParams = parts.join('&');
+  }
+
+  if (serializedParams) {
+    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
+  }
+
+  return url;
+};
+
+
+/***/ }),
+/* 483 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Creates a new URL by combining the specified URLs
+ *
+ * @param {string} baseURL The base URL
+ * @param {string} relativeURL The relative URL
+ * @returns {string} The combined URL
+ */
+module.exports = function combineURLs(baseURL, relativeURL) {
+  return relativeURL
+    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
+    : baseURL;
+};
+
+
+/***/ }),
+/* 484 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(465);
+
+module.exports = (
+  utils.isStandardBrowserEnv() ?
+
+  // Standard browser envs support document.cookie
+  (function standardBrowserEnv() {
+    return {
+      write: function write(name, value, expires, path, domain, secure) {
+        var cookie = [];
+        cookie.push(name + '=' + encodeURIComponent(value));
+
+        if (utils.isNumber(expires)) {
+          cookie.push('expires=' + new Date(expires).toGMTString());
+        }
+
+        if (utils.isString(path)) {
+          cookie.push('path=' + path);
+        }
+
+        if (utils.isString(domain)) {
+          cookie.push('domain=' + domain);
+        }
+
+        if (secure === true) {
+          cookie.push('secure');
+        }
+
+        document.cookie = cookie.join('; ');
+      },
+
+      read: function read(name) {
+        var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+        return (match ? decodeURIComponent(match[3]) : null);
+      },
+
+      remove: function remove(name) {
+        this.write(name, '', Date.now() - 86400000);
+      }
+    };
+  })() :
+
+  // Non standard browser env (web workers, react-native) lack needed support.
+  (function nonStandardBrowserEnv() {
+    return {
+      write: function write() {},
+      read: function read() { return null; },
+      remove: function remove() {}
+    };
+  })()
+);
+
+
+/***/ }),
+/* 485 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Determines whether the specified URL is absolute
+ *
+ * @param {string} url The URL to test
+ * @returns {boolean} True if the specified URL is absolute, otherwise false
+ */
+module.exports = function isAbsoluteURL(url) {
+  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
+  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
+  // by any combination of letters, digits, plus, period, or hyphen.
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
+};
+
+
+/***/ }),
+/* 486 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(465);
+
+module.exports = (
+  utils.isStandardBrowserEnv() ?
+
+  // Standard browser envs have full support of the APIs needed to test
+  // whether the request URL is of the same origin as current location.
+  (function standardBrowserEnv() {
+    var msie = /(msie|trident)/i.test(navigator.userAgent);
+    var urlParsingNode = document.createElement('a');
+    var originURL;
+
+    /**
+    * Parse a URL to discover it's components
+    *
+    * @param {String} url The URL to be parsed
+    * @returns {Object}
+    */
+    function resolveURL(url) {
+      var href = url;
+
+      if (msie) {
+        // IE needs attribute set twice to normalize properties
+        urlParsingNode.setAttribute('href', href);
+        href = urlParsingNode.href;
+      }
+
+      urlParsingNode.setAttribute('href', href);
+
+      // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+      return {
+        href: urlParsingNode.href,
+        protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
+        host: urlParsingNode.host,
+        search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
+        hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
+        hostname: urlParsingNode.hostname,
+        port: urlParsingNode.port,
+        pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
+                  urlParsingNode.pathname :
+                  '/' + urlParsingNode.pathname
+      };
+    }
+
+    originURL = resolveURL(window.location.href);
+
+    /**
+    * Determine if a URL shares the same origin as the current location
+    *
+    * @param {String} requestURL The URL to test
+    * @returns {boolean} True if URL shares the same origin, otherwise false
+    */
+    return function isURLSameOrigin(requestURL) {
+      var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
+      return (parsed.protocol === originURL.protocol &&
+            parsed.host === originURL.host);
+    };
+  })() :
+
+  // Non standard browser envs (web workers, react-native) lack needed support.
+  (function nonStandardBrowserEnv() {
+    return function isURLSameOrigin() {
+      return true;
+    };
+  })()
+);
+
+
+/***/ }),
+/* 487 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(465);
+
+module.exports = function normalizeHeaderName(headers, normalizedName) {
+  utils.forEach(headers, function processHeader(value, name) {
+    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
+      headers[normalizedName] = value;
+      delete headers[name];
+    }
+  });
+};
+
+
+/***/ }),
+/* 488 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(465);
+
+/**
+ * Parse headers into an object
+ *
+ * ```
+ * Date: Wed, 27 Aug 2014 08:58:49 GMT
+ * Content-Type: application/json
+ * Connection: keep-alive
+ * Transfer-Encoding: chunked
+ * ```
+ *
+ * @param {String} headers Headers needing to be parsed
+ * @returns {Object} Headers parsed into an object
+ */
+module.exports = function parseHeaders(headers) {
+  var parsed = {};
+  var key;
+  var val;
+  var i;
+
+  if (!headers) { return parsed; }
+
+  utils.forEach(headers.split('\n'), function parser(line) {
+    i = line.indexOf(':');
+    key = utils.trim(line.substr(0, i)).toLowerCase();
+    val = utils.trim(line.substr(i + 1));
+
+    if (key) {
+      parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
+    }
+  });
+
+  return parsed;
+};
+
+
+/***/ }),
+/* 489 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * Syntactic sugar for invoking a function and expanding an array for arguments.
+ *
+ * Common use case would be to use `Function.prototype.apply`.
+ *
+ *  ```js
+ *  function f(x, y, z) {}
+ *  var args = [1, 2, 3];
+ *  f.apply(null, args);
+ *  ```
+ *
+ * With `spread` this example can be re-written.
+ *
+ *  ```js
+ *  spread(function(x, y, z) {})([1, 2, 3]);
+ *  ```
+ *
+ * @param {Function} callback
+ * @returns {Function}
+ */
+module.exports = function spread(callback) {
+  return function wrap(arr) {
+    return callback.apply(null, arr);
+  };
+};
+
+
+/***/ }),
+/* 490 */
+/***/ (function(module, exports) {
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @license  MIT
+ */
+
+// The _isBuffer check is for Safari 5-7 support, because it's missing
+// Object.prototype.constructor. Remove this eventually
+module.exports = function (obj) {
+  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
+}
+
+function isBuffer (obj) {
+  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
+}
+
+// For Node v0.10 support. Remove this eventually.
+function isSlowBuffer (obj) {
+  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
+}
+
+
+/***/ }),
+/* 491 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Created by korman on 01.05.17.
+ */
+
+var Config = function () {
+    function Config() {
+        _classCallCheck(this, Config);
+
+        this._baseUrl = 'http://dev.coupon-backend/app_dev.php/';
+        this._baseImagesPath = 'http://dev.coupon-backend/uploads/';
+        this._baseFrontUrl = 'http://dev.gift-card/';
+        this._weChatConfig = {
+            appid: 'wx9d75b312364c1703',
+            redirectUri: 'http://coupon.ppcgclub.com/auth_group_buy.html',
+            oa_appid: 'wx9d75b312364c1703',
+            signature: 'a2c003134b82cd991e3c28967b5fdf99e8cb0e75'
+        };
+    }
+
+    _createClass(Config, [{
+        key: 'buildAuthUrl',
+        value: function buildAuthUrl() {
+            var url = 'https://open.weixin.qq.com/connect/oauth2/authorize';
+            var params = {
+                appid: this._weChatConfig.appid,
+                redirect_uri: this._weChatConfig.redirectUri,
+                response_type: 'code',
+                scope: 'snsapi_login',
+                state: 'dev'
+            };
+
+            var paramsStr = '';
+
+            for (var param in params) {
+                if (paramsStr == '') {
+                    paramsStr += param + '=' + params[param];
+                } else {
+                    paramsStr += '&' + param + '=' + params[param];
+                }
+            }
+
+            return url + '?' + paramsStr + '#wechat_redirect';
+        }
+    }, {
+        key: 'baseUrl',
+        get: function get() {
+            return this._baseUrl;
+        }
+    }, {
+        key: 'baseImagePath',
+        get: function get() {
+            return this._baseImagesPath;
+        }
+    }, {
+        key: 'baseFrontUrl',
+        get: function get() {
+            return this._baseFrontUrl;
+        }
+    }, {
+        key: 'weChatConfig',
+        get: function get() {
+            return this._weChatConfig;
+        }
+    }]);
+
+    return Config;
+}();
+
+exports.default = Config;
+
+/***/ }),
+/* 492 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Created by korman on 02.10.17.
+ */
+
+var Auth = function () {
+    function Auth() {
+        _classCallCheck(this, Auth);
+    }
+
+    _createClass(Auth, [{
+        key: 'checkAuth',
+        value: function checkAuth() {
+            var token = window.localStorage.getItem('token');
+
+            if (token) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }]);
+
+    return Auth;
+}();
+
+exports.default = Auth;
 
 /***/ })
 /******/ ]);

@@ -3,11 +3,59 @@
  */
 import React from 'react';
 import ReactDom from 'react-dom';
-import {Page, Form, FormCell, CellBody, CellHeader, Label, Input, ButtonArea, Button, Flex, FlexItem} from 'react-weui';
+import Config from '../Config';
+import axios from 'axios';
+import {Page, Form, FormCell, CellBody, CellHeader,
+        Label, Input, ButtonArea, Button, Flex, FlexItem, Toast} from 'react-weui';
 
 export default class ChangeName extends React.Component {
     constructor(props) {
         super(props);
+        const config = new Config();
+
+        this.state = {
+            email: '',
+            password: '',
+            showLoading: false,
+            baseUrl: config.baseUrl
+        }
+    }
+
+    updateEmail(e){
+        this.setState({
+            email: e.target.value
+        });
+    }
+
+    updatePassword(e) {
+        this.setState({
+            password: e.target.value
+        });
+    }
+
+    login() {
+        this.setState({
+            showLoading: true
+        });
+
+        axios.post(this.state.baseUrl + 'store-credit/store-credit-consumer/rest/login', {
+            email: this.state.email,
+            password: this.state.password
+        })
+        .then(response => {
+            console.log(response);
+            window.localStorage.setItem('token', response.data.token);
+            this.setState({
+                showLoading: false
+            });
+            window.location = '/#/'
+        })
+        .catch(error => {
+            console.log(error);
+            this.setState({
+                showLoading: false
+            });
+        });
     }
 
     render(){
@@ -22,7 +70,7 @@ export default class ChangeName extends React.Component {
                                 <Label>Email</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input type="text" placeholder="Enter email"/>
+                                <Input type="text" placeholder="Enter email" onChange={ e => this.updateEmail(e)}/>
                             </CellBody>
                         </FormCell>
                         <FormCell>
@@ -30,7 +78,7 @@ export default class ChangeName extends React.Component {
                                 <Label>Password</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input type="password" placeholder="Enter Password"/>
+                                <Input type="password" placeholder="Enter Password"  onChange={ e => this.updatePassword(e)}/>
                             </CellBody>
                         </FormCell>
                     </Form>
@@ -43,8 +91,9 @@ export default class ChangeName extends React.Component {
                         </FlexItem>
                     </Flex>
                     <ButtonArea>
-                        <Button>Login</Button>
+                        <Button onClick={this.login.bind(this)}>Login</Button>
                     </ButtonArea>
+                    <Toast icon="loading" show={this.state.showLoading}>Loading...</Toast>
                 </Page>
             </section>
         );
