@@ -21,6 +21,10 @@ export default class GroupBuyAmount extends React.Component {
 
     }
 
+    pay(){
+        window.location = 'http://drizzle.jjpanda.com/payment.html';
+    }
+
     render(){
         return (
             <div className="modal w-100" id="plugin-how-much">
@@ -50,7 +54,7 @@ export default class GroupBuyAmount extends React.Component {
                             </div>
                             <div className="row justify-content-center">
                                 <div className="col-4">
-                                    <button className="btn btn-success gift-card-cart-btn-pay" style={{width: '100%'}}>Save</button>
+                                    <button className="btn btn-success gift-card-cart-btn-pay" style={{width: '100%'}} onClick={this.pay.bind(this)}>Pay</button>
                                 </div>
                             </div>
                         </div>

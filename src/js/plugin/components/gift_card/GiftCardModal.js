@@ -52,7 +52,7 @@ export default class GiftCardModal extends React.Component {
     }
 
     buyNow(){
-        alert('b');
+        window.location = 'http://drizzle.jjpanda.com/payment.html';
     }
 
     render(){
