@@ -18,13 +18,13 @@ export default class ChangePassword extends React.Component {
 
         this.state = {
             currentPassword: '',
-            newPassword: '',
+            newPassword:     '',
             confirmPassword: '',
-            showLoading: false,
-            showSuccess: false,
-            errorMessage: '',
-            showError: false,
-            baseUrl: config.baseUrl
+            showLoading:     false,
+            showSuccess:     false,
+            errorMessage:    '',
+            showError:       false,
+            baseUrl:         config.baseUrl
         }
     }
 
@@ -52,7 +52,7 @@ export default class ChangePassword extends React.Component {
         });
 
         if (this.state.currentPassword != '' && this.state.newPassword != '' && this.state.confirmPassword != '') {
-            axios.put(this.state.baseUrl + 'store-credit/store-credit-consumer/rest/change-password', {
+            axios.put(this.state.baseUrl + 'gift-card/rest/consumer/change-password', {
                 currentPassword: this.state.currentPassword,
                 password: this.state.newPassword,
                 confirmPassword: this.state.confirmPassword,

@@ -130,6 +130,10 @@
     background-color: purple;
 }
 
+.gift-card-info a{
+    font-size: 14px;
+}
+
 .gift-card-info p{
     color: rgba(30, 30, 30, 0.49);
     font-size: 11px;

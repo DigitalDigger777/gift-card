@@ -19,13 +19,28 @@ export default class BalanceList extends React.Component {
 
     constructor(props) {
         super(props);
+
         const config = new Config();
         this.state = {
+            shopperId: props.match.params.shopperId,
             baseUrl: config.baseUrl
         };
     }
 
-
+    componentWillMount(){
+        axios.get(this.state.baseUrl + 'store-credit/transaction/rest/0', {
+            params: {
+                shopperId: this.state.shopperId,
+                method: 'LIST'
+            }
+        })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
 
     render(){
         return (
@@ -34,6 +49,7 @@ export default class BalanceList extends React.Component {
                 <section>
                     <InfiniteLoader/>
                     <Page className="page gift-card-list" infiniteLoader={true}>
+
                         <MediaBox className="card" type="appmsg">
                             <MediaBoxBody>
                                 <MediaBoxTitle>
@@ -43,7 +59,7 @@ export default class BalanceList extends React.Component {
                                         </CellBody>
                                     </Cell>
                                 </MediaBoxTitle>
-                                <MediaBoxDescription>
+                                <div className="weui-media-box__desc">
                                     <div className="cardBody">
                                         <Flex>
                                             <FlexItem>Time: 2017/10/11 17:53</FlexItem>
@@ -53,6 +69,8 @@ export default class BalanceList extends React.Component {
                                         </Flex>
                                         <Flex>
                                             <FlexItem>Type: Group Buy</FlexItem>
+                                            {/*<FlexItem>Type: Spend In Store</FlexItem>*/}
+                                            {/*<FlexItem>Type: Direct Buy</FlexItem>*/}
                                         </Flex>
                                         <Flex>
                                             <FlexItem>Previous Balance: $2.30</FlexItem>
@@ -61,71 +79,10 @@ export default class BalanceList extends React.Component {
                                             <FlexItem>New Balance: $42.30</FlexItem>
                                         </Flex>
                                     </div>
-                                </MediaBoxDescription>
+                                </div>
                             </MediaBoxBody>
                         </MediaBox>
 
-                        <MediaBox className="card" type="appmsg">
-                            <MediaBoxBody>
-                                <MediaBoxTitle>
-                                    <Cell access>
-                                        <CellBody>
-                                            Spend In Store
-                                        </CellBody>
-                                    </Cell>
-                                </MediaBoxTitle>
-                                <MediaBoxDescription>
-                                    <div className="cardBody">
-                                        <Flex>
-                                            <FlexItem>Time: 2017/10/11 17:53</FlexItem>
-                                        </Flex>
-                                        <Flex>
-                                            <FlexItem>Spend: $47.70</FlexItem>
-                                        </Flex>
-                                        <Flex>
-                                            <FlexItem>Type: Spend In Store</FlexItem>
-                                        </Flex>
-                                        <Flex>
-                                            <FlexItem>Previous Balance: $50.00</FlexItem>
-                                        </Flex>
-                                        <Flex>
-                                            <FlexItem>New Balance: $42.30</FlexItem>
-                                        </Flex>
-                                    </div>
-                                </MediaBoxDescription>
-                            </MediaBoxBody>
-                        </MediaBox>
-
-                        <MediaBox className="card" type="appmsg">
-                            <MediaBoxBody>
-                                <MediaBoxTitle>
-                                    <Cell access>
-                                        <CellBody>
-                                            Bought $50 Gift Card
-                                        </CellBody>
-                                    </Cell>
-                                </MediaBoxTitle>
-                                <MediaBoxDescription>
-                                    <div className="cardBody">
-                                        <Flex>
-                                            <FlexItem>Time: 2017/10/11 17:53</FlexItem>
-                                        </Flex>
-                                        <Flex>
-                                            <FlexItem>Paid: $47.70</FlexItem>
-                                        </Flex>
-                                        <Flex>
-                                            <FlexItem>Type: Direct Buy</FlexItem>
-                                        </Flex>
-                                        <Flex>
-                                            <FlexItem>Previous Balance: $0.00</FlexItem>
-                                        </Flex>
-                                        <Flex>
-                                            <FlexItem>New Balance: $50.00</FlexItem>
-                                        </Flex>
-                                    </div>
-                                </MediaBoxDescription>
-                            </MediaBoxBody>
-                        </MediaBox>
 
                         <Menu/>
                     </Page>

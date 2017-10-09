@@ -40,7 +40,7 @@ export default class ChangeName extends React.Component {
     save() {
         this.setState({showLoading: true});
 
-        axios.put(this.state.baseUrl + 'store-credit/store-credit-consumer/rest/0', {
+        axios.put(this.state.baseUrl + 'gift-card/rest/consumer', {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             token: window.localStorage.getItem('token')
@@ -70,7 +70,7 @@ export default class ChangeName extends React.Component {
         const token = window.localStorage.getItem('token');
 
         if (token) {
-            axios.get(this.state.baseUrl + 'store-credit/store-credit-consumer/rest/0', {
+            axios.get(this.state.baseUrl + 'gift-card/rest/consumer', {
                 params: {
                     token: token
                 }

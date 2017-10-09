@@ -39,6 +39,7 @@ export default class Index extends React.Component{
                     <Route exact path="/my-account" component={MyAccount}/>
                     <Route exact path="/balance" component={Balance}/>
                     <Route exact path="/balance-list" component={BalanceList}/>
+                    <Route exact path="/balance-list/:shopperId" component={BalanceList}/>
                 </div>
             </HashRouter>
         );

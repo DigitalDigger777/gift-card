@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Plugin</title>
+    <link rel="stylesheet" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="css/plugin.css"/>
+    <script type="text/css">
+        .modal-dialog {
+            max-width: 90% !important;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#plugin">Show Modal</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#plugin-buy-now">Buy Now</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#plugin-login">Login</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#order-is-accepted">Order Is Accepted</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#plugin-buy-payment">Payment</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#order-is-accepted-payment-confirm">Payment confirm</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#plugin-how-much">How much</button>
+    </div>
+    <div class="modal w-100" id="plugin">
+        <div class="modal-dialog" role="document" style="max-width: 90%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Drizzle: Buy Gift Card with friends and saving!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="card gift-card">
+                                                <div class="card-body">
+                                                    <h4>Starbucks<br>Gift Card</h4>
+                                                    <p>$100</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row gift-card-row center">
+                                        <div class="col">
+                                            Sell: $90
+                                        </div>
+                                    </div>
+                                    <div class="row gift-card-row">
+                                        <div class="col">
+                                            <button class="btn btn-success btn-gift-card">Buy Now</button>
+                                        </div>
+                                    </div>
+                                    <div class="row gift-card-row">
+                                        <div class="col">
+                                            <div class="or">
+                                                <span>or</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row gift-card-row">
+                                        <div class="col">
+                                            <button class="btn btn-success btn-gift-card">Start a Group Buy</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="card  gift-card">
+                                                <div class="card-body">
+                                                    <h4>Starbucks<br>Gift Card</h4>
+                                                    <p>$100</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row gift-card-row center">
+                                        <div class="col">
+                                            Sell: $90
+                                        </div>
+                                    </div>
+                                    <div class="row gift-card-row">
+                                        <div class="col">
+                                            <button class="btn btn-success btn-gift-card">Buy Now</button>
+                                        </div>
+                                    </div>
+                                    <div class="row gift-card-row">
+                                        <div class="col">
+                                            <div class="or">
+                                                <span>or</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row gift-card-row">
+                                        <div class="col">
+                                            <button class="btn btn-success btn-gift-card">Start a Group Buy</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row gift-card-row center">
+                                <div class="col">
+                                    <h4>Other Amount</h4>
+                                </div>
+                            </div>
+                            <div class="row gift-card-row center">
+                                <div class="col">
+                                    <span class="amount">$25</span>
+                                </div>
+                                <div class="col">
+                                    <span class="amount">$50</span>
+                                </div>
+                                <div class="col">
+                                    <span class="amount">$75</span>
+                                </div>
+                            </div>
+                            <div class="row gift-card-row center">
+                                <div class="col">
+                                    <button class="btn btn-success">Buy Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row gift-card-row">
+                        <div class="col">
+                            <h4>Group Buy</h4>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="circle">1</div>
+                                </div>
+                                <div class="col circle-text">
+                                    Enter amount
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="circle">2</div>
+                                </div>
+                                <div class="col circle-text">
+                                    Invite friends buy Together
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="circle">3</div>
+                                </div>
+                                <div class="col circle-text">
+                                    Reach gift card amount and pay
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal w-100" id="plugin-buy-now">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Drizzle: Buy Gift Card with friends and saving!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="gift-card-cart-head">Buy Now!</h4>
+                    <div class="row gift-card-cart-row">
+                        <div class="col">
+                            Starbucks Gift Card
+                            $100
+                        </div>
+                        <div class="col-2 price">
+                            $90
+                        </div>
+                        <div class="col-2 trash">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end gift-card-cart-total">
+                        <div class="col-2">$90</div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-4">
+                            <button class="btn btn-success gift-card-cart-btn-pay" style="width: 100%">Pay</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal w-100" id="plugin-login">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Drizzle: Buy Gift Card with friends and saving!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="gift-card-cart-head">Login</h4>
+                    <div class="row">
+                        <div class="col">
+                            <form action="">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Password" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                            <button class="btn btn-success gift-card-cart-btn-pay" style="width: 100%">Login</button>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end gift-card-login-footer">
+                        <div class="col forgot-password">
+                            <a href="#">Forget Password?</a>
+                        </div>
+                        <div class="col sign-up">
+                            <a href="#">Sign Up</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal w-100" id="order-is-accepted">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Drizzle: Buy Gift Card with friends and saving!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col icon">
+                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col message">
+                            Congratulations! Your order is accepted.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col button">
+                            <button type="button" class="btn btn-success gift-card-cart-btn-pay">Access your gift card</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal w-100" id="order-is-accepted-payment-confirm" >
+        <div class="modal-dialog" role="document" style="max-width: 50%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Drizzle: Buy Gift Card with friends and saving!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col icon">
+                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col message">
+                            Congratulations! Your order is accepted.
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col" style="text-align: center">
+                            Now you can
+                        </div>
+                    </div>
+                    <div class="row actions">
+                        <div class="col">
+                            Ask your friend to buy it together
+                        </div>
+                        <div class="col">
+                            Check Group buy status
+                        </div>
+                    </div>
+                    <div class="row social">
+                        <div class="col">
+                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                            <i class="fa fa-google-plus" aria-hidden="true"></i>
+                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal w-100" id="plugin-buy-payment">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Drizzle: Buy Gift Card with friends and saving!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="gift-card-cart-head">Buy Now!</h4>
+                    <div class="row gift-card-cart-row">
+                        <div class="col">
+                            Starbucks Gift Card
+                            $100
+                        </div>
+                        <div class="col-2 price">
+                            $90
+                        </div>
+                        <div class="col-2 trash">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end gift-card-cart-total">
+                        <div class="col">
+                            <form action="">
+                                <div class="form-row">
+
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col">
+                                        <label for="inputEmail4" class="col-form-label">CARD NUMBER</label>
+                                        <input type="text" class="form-control" id="card-number" placeholder="0000 0000 0000 0000">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-6">
+                                        <label for="inputEmail4" class="col-form-label">NAME ON CARD</label>
+                                        <input type="text" class="form-control" id="name-on-card" placeholder="0000 0000 0000 0000">
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label for="inputEmail4" class="col-form-label">EXPIRY DATE</label>
+                                        <input type="text" class="form-control" id="inputEmail4" placeholder="0000 0000 0000 0000">
+                                    </div>
+                                    <div class="form-group col-3">
+                                        <label for="inputEmail4" class="col-form-label">CARD NUMBER</label>
+                                        <input type="text" class="form-control" id="inputEmail5" placeholder="0000 0000 0000 0000">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-4">
+                            <button class="btn btn-success gift-card-cart-btn-pay" style="width: 100%">Pay</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal w-100" id="plugin-how-much">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Drizzle: Buy Gift Card with friends and saving!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <form action="">
+                                <div class="form-row">
+
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col">
+                                        <label for="how-mach" class="col-form-label">How much you want to buy: </label>
+                                        <input type="text" class="form-control" id="how-mach" placeholder="">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                            <button class="btn btn-success gift-card-cart-btn-pay" style="width: 100%">Save</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+</body>
+</html>

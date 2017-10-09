@@ -57,7 +57,7 @@ export default class Balance extends React.Component {
                                     <MediaBoxHeader>{appMsgIcon}</MediaBoxHeader>
                                     <MediaBoxBody>
                                         <MediaBoxTitle>
-                                            <Cell access href="/#/balance-list">
+                                            <Cell access href={`/#/balance-list/${item.shopper.id}`}>
                                                 <CellBody>
                                                     {item.shopper.name}
                                                     <Flex>

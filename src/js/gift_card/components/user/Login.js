@@ -38,7 +38,7 @@ export default class ChangeName extends React.Component {
             showLoading: true
         });
 
-        axios.post(this.state.baseUrl + 'store-credit/store-credit-consumer/rest/login', {
+        axios.post(this.state.baseUrl + 'gift-card/rest/consumer/login', {
             email: this.state.email,
             password: this.state.password
         })
