@@ -22,7 +22,7 @@ export default class GroupBuyAmount extends React.Component {
     }
 
     pay(){
-        window.location = 'http://drizzle.jjpanda.com/payment.html';
+        window.location = 'https://drizzle.jjpanda.com/payment.html';
     }
 
     render(){
