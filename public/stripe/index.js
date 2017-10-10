@@ -7,7 +7,7 @@ function registerElements(elements, exampleName) {
   var example = document.querySelector(formClass);
 
   var form = example.querySelector('form');
-  var resetButton = example.querySelector('a.reset');
+  //var resetButton = example.querySelector('a.reset');
   var error = form.querySelector('.error');
   var errorMessage = error.querySelector('.message');
 
@@ -87,22 +87,22 @@ function registerElements(elements, exampleName) {
     });
   });
 
-  resetButton.addEventListener('click', function(e) {
-    e.preventDefault();
-    // Resetting the form (instead of setting the value to `''` for each input)
-    // helps us clear webkit autofill styles.
-    form.reset();
-
-    // Clear each Element.
-    elements.forEach(function(element) {
-      element.clear();
-    });
-
-    // Reset error state as well.
-    error.classList.remove('visible');
-
-    // Resetting the form does not un-disable inputs, so we need to do it separately:
-    enableInputs();
-    example.classList.remove('submitted');
-  });
+  // resetButton.addEventListener('click', function(e) {
+  //   e.preventDefault();
+  //   // Resetting the form (instead of setting the value to `''` for each input)
+  //   // helps us clear webkit autofill styles.
+  //   form.reset();
+  //
+  //   // Clear each Element.
+  //   elements.forEach(function(element) {
+  //     element.clear();
+  //   });
+  //
+  //   // Reset error state as well.
+  //   error.classList.remove('visible');
+  //
+  //   // Resetting the form does not un-disable inputs, so we need to do it separately:
+  //   enableInputs();
+  //   example.classList.remove('submitted');
+  // });
 }
