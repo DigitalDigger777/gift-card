@@ -78,7 +78,7 @@ function registerElements(elements, exampleName) {
 
       if (result.token) {
         // If we received a token, show the token ID.
-        example.querySelector('.token').innerText = result.token.id;
+        //example.querySelector('.token').innerText = result.token.id;
         example.classList.add('submitted');
       } else {
         // Otherwise, un-disable inputs.
