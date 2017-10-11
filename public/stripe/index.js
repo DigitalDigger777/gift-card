@@ -89,6 +89,12 @@ function registerElements(elements, exampleName) {
               hiddenInput.setAttribute('value', result.token.id);
               form.appendChild(hiddenInput);
 
+              var amount = document.createElement('input');
+              amount.setAttribute('type', 'hidden');
+              amount.setAttribute('name', 'amount');
+              amount.setAttribute('value', '2500');
+              form.appendChild(amount);
+
               form.submit();
           } else {
               // Otherwise, un-disable inputs.
