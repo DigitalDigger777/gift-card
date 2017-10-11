@@ -66,13 +66,13 @@ export default class GiftCardModal extends React.Component {
     buyNow(e) {
         const amount = e.currentTarget.getAttribute('data-value');
         window.localStorage.setItem('order_amount', amount);
-        window.location = 'http://drizzle.jjpanda.com/payment.php';
+        window.location = 'https://drizzle.jjpanda.com/payment.php';
     }
 
     pay() {
         const amount = this.state.amount;
         window.localStorage.setItem('order_amount', amount);
-        window.location = 'http://drizzle.jjpanda.com/payment.php';
+        window.location = 'https://drizzle.jjpanda.com/payment.php';
     }
 
     changeHowMach(e) {
