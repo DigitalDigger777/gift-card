@@ -12,10 +12,12 @@ export default class GiftCardModal extends React.Component {
     
     constructor(props){
         super(props);
+        console.log(props);
         const config = new Config();
         this.state = {
-            id: props.match.params.id,
-            shopperId: window.localStorage.getItem('shopperId'),
+            // id: props.match.params.id,
+            token: window.localStorage.getItem('token'),
+            shopperId: props.match.params.shopperId,
             shopper: '',
             baseUrl: config.baseUrl,
             items: []
@@ -23,27 +25,34 @@ export default class GiftCardModal extends React.Component {
     }
 
     componentWillMount(){
-        axios.get(this.state.baseUrl + 'gift-card/rest/gift-card', {
-            params: {
-                method: 'LIST',
-                shopperId: this.state.shopperId
-            }
-        })
-            .then(response => {
-                console.log(response.data);
-                const items = [
-                    response.data[0],
-                    response.data[1]
-                ];
 
-                this.setState({
-                    items: items
-                });
-
+        if (this.state.token) {
+            axios.get(this.state.baseUrl + 'gift-card/rest/gift-card', {
+                params: {
+                    method: 'LIST',
+                    shopperId: this.state.shopperId
+                }
             })
-            .catch(error => {
-                console.log(error);
-            });
+                .then(response => {
+                    console.log(response.data);
+                    const items = [
+                        response.data[0],
+                        response.data[1]
+                    ];
+
+                    this.setState({
+                        items: items
+                    });
+                    $('#plugin').modal('show');
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        } else {
+            window.localStorage.setItem('order_process', 1);
+            window.localStorage.setItem('order_shopper_id', this.state.shopperId);
+            window.location = '/#/login';
+        }
     }
 
     startGroupBuy(){

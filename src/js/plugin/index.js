@@ -24,7 +24,7 @@ export default class Index extends React.Component{
         return (
             <HashRouter history={hashHistory}>
                 <div>
-                    <Route exact path="/" component={GiftCardModal}/>
+                    <Route exact path="/:shopperId" component={GiftCardModal}/>
                 </div>
             </HashRouter>
         );

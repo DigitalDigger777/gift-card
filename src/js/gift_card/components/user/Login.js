@@ -48,7 +48,16 @@ export default class ChangeName extends React.Component {
             this.setState({
                 showLoading: false
             });
-            window.location = '/#/'
+
+            const orderShopperId = window.localStorage.getItem('order_shopper_id');
+            const orderProcess   = window.localStorage.getItem('order_process');
+
+            if (!orderProcess) {
+                window.location = '/#/';
+            } else {
+                window.location = '/order.php/#/' + orderShopperId;
+            }
+
         })
         .catch(error => {
             console.log(error);
