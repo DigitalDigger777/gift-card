@@ -14,13 +14,15 @@ export default class GiftCardModal extends React.Component {
         super(props);
         console.log(props);
         const config = new Config();
+
         this.state = {
             // id: props.match.params.id,
             token: window.localStorage.getItem('token'),
             shopperId: props.match.params.shopperId,
             shopper: '',
             baseUrl: config.baseUrl,
-            items: []
+            items: [],
+            amount: 0
         }
     }
 
@@ -53,6 +55,7 @@ export default class GiftCardModal extends React.Component {
             window.localStorage.setItem('order_shopper_id', this.state.shopperId);
             window.location = '/#/login';
         }
+
     }
 
     startGroupBuy(){
@@ -60,8 +63,22 @@ export default class GiftCardModal extends React.Component {
         $('#plugin-how-much').modal('show');
     }
 
-    buyNow(){
-        window.location = 'http://drizzle.jjpanda.com/payment.html';
+    buyNow(e) {
+        const amount = e.currentTarget.getAttribute('data-value');
+        window.localStorage.setItem('order_amount', amount);
+        window.location = 'http://drizzle.jjpanda.com/payment.php';
+    }
+
+    pay() {
+        const amount = this.state.amount;
+        window.localStorage.setItem('order_amount', amount);
+        window.location = 'http://drizzle.jjpanda.com/payment.php';
+    }
+
+    changeHowMach(e) {
+        this.setState({
+            amount: e.target.value
+        });
     }
 
     render(){
@@ -100,7 +117,7 @@ export default class GiftCardModal extends React.Component {
                                                         </div>
                                                         <div className="row gift-card-row">
                                                             <div className="col">
-                                                                <button className="btn btn-success btn-gift-card" onClick={this.buyNow.bind(this)}>
+                                                                <button className="btn btn-success btn-gift-card" onClick={e => this.buyNow(e) } data-value={item.giftCardValue}>
                                                                     Buy Now
                                                                 </button>
                                                             </div>
@@ -208,8 +225,8 @@ export default class GiftCardModal extends React.Component {
                                                 </div>
                                                 <div className="form-row">
                                                     <div className="form-group col">
-                                                        <label for="how-mach" className="col-form-label">How much you want to buy: </label>
-                                                        <input type="number" className="form-control" id="how-mach" placeholder=""/>
+                                                        <label for="amount" className="col-form-label">How much you want to buy: </label>
+                                                        <input type="number" className="form-control" id="amount" placeholder="" onChange={e => this.changeHowMach(e) }/>
                                                     </div>
                                                 </div>
                                             </form>
@@ -217,7 +234,7 @@ export default class GiftCardModal extends React.Component {
                                     </div>
                                     <div className="row justify-content-center">
                                         <div className="col-4">
-                                            <button className="btn btn-success gift-card-cart-btn-pay" style={{width: '100%'}}>Save</button>
+                                            <button className="btn btn-success gift-card-cart-btn-pay" style={{width: '100%'}} onClick={this.pay.bind(this)}>Pay</button>
                                         </div>
                                     </div>
                                 </div>

@@ -89,10 +89,12 @@ function registerElements(elements, exampleName) {
               hiddenInput.setAttribute('value', result.token.id);
               form.appendChild(hiddenInput);
 
+              var amountVal = window.localStorage.getItem('amount');
+              amountVal = amountVal ? (parseFloat(amountVal) * 100) : '0';
               var amount = document.createElement('input');
               amount.setAttribute('type', 'hidden');
               amount.setAttribute('name', 'amount');
-              amount.setAttribute('value', '2500');
+              amount.setAttribute('value', amountVal);
               form.appendChild(amount);
 
               form.submit();
