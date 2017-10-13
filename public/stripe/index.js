@@ -98,6 +98,15 @@ function registerElements(elements, exampleName) {
               form.appendChild(amount);
 
               var giftCardId = window.localStorage.getItem('order_gift_card_id');
+              var isGroupBuy = window.localStorage.getItem('is_group_buy');
+
+              if (isGroupBuy) {
+                  var isGroupBuyEl = document.createElement('input');
+                  isGroupBuyEl.setAttribute('type', 'hidden');
+                  isGroupBuyEl.setAttribute('name', 'isGroupBuy');
+                  isGroupBuyEl.setAttribute('value', '1');
+                  form.appendChild(isGroupBuyEl);
+              }
 
               if (giftCardId) {
                   var giftCardIdEl = document.createElement('input');

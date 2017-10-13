@@ -8,6 +8,7 @@ import { HashRouter,Route, hashHistory } from 'react-router-dom';
 import GiftCardModal from './components/gift_card/GiftCardModal';
 import GiftCardFriendBuy from './components/gift_card/GiftCardFriendBuy';
 import PaymentConfirm from './components/order/PaymentConfirm';
+import PaymentConfirmGroupBuy from './components/order/PaymentConfirmGroupBuy';
 import GroupBuyAmount from './components/order/GroupBuyAmount';
 
 
@@ -29,6 +30,7 @@ export default class Index extends React.Component{
                     <Route exact path="/:shopperId" component={GiftCardModal}/>
                     <Route exact path="/friend-buy/:giftCardId" component={GiftCardFriendBuy}/>
                     <Route exact path="/payment-confirm/:giftCardId" component={PaymentConfirm}/>
+                    <Route exact path="/payment-confirm/:giftCardId/:giftCardGroupBuyId" component={PaymentConfirmGroupBuy}/>
                 </div>
             </HashRouter>
         );

@@ -64,6 +64,7 @@ export default class GiftCardModal extends React.Component {
     }
 
     buyNow(e, giftCardValue, id) {
+        window.localStorage.removeItem('isGroupBuy');
         window.localStorage.setItem('order_amount', giftCardValue);
         window.localStorage.setItem('order_gift_card_id', id);
         window.location = 'https://drizzle.jjpanda.com/payment.php';
@@ -73,6 +74,7 @@ export default class GiftCardModal extends React.Component {
         const amount = this.state.amount;
         window.localStorage.setItem('order_amount', amount);
         window.localStorage.setItem('order_gift_card_id', id);
+        window.localStorage.setItem('isGroupBuy', true);
         window.location = 'https://drizzle.jjpanda.com/payment.php';
     }
 
