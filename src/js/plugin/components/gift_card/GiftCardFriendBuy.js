@@ -17,7 +17,8 @@ export default class GiftCardFriendBuy extends React.Component {
             token: window.localStorage.getItem('token'),
             giftCardGroupBuyId: props.match.params.giftCardGroupBuyId,
             item: null,
-            baseUrl: config.baseUrl
+            baseUrl: config.baseUrl,
+            amount: 0
         };
     }
 
@@ -35,6 +36,20 @@ export default class GiftCardFriendBuy extends React.Component {
 
     componentDidMount(){
         $('#plugin-friend-buy').modal('show');
+    }
+
+    changeAmount(e){
+        this.setState({
+            amount: e.target.value
+        });
+    }
+
+    pay(){
+
+        window.localStorage.setItem('order_group_buy_id', this.state.giftCardGroupBuyId);
+        window.localStorage.setItem('order_amount', this.state.amount);
+        window.localStorage.setItem('isFriendBuy', true);
+        window.location = 'https://drizzle.jjpanda.com/payment.php';
     }
 
     render() {
@@ -96,10 +111,10 @@ export default class GiftCardFriendBuy extends React.Component {
                                         <p className="text-center">How much you want to buy:</p>
                                     </div>
                                     <div className="col">
-                                        <input type="text" className="form-control"/>
+                                        <input type="text" className="form-control" onChange={e => this.changeAmount(e)}/>
                                     </div>
                                     <div className="col justify-content-left">
-                                        <button className="btn btn-success btn-block" style={{width: '50%'}}>Buy</button>
+                                        <button className="btn btn-success btn-block" style={{width: '50%'}} onClick={this.pay.bind(this)}>Buy</button>
                                     </div>
                                 </div>
 
