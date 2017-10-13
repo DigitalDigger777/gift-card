@@ -8,7 +8,7 @@ import Config from '../Config';
 import axios from 'axios';
 
 
-export default class GiftCardModal extends React.Component {
+export default class GiftCardFriendBuy extends React.Component {
 
     constructor(props){
         super(props);
@@ -40,7 +40,7 @@ export default class GiftCardModal extends React.Component {
     render() {
         if (this.state.item) {
             console.log(this.state.item.ownerConsumer.socialDataProfile.nickname);
-            const nickname = this.state.item.ownerConsumer.socialProfileData.nickname;
+            const nickname = this.state.item.ownerConsumer.socialDataProfile.nickname;
 
             return (
                 <div className="modal w-100" id="plugin-friend-buy">
