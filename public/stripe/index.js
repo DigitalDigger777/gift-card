@@ -98,7 +98,7 @@ function registerElements(elements, exampleName) {
               form.appendChild(amount);
 
               var giftCardId = window.localStorage.getItem('order_gift_card_id');
-              var isGroupBuy = window.localStorage.getItem('is_group_buy');
+              var isGroupBuy = window.localStorage.getItem('isGroupBuy');
 
               if (isGroupBuy) {
                   var isGroupBuyEl = document.createElement('input');
