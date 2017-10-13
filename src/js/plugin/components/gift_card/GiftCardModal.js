@@ -58,7 +58,7 @@ export default class GiftCardModal extends React.Component {
 
     }
 
-    startGroupBuy(id){
+    startGroupBuy(e, id){
         $('#plugin').modal('hide');
         $('#plugin-how-much').modal('show');
         window.localStorage.setItem('order_gift_card_id', id);
