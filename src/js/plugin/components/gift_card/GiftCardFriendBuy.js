@@ -21,7 +21,7 @@ export default class GiftCardModal extends React.Component {
     componentWillMount(){
         axios.get('https://drizzle.jjpanda.com/gift-card/rest/group-buy/' + this.state.giftCardGroupBuyId)
             .then(response => {
-                console.log(response);            
+                console.log(response);
             }).catch(error => {
                 console.log(error);
             });
