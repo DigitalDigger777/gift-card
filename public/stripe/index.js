@@ -91,14 +91,40 @@ function registerElements(elements, exampleName) {
 
               var amountVal = window.localStorage.getItem('order_amount');
               amountVal = amountVal ? (parseFloat(amountVal) * 100) : '0';
+
               var amount = document.createElement('input');
               amount.setAttribute('type', 'hidden');
               amount.setAttribute('name', 'amount');
               amount.setAttribute('value', amountVal);
               form.appendChild(amount);
 
-              var giftCardId = window.localStorage.getItem('order_gift_card_id');
-              var isGroupBuy = window.localStorage.getItem('isGroupBuy');
+              window.localStorage.removeItem('order_amount');
+
+
+              var giftCardId  = window.localStorage.getItem('order_gift_card_id');
+              var isGroupBuy  = window.localStorage.getItem('isGroupBuy');
+              var isFriendBuy = window.localStorage.getItem('isFriendBuy');
+              var groupBuyId  = window.localStorage.getItem('order_group_buy_id');
+
+              if (isFriendBuy) {
+                  var isFriendBuyEl = document.createElement('input');
+                  isFriendBuyEl.setAttribute('type', 'hidden');
+                  isFriendBuyEl.setAttribute('name', 'isFriendBuy');
+                  isFriendBuyEl.setAttribute('value', '1');
+                  form.appendChild(isFriendBuyEl);
+
+                  window.localStorage.removeItem('isFriendBuy');
+              }
+
+              if (groupBuyId) {
+                  var groupBuyIdEl = document.createElement('input');
+                  groupBuyIdEl.setAttribute('type', 'hidden');
+                  groupBuyIdEl.setAttribute('name', 'groupBuyId');
+                  groupBuyIdEl.setAttribute('value', '1');
+                  form.appendChild(groupBuyIdEl);
+
+                  window.localStorage.removeItem('order_gift_card_id')
+              }
 
               if (isGroupBuy) {
                   var isGroupBuyEl = document.createElement('input');
@@ -106,6 +132,8 @@ function registerElements(elements, exampleName) {
                   isGroupBuyEl.setAttribute('name', 'isGroupBuy');
                   isGroupBuyEl.setAttribute('value', '1');
                   form.appendChild(isGroupBuyEl);
+
+                  window.localStorage.removeItem('isGroupBuy');
               }
 
               if (giftCardId) {
@@ -114,6 +142,8 @@ function registerElements(elements, exampleName) {
                   giftCardIdEl.setAttribute('name', 'giftCardId');
                   giftCardIdEl.setAttribute('value', giftCardId);
                   form.appendChild(giftCardIdEl);
+
+                  window.localStorage.removeItem('order_gift_card_id');
 
                   form.submit();
               } else {
