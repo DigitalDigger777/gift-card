@@ -30,7 +30,7 @@ export default class Index extends React.Component{
                     <Route exact path="/:shopperId" component={GiftCardModal}/>
                     <Route exact path="/friend-buy/:giftCardId" component={GiftCardFriendBuy}/>
                     <Route exact path="/payment-confirm/:giftCardId" component={PaymentConfirm}/>
-                    <Route exact path="/payment-confirm/:giftCardId/:giftCardGroupBuyId" component={PaymentConfirmGroupBuy}/>
+                    <Route exact path="/payment-confirm-group-buy/:giftCardId/:giftCardGroupBuyId" component={PaymentConfirmGroupBuy}/>
                 </div>
             </HashRouter>
         );
