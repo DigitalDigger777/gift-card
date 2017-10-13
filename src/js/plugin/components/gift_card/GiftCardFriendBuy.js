@@ -78,7 +78,7 @@ export default class GiftCardModal extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="col">
-                                        <h5 className="text-center">To buy this gift card successfully, {this.state.item.ownerConsumer.socialProfileData.nickname} need find
+                                        <h5 className="text-center">To buy this gift card successfully, {this.state.item.ownerConsumer.socialDataProfile.nickname} need find
                                             someone to buy another $50</h5>
                                     </div>
                                 </div>
