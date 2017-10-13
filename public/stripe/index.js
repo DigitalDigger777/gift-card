@@ -97,7 +97,19 @@ function registerElements(elements, exampleName) {
               amount.setAttribute('value', amountVal);
               form.appendChild(amount);
 
-              form.submit();
+              var giftCardId = window.localStorage.getItem('order_gift_card_id');
+
+              if (giftCardId) {
+                  var giftCardIdEl = document.createElement('input');
+                  giftCardIdEl.setAttribute('type', 'hidden');
+                  giftCardIdEl.setAttribute('name', 'giftCardId');
+                  giftCardIdEl.setAttribute('value', giftCardId);
+                  form.appendChild(giftCardIdEl);
+
+                  form.submit();
+              } else {
+                  alert('Gift card id was be removed, please back to first step');
+              }
           } else {
               // Otherwise, un-disable inputs.
               enableInputs();

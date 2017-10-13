@@ -63,15 +63,16 @@ export default class GiftCardModal extends React.Component {
         $('#plugin-how-much').modal('show');
     }
 
-    buyNow(e) {
-        const amount = e.currentTarget.getAttribute('data-value');
-        window.localStorage.setItem('order_amount', amount);
+    buyNow(e, giftCardValue, id) {
+        window.localStorage.setItem('order_amount', giftCardValue);
+        window.localStorage.setItem('order_gift_card_id', id);
         window.location = 'https://drizzle.jjpanda.com/payment.php';
     }
 
-    pay() {
+    pay(e, id) {
         const amount = this.state.amount;
         window.localStorage.setItem('order_amount', amount);
+        window.localStorage.setItem('order_gift_card_id', id);
         window.location = 'https://drizzle.jjpanda.com/payment.php';
     }
 
@@ -117,7 +118,7 @@ export default class GiftCardModal extends React.Component {
                                                         </div>
                                                         <div className="row gift-card-row">
                                                             <div className="col">
-                                                                <button className="btn btn-success btn-gift-card" onClick={e => this.buyNow(e) } data-value={item.giftCardValue}>
+                                                                <button className="btn btn-success btn-gift-card" onClick={(e, giftCardValue, id) => this.buyNow(e, item.giftCardValue, item.id) } >
                                                                     Buy Now
                                                                 </button>
                                                             </div>
@@ -131,7 +132,7 @@ export default class GiftCardModal extends React.Component {
                                                         </div>
                                                         <div className="row gift-card-row">
                                                             <div className="col">
-                                                                <button className="btn btn-success btn-gift-card" onClick={this.startGroupBuy.bind(this)}>
+                                                                <button className="btn btn-success btn-gift-card" onClick={(e, id) => this.startGroupBuy(e, item.id)}>
                                                                     Start a Group Buy
                                                                 </button>
                                                             </div>
@@ -226,7 +227,7 @@ export default class GiftCardModal extends React.Component {
                                                 <div className="form-row">
                                                     <div className="form-group col">
                                                         <label for="amount" className="col-form-label">How much you want to buy: </label>
-                                                        <input type="number" className="form-control" id="amount" placeholder="" onChange={e => this.changeHowMach(e) }/>
+                                                        <input type="number" className="form-control" id="amount" placeholder="" onChange={ e => this.changeHowMach(e) }/>
                                                     </div>
                                                 </div>
                                             </form>

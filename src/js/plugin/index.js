@@ -6,14 +6,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter,Route, hashHistory } from 'react-router-dom';
 import GiftCardModal from './components/gift_card/GiftCardModal';
+import GiftCardFriendBuy from './components/gift_card/GiftCardFriendBuy';
+import PaymentConfirm from './components/order/PaymentConfirm';
 import GroupBuyAmount from './components/order/GroupBuyAmount';
+
 
 // import Auth from './components/user/Auth';
 
 import 'weui';
 import 'react-weui/build/packages/react-weui.css';
 import './../../../public/css/app.css';
-
 
 export default class Index extends React.Component{
     constructor(){
@@ -25,6 +27,8 @@ export default class Index extends React.Component{
             <HashRouter history={hashHistory}>
                 <div>
                     <Route exact path="/:shopperId" component={GiftCardModal}/>
+                    <Route exact path="/friend-buy/:giftCardId" component={GiftCardFriendBuy}/>
+                    <Route exact path="/payment-confirm/:giftCardId" component={PaymentConfirm}/>
                 </div>
             </HashRouter>
         );
