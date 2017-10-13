@@ -57,7 +57,7 @@ export default class GiftCardModal extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="col">
-                                        <h5 className="text-center">Jack Invite you buy Starbucks Gift Card
+                                        <h5 className="text-center">{this.state.item.ownerConsumer.socialProfileData.nickname} Invite you buy {this.state.item.giftCard.shopper.name} Gift Card
                                             together</h5>
                                     </div>
                                 </div>
@@ -65,20 +65,20 @@ export default class GiftCardModal extends React.Component {
                                     <div className="col-4">
                                         <div className="card gift-card">
                                             <div className="card-body text-center">
-                                                <h6>Starbucks<br/>Gift Card</h6>
-                                                <p>$100</p>
+                                                <h6>{this.state.item.giftCard.shopper.name}<br/>Gift Card</h6>
+                                                <p>${this.state.item.giftCard.giftCardValue}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="row" style={{marginTop: '40px'}}>
                                     <div className="col">
-                                        <h5 className="text-center">Jack Paid $50</h5>
+                                        <h5 className="text-center">{this.state.item.ownerConsumer.socialProfileData.nickname} Paid $50</h5>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col">
-                                        <h5 className="text-center">To buy this gift card successfully, Jack need find
+                                        <h5 className="text-center">To buy this gift card successfully, {this.state.item.ownerConsumer.socialProfileData.nickname} need find
                                             someone to buy another $50</h5>
                                     </div>
                                 </div>
@@ -90,8 +90,7 @@ export default class GiftCardModal extends React.Component {
                                         <input type="text" className="form-control"/>
                                     </div>
                                     <div className="col justify-content-left">
-                                        <button className="btn btn-success btn-block" style={{width: '50%'}}>Buy
-                                        </button>
+                                        <button className="btn btn-success btn-block" style={{width: '50%'}}>Buy</button>
                                     </div>
                                 </div>
 
