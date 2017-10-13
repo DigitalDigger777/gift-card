@@ -39,7 +39,7 @@ export default class GiftCardModal extends React.Component {
 
     render() {
         if (this.state.item) {
-            console.log(this.state.item);
+            console.log(this.state.item.ownerConsumer);
             const nickname = this.state.item.ownerConsumer.socialProfileData.nickname;
 
             return (
