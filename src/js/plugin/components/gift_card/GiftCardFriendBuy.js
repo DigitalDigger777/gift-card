@@ -12,14 +12,16 @@ export default class GiftCardModal extends React.Component {
 
     constructor(props){
         super(props);
+        const config = new Config();
         this.state = {
             token: window.localStorage.getItem('token'),
-            giftCardGroupBuyId: props.match.params.giftCardGroupBuyId
+            giftCardGroupBuyId: props.match.params.giftCardGroupBuyId,
+            baseUrl: config.baseUrl
         };
     }
 
     componentWillMount(){
-        axios.get('https://drizzle.jjpanda.com/gift-card/rest/group-buy/' + this.state.giftCardGroupBuyId)
+        axios.get(this.state.baseUrl + 'gift-card/rest/group-buy/' + this.state.giftCardGroupBuyId)
             .then(response => {
                 console.log(response);
             }).catch(error => {
