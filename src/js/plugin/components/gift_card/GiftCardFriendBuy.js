@@ -39,6 +39,9 @@ export default class GiftCardModal extends React.Component {
 
     render() {
         if (this.state.item) {
+            console.log(this.state.item);
+            const nickname = this.state.item.ownerConsumer.socialProfileData.nickname;
+
             return (
                 <div className="modal w-100" id="plugin-friend-buy">
                     <div className="modal-dialog" role="document" style={{maxWidth: '90%'}}>
@@ -60,7 +63,7 @@ export default class GiftCardModal extends React.Component {
                                 <div className="row">
                                     <div className="col">
                                         <h5 className="text-center">
-                                            {this.state.item.ownerConsumer.socialProfileData.nickname} Invite you buy {this.state.item.giftCard.shopper.name} Gift Card together
+                                            {nickname} Invite you buy {this.state.item.giftCard.shopper.name} Gift Card together
                                         </h5>
                                     </div>
                                 </div>
@@ -77,14 +80,14 @@ export default class GiftCardModal extends React.Component {
                                 <div className="row" style={{marginTop: '40px'}}>
                                     <div className="col">
                                         <h5 className="text-center">
-                                            {this.state.item.ownerConsumer.socialProfileData.nickname} Paid $50
+                                            {nickname} Paid $50
                                         </h5>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col">
                                         <h5 className="text-center">
-                                            To buy this gift card successfully, {this.state.item.ownerConsumer.socialProfileData.nickname} need find someone to buy another $50
+                                            To buy this gift card successfully, {nickname} need find someone to buy another $50
                                         </h5>
                                     </div>
                                 </div>
