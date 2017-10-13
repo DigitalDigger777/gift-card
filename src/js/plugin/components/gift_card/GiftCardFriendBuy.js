@@ -44,7 +44,9 @@ export default class GiftCardModal extends React.Component {
                     <div className="modal-dialog" role="document" style={{maxWidth: '90%'}}>
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Drizzle: Buy Gift Card with friends and saving!</h5>
+                                <h5 className="modal-title">
+                                    Drizzle: Buy Gift Card with friends and saving!
+                                </h5>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -57,8 +59,9 @@ export default class GiftCardModal extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="col">
-                                        <h5 className="text-center">{this.state.item.ownerConsumer.socialProfileData.nickname} Invite you buy {this.state.item.giftCard.shopper.name} Gift Card
-                                            together</h5>
+                                        <h5 className="text-center">
+                                            {this.state.item.ownerConsumer.socialProfileData.nickname} Invite you buy {this.state.item.giftCard.shopper.name} Gift Card together
+                                        </h5>
                                     </div>
                                 </div>
                                 <div className="row justify-content-center">
@@ -73,13 +76,16 @@ export default class GiftCardModal extends React.Component {
                                 </div>
                                 <div className="row" style={{marginTop: '40px'}}>
                                     <div className="col">
-                                        <h5 className="text-center">{this.state.item.ownerConsumer.socialProfileData.nickname} Paid $50</h5>
+                                        <h5 className="text-center">
+                                            {this.state.item.ownerConsumer.socialProfileData.nickname} Paid $50
+                                        </h5>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col">
-                                        <h5 className="text-center">To buy this gift card successfully, {this.state.item.ownerConsumer.socialDataProfile.nickname} need find
-                                            someone to buy another $50</h5>
+                                        <h5 className="text-center">
+                                            To buy this gift card successfully, {this.state.item.ownerConsumer.socialProfileData.nickname} need find someone to buy another $50
+                                        </h5>
                                     </div>
                                 </div>
                                 <div className="row" style={{marginTop: '40px'}}>
