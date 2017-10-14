@@ -105,7 +105,7 @@ function registerElements(elements, exampleName) {
 
               window.localStorage.removeItem('order_amount');
               window.localStorage.removeItem('isFriendBuy');
-              window.localStorage.removeItem('order_gift_card_id')
+              window.localStorage.removeItem('order_group_buy_id')
               window.localStorage.removeItem('isGroupBuy');
               window.localStorage.removeItem('order_gift_card_id');
 
