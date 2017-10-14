@@ -120,7 +120,7 @@ function registerElements(elements, exampleName) {
                       var groupBuyIdEl = document.createElement('input');
                       groupBuyIdEl.setAttribute('type', 'hidden');
                       groupBuyIdEl.setAttribute('name', 'groupBuyId');
-                      groupBuyIdEl.setAttribute('value', '1');
+                      groupBuyIdEl.setAttribute('value', groupBuyId);
                       form.appendChild(groupBuyIdEl);
 
                       form.submit();
