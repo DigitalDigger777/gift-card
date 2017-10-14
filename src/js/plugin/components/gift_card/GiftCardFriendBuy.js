@@ -13,8 +13,13 @@ export default class GiftCardFriendBuy extends React.Component {
     constructor(props){
         super(props);
         const config = new Config();
+        const token = window.localStorage.getItem('token');
+
+        if (!token) {
+            window.location = '/#/login';
+        }
         this.state = {
-            token: window.localStorage.getItem('token'),
+            token: token,
             giftCardGroupBuyId: props.match.params.giftCardGroupBuyId,
             item: null,
             baseUrl: config.baseUrl,
