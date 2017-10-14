@@ -89,7 +89,12 @@ function registerElements(elements, exampleName) {
               hiddenInput.setAttribute('value', result.token.id);
               form.appendChild(hiddenInput);
 
+              var giftCardId  = window.localStorage.getItem('order_gift_card_id');
+              var isGroupBuy  = window.localStorage.getItem('isGroupBuy');
+              var isFriendBuy = window.localStorage.getItem('isFriendBuy');
+              var groupBuyId  = window.localStorage.getItem('order_group_buy_id');
               var amountVal = window.localStorage.getItem('order_amount');
+
               amountVal = amountVal ? (parseFloat(amountVal) * 100) : '0';
 
               var amount = document.createElement('input');
@@ -99,12 +104,10 @@ function registerElements(elements, exampleName) {
               form.appendChild(amount);
 
               window.localStorage.removeItem('order_amount');
-
-
-              var giftCardId  = window.localStorage.getItem('order_gift_card_id');
-              var isGroupBuy  = window.localStorage.getItem('isGroupBuy');
-              var isFriendBuy = window.localStorage.getItem('isFriendBuy');
-              var groupBuyId  = window.localStorage.getItem('order_group_buy_id');
+              window.localStorage.removeItem('isFriendBuy');
+              window.localStorage.removeItem('order_gift_card_id')
+              window.localStorage.removeItem('isGroupBuy');
+              window.localStorage.removeItem('order_gift_card_id');
 
               if (isFriendBuy) {
                   var isFriendBuyEl = document.createElement('input');
@@ -113,42 +116,40 @@ function registerElements(elements, exampleName) {
                   isFriendBuyEl.setAttribute('value', '1');
                   form.appendChild(isFriendBuyEl);
 
-                  window.localStorage.removeItem('isFriendBuy');
-              }
+                  if (groupBuyId) {
+                      var groupBuyIdEl = document.createElement('input');
+                      groupBuyIdEl.setAttribute('type', 'hidden');
+                      groupBuyIdEl.setAttribute('name', 'groupBuyId');
+                      groupBuyIdEl.setAttribute('value', '1');
+                      form.appendChild(groupBuyIdEl);
 
-              if (groupBuyId) {
-                  var groupBuyIdEl = document.createElement('input');
-                  groupBuyIdEl.setAttribute('type', 'hidden');
-                  groupBuyIdEl.setAttribute('name', 'groupBuyId');
-                  groupBuyIdEl.setAttribute('value', '1');
-                  form.appendChild(groupBuyIdEl);
-
-                  window.localStorage.removeItem('order_gift_card_id')
-              }
-
-              if (isGroupBuy) {
-                  var isGroupBuyEl = document.createElement('input');
-                  isGroupBuyEl.setAttribute('type', 'hidden');
-                  isGroupBuyEl.setAttribute('name', 'isGroupBuy');
-                  isGroupBuyEl.setAttribute('value', '1');
-                  form.appendChild(isGroupBuyEl);
-
-                  window.localStorage.removeItem('isGroupBuy');
-              }
-
-              if (giftCardId) {
-                  var giftCardIdEl = document.createElement('input');
-                  giftCardIdEl.setAttribute('type', 'hidden');
-                  giftCardIdEl.setAttribute('name', 'giftCardId');
-                  giftCardIdEl.setAttribute('value', giftCardId);
-                  form.appendChild(giftCardIdEl);
-
-                  window.localStorage.removeItem('order_gift_card_id');
-
-                  form.submit();
+                      form.submit();
+                  } else {
+                      alert('Group buy is not defined');
+                  }
               } else {
-                  alert('Gift card id was be removed, please back to first step');
+
+                  if (isGroupBuy) {
+                      var isGroupBuyEl = document.createElement('input');
+                      isGroupBuyEl.setAttribute('type', 'hidden');
+                      isGroupBuyEl.setAttribute('name', 'isGroupBuy');
+                      isGroupBuyEl.setAttribute('value', '1');
+                      form.appendChild(isGroupBuyEl);
+                  }
+
+                  if (giftCardId) {
+                      var giftCardIdEl = document.createElement('input');
+                      giftCardIdEl.setAttribute('type', 'hidden');
+                      giftCardIdEl.setAttribute('name', 'giftCardId');
+                      giftCardIdEl.setAttribute('value', giftCardId);
+                      form.appendChild(giftCardIdEl);
+
+                      form.submit();
+                  } else {
+                      alert('Gift card id was be removed, please back to first step');
+                  }
               }
+
           } else {
               // Otherwise, un-disable inputs.
               enableInputs();
