@@ -5,3 +5,6 @@ public/gift_card.js
 
 src/js/plugin/components/Config.js
 public/plugin.js
+
+src/js/shopper/components/Config.js
+public/shopper.js

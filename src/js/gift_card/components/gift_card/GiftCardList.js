@@ -22,6 +22,7 @@ export default class GiftCardList extends React.Component {
         const config = new Config();
         this.state = {
             items: [],
+            empty: false,
             showLoading: false,
             baseUrl: config.baseUrl
         }
@@ -43,7 +44,7 @@ export default class GiftCardList extends React.Component {
                 console.log(response);
                 this.setState({
                     items: response.data,
-                    showLoading: true
+                    showLoading: false
                 });
                 // this.setState({
                 //     firstName: response.data.socialDataProfile.first_name,
@@ -123,7 +124,9 @@ export default class GiftCardList extends React.Component {
                         <InfiniteLoader/>
                         <Page className="page gift-card-list" infiniteLoader={true}>
                             <Toast icon="loading" show={this.state.showLoading}>Loading...</Toast>
+                            <p style={{marginTop: '20px', marginLeft: '20px'}}>List Empty</p>
                         </Page>
+
                     </section>
                 </section>
             );
