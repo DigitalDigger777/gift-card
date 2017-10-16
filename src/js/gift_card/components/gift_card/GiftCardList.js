@@ -125,6 +125,7 @@ export default class GiftCardList extends React.Component {
                         <Page className="page gift-card-list" infiniteLoader={true}>
                             <Toast icon="loading" show={this.state.showLoading}>Loading...</Toast>
                             <p style={{marginTop: '20px', marginLeft: '20px'}}>List Empty</p>
+                            <Menu/>
                         </Page>
 
                     </section>
