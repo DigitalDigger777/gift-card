@@ -28,34 +28,28 @@ export default class GiftCardModal extends React.Component {
 
     componentWillMount(){
 
-        if (this.state.token) {
-            axios.get(this.state.baseUrl + 'gift-card/rest/gift-card', {
-                params: {
-                    method: 'LIST',
-                    shopperId: this.state.shopperId
-                }
-            })
-                .then(response => {
-                    console.log(response.data);
-                    const items = [
-                        response.data[0],
-                        response.data[1]
-                    ];
+        axios.get(this.state.baseUrl + 'gift-card/rest/gift-card', {
+            params: {
+                method: 'LIST',
+                shopperId: this.state.shopperId
+            }
+        })
+            .then(response => {
+                console.log(response.data);
+                const items = [
+                    response.data[0],
+                    response.data[1]
+                ];
 
-                    this.setState({
-                        items: items
-                    });
-                    $('#plugin').modal('show');
-                })
-                .catch(error => {
-                    console.log(error);
+                this.setState({
+                    items: items
                 });
-        } else {
-            window.localStorage.setItem('order_process', 1);
-            window.localStorage.setItem('order_shopper_id', this.state.shopperId);
-            window.location = '/#/login';
-        }
+                $('#plugin').modal('show');
 
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     startGroupBuy(e, id){
@@ -68,14 +62,27 @@ export default class GiftCardModal extends React.Component {
         window.localStorage.removeItem('isGroupBuy');
         window.localStorage.setItem('order_amount', giftCardValue);
         window.localStorage.setItem('order_gift_card_id', id);
-        window.location = 'https://drizzle.jjpanda.com/payment.php';
+
+        if (this.state.token) {
+            window.location = this.state.baseUrl + 'payment.php';
+        } else {
+            window.localStorage.setItem('order_process', 1);
+            window.localStorage.setItem('order_shopper_id', this.state.shopperId);
+            window.location = '/#/login';
+        }
     }
 
     pay() {
         const amount = this.state.amount;
         window.localStorage.setItem('order_amount', amount);
         window.localStorage.setItem('isGroupBuy', true);
-        window.location = 'https://drizzle.jjpanda.com/payment.php';
+        if (this.state.token) {
+            window.location = this.state.baseUrl + 'payment.php';
+        } else {
+            window.localStorage.setItem('order_process', 1);
+            window.localStorage.setItem('order_shopper_id', this.state.shopperId);
+            window.location = '/#/login';
+        }
     }
 
     changeHowMach(e) {

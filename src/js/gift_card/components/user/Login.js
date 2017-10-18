@@ -49,13 +49,13 @@ export default class ChangeName extends React.Component {
                 showLoading: false
             });
 
-            const orderShopperId = window.localStorage.getItem('order_shopper_id');
+            // const orderShopperId = window.localStorage.getItem('order_shopper_id');
             const orderProcess   = window.localStorage.getItem('order_process');
 
             if (!orderProcess) {
                 window.location = '/#/';
             } else {
-                window.location = '/order.php/#/' + orderShopperId;
+                window.location = this.state.baseUrl + 'payment.php';
             }
 
         })
