@@ -55,7 +55,7 @@ export default class GiftCardFriendBuy extends React.Component {
         window.localStorage.setItem('order_amount', this.state.amount);
         window.localStorage.setItem('isFriendBuy', true);
 
-        window.location = 'https://drizzle.jjpanda.com/payment.php';
+        window.location = '/payment.php';
     }
 
     render() {

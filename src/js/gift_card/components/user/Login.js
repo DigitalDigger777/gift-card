@@ -55,7 +55,7 @@ export default class ChangeName extends React.Component {
             if (!orderProcess) {
                 window.location = '/#/';
             } else {
-                window.location = this.state.baseUrl + 'payment.php';
+                window.location = '/payment.php';
             }
 
         })

@@ -64,7 +64,7 @@ export default class GiftCardModal extends React.Component {
         window.localStorage.setItem('order_gift_card_id', id);
 
         if (this.state.token) {
-            window.location = this.state.baseUrl + 'payment.php';
+            window.location = '/payment.php';
         } else {
             window.localStorage.setItem('order_process', 1);
             window.localStorage.setItem('order_shopper_id', this.state.shopperId);
@@ -77,7 +77,7 @@ export default class GiftCardModal extends React.Component {
         window.localStorage.setItem('order_amount', amount);
         window.localStorage.setItem('isGroupBuy', true);
         if (this.state.token) {
-            window.location = this.state.baseUrl + 'payment.php';
+            window.location = '/payment.php';
         } else {
             window.localStorage.setItem('order_process', 1);
             window.localStorage.setItem('order_shopper_id', this.state.shopperId);
