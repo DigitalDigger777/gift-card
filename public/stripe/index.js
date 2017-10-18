@@ -97,11 +97,19 @@ function registerElements(elements, exampleName) {
 
               amountVal = amountVal ? (parseFloat(amountVal) * 100) : '0';
 
+              //userToken
               var amount = document.createElement('input');
               amount.setAttribute('type', 'hidden');
               amount.setAttribute('name', 'amount');
               amount.setAttribute('value', amountVal);
               form.appendChild(amount);
+
+              var token = window.localStorage.getItem('token');
+              var userToken = document.createElement('input');
+              userToken.setAttribute('type', 'hidden');
+              userToken.setAttribute('name', 'userToken');
+              userToken.setAttribute('value', token);
+              form.appendChild(userToken);
 
               window.localStorage.removeItem('order_amount');
               window.localStorage.removeItem('isFriendBuy');
