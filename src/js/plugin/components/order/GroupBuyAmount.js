@@ -47,7 +47,6 @@ export default class GroupBuyAmount extends React.Component {
             window.location = '/payment.php';
         } else {
             window.localStorage.setItem('order_process', 1);
-            window.localStorage.setItem('order_shopper_id', this.state.shopperId);
             window.location = '/#/login';
         }
     }
