@@ -8,7 +8,7 @@
     <title>Payment</title>
 
     <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
-    <script src="/stripe/index.js?v=1.0"></script>
+    <script src="/stripe/index.js?v=1.2"></script>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">

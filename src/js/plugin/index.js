@@ -48,9 +48,9 @@ ReactDOM.render(<Index/>, document.getElementById('root'));
 
 (function($){
     $('document').ready(function () {
-        const shopperId = $($('[data-gift-card]')[1]).attr('data-gift-card');
+        //const shopperId = $($('[data-gift-card]')[1]).attr('data-gift-card');
 
-        window.localStorage.setItem('shopperId', shopperId);
+        //window.localStorage.setItem('shopperId', shopperId);
 
         $('[data-gift-card]').click(function (e) {
             e.preventDefault();
