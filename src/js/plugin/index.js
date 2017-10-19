@@ -28,6 +28,7 @@ export default class Index extends React.Component{
             <HashRouter history={hashHistory}>
                 <div>
                     <Route exact path="/:shopperId" component={GiftCardModal}/>
+                    <Route exact path="/order/how-much" component={GroupBuyAmount}/>
                     <Route exact path="/friend-buy/:giftCardGroupBuyId" component={GiftCardFriendBuy}/>
                     <Route exact path="/payment-confirm/:giftCardId" component={PaymentConfirm}/>
                     <Route exact path="/payment-confirm-group-buy/:giftCardId/:giftCardGroupBuyId" component={PaymentConfirmGroupBuy}/>
@@ -46,17 +47,17 @@ export default class Index extends React.Component{
 
 ReactDOM.render(<Index/>, document.getElementById('root'));
 
-(function($){
-    $('document').ready(function () {
-        //const shopperId = $($('[data-gift-card]')[1]).attr('data-gift-card');
-
-        //window.localStorage.setItem('shopperId', shopperId);
-
-        $('[data-gift-card]').click(function (e) {
-            e.preventDefault();
-
-            $('#plugin').modal('show');
-        });
-    });
-})(jQuery);
-
+// (function($){
+//     $('document').ready(function () {
+//         //const shopperId = $($('[data-gift-card]')[1]).attr('data-gift-card');
+//
+//         //window.localStorage.setItem('shopperId', shopperId);
+//
+//         $('[data-gift-card]').click(function (e) {
+//             e.preventDefault();
+//
+//             $('#plugin').modal('show');
+//         });
+//     });
+// })(jQuery);
+//

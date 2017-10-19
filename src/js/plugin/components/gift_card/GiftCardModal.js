@@ -53,9 +53,10 @@ export default class GiftCardModal extends React.Component {
     }
 
     startGroupBuy(e, id){
-        $('#plugin').modal('hide');
-        $('#plugin-how-much').modal('show');
+        //$('#plugin').modal('hide');
+        //$('#plugin-how-much').modal('show');
         window.localStorage.setItem('order_gift_card_id', id);
+        window.location = '/order.php/#/order/how-much';
     }
 
     buyNow(e, giftCardValue, id) {
@@ -70,25 +71,6 @@ export default class GiftCardModal extends React.Component {
             window.localStorage.setItem('order_shopper_id', this.state.shopperId);
             window.location = '/#/login';
         }
-    }
-
-    pay() {
-        const amount = this.state.amount;
-        window.localStorage.setItem('order_amount', amount);
-        window.localStorage.setItem('isGroupBuy', true);
-        if (this.state.token) {
-            window.location = '/payment.php';
-        } else {
-            window.localStorage.setItem('order_process', 1);
-            window.localStorage.setItem('order_shopper_id', this.state.shopperId);
-            window.location = '/#/login';
-        }
-    }
-
-    changeHowMach(e) {
-        this.setState({
-            amount: e.target.value
-        });
     }
 
     render(){
@@ -217,41 +199,41 @@ export default class GiftCardModal extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="modal w-100" id="plugin-how-much">
-                        <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title">Drizzle: Buy Gift Card with friends and saving!</h5>
-                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div className="modal-body">
-                                    <div className="row">
-                                        <div className="col">
-                                            <form action="">
-                                                <div className="form-row">
+                    {/*<div className="modal w-100" id="plugin-how-much">*/}
+                        {/*<div className="modal-dialog" role="document">*/}
+                            {/*<div className="modal-content">*/}
+                                {/*<div className="modal-header">*/}
+                                    {/*<h5 className="modal-title">Drizzle: Buy Gift Card with friends and saving!</h5>*/}
+                                    {/*<button type="button" className="close" data-dismiss="modal" aria-label="Close">*/}
+                                        {/*<span aria-hidden="true">&times;</span>*/}
+                                    {/*</button>*/}
+                                {/*</div>*/}
+                                {/*<div className="modal-body">*/}
+                                    {/*<div className="row">*/}
+                                        {/*<div className="col">*/}
+                                            {/*<form action="">*/}
+                                                {/*<div className="form-row">*/}
 
-                                                </div>
-                                                <div className="form-row">
-                                                    <div className="form-group col">
-                                                        <label for="amount" className="col-form-label">How much you want to buy: </label>
-                                                        <input type="number" className="form-control" id="amount" placeholder="" onChange={ e => this.changeHowMach(e) }/>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div className="row justify-content-center">
-                                        <div className="col-4">
-                                            <button className="btn btn-success gift-card-cart-btn-pay" style={{width: '100%'}} onClick={this.pay.bind(this)}>Pay</button>
-                                        </div>
-                                    </div>
-                                </div>
+                                                {/*</div>*/}
+                                                {/*<div className="form-row">*/}
+                                                    {/*<div className="form-group col">*/}
+                                                        {/*<label for="amount" className="col-form-label">How much you want to buy: </label>*/}
+                                                        {/*<input type="number" className="form-control" id="amount" placeholder="" onChange={ e => this.changeHowMach(e) }/>*/}
+                                                    {/*</div>*/}
+                                                {/*</div>*/}
+                                            {/*</form>*/}
+                                        {/*</div>*/}
+                                    {/*</div>*/}
+                                    {/*<div className="row justify-content-center">*/}
+                                        {/*<div className="col-4">*/}
+                                            {/*<button className="btn btn-success gift-card-cart-btn-pay" style={{width: '100%'}} onClick={this.pay.bind(this)}>Pay</button>*/}
+                                        {/*</div>*/}
+                                    {/*</div>*/}
+                                {/*</div>*/}
 
-                            </div>
-                        </div>
-                    </div>
+                            {/*</div>*/}
+                        {/*</div>*/}
+                    {/*</div>*/}
                 </div>
             );
         } else {
