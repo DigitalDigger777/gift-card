@@ -49,6 +49,12 @@ export default class PaymentConfirm extends React.Component {
                                         Now you can
                                     </div>
                                 </div>
+                                <div className="row justify-content-center">
+                                    <div className="col" style={{textAlign: 'center'}}>
+                                        <a href="https://drizzle.jjpanda.com/">Access your gift card</a>
+                                    </div>
+                                </div>
+                                {/*http://drizzle.jjpanda.com/*/}
                                 {/*<div className="row actions">*/}
                                     {/*<div className="col">*/}
                                         {/*Ask your friend to buy it together*/}
