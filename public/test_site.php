@@ -17,7 +17,7 @@
 </head>
 <body>
 <div class="container">
-    <a class="btn btn-success" href="https://drizzle.jjpanda.com/order.php/#/63">Gift Card</a>
+    <a class="btn btn-success" href="/order.php/#/63">Gift Card</a>
 </div>
 <div id="root" class="container"></div>
 <div id="root1" class="container"></div>
