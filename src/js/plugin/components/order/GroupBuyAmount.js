@@ -14,7 +14,8 @@ export default class GroupBuyAmount extends React.Component {
         this.state = {
             id: props.match.params.id,
             baseUrl: config.baseUrl,
-            iterator: 0
+            iterator: 0,
+            amount: 0
         }
     }
 
@@ -52,6 +53,7 @@ export default class GroupBuyAmount extends React.Component {
     }
 
     changeHowMach(e) {
+        console.log(e.target.value);
         this.setState({
             amount: e.target.value
         });
