@@ -59,7 +59,7 @@ export default class PaymentConfirmGroupBuy extends React.Component {
                                         Ask your friend to buy it together
                                     </div>
                                     <div className="col">
-                                        Check Group buy status
+                                        <a href="https://drizzle.jjpanda.com/">Check Group buy status</a>
                                     </div>
                                 </div>
                                 <div className="row social">
