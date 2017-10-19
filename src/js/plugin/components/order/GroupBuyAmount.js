@@ -15,7 +15,7 @@ export default class GroupBuyAmount extends React.Component {
             id: props.match.params.id,
             baseUrl: config.baseUrl,
             iterator: 0,
-            amount: 0
+            amount: 25
         }
     }
 
@@ -85,8 +85,9 @@ export default class GroupBuyAmount extends React.Component {
                                             </div>
                                             <div className="form-row">
                                                 <div className="form-group col">
-                                                    <label for="how-mach" className="col-form-label">How much you want
-                                                        to buy: </label>
+                                                    <label for="how-mach" className="col-form-label">
+                                                        How much you want to buy:
+                                                    </label>
                                                     <select className="form-control" id="how-mach" name="how-mach" onChange={ e => this.changeHowMach(e) }>
                                                         {options}
                                                     </select>
