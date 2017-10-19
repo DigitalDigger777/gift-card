@@ -87,7 +87,7 @@ export default class GroupBuyAmount extends React.Component {
                                                 <div className="form-group col">
                                                     <label for="how-mach" className="col-form-label">How much you want
                                                         to buy: </label>
-                                                    <select className="form-control" id="how-mach" name="how-mach">
+                                                    <select className="form-control" id="how-mach" name="how-mach" onChange={ e => this.changeHowMach(e) }>
                                                         {options}
                                                     </select>
                                                 </div>
