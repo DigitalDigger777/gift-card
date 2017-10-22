@@ -28,9 +28,11 @@ export default class BalanceList extends React.Component {
     }
 
     componentWillMount(){
-        axios.get(this.state.baseUrl + 'store-credit/transaction/rest/0', {
+        const token = window.localStorage.getItem('token');
+
+        axios.get(this.state.baseUrl + 'gift-card/rest/shopper-balance/0', {
             params: {
-                shopperId: this.state.shopperId,
+                token: token,
                 method: 'LIST'
             }
         })
