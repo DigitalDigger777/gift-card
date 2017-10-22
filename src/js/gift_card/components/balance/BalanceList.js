@@ -23,7 +23,8 @@ export default class BalanceList extends React.Component {
         const config = new Config();
         this.state = {
             shopperId: props.match.params.shopperId,
-            baseUrl: config.baseUrl
+            baseUrl: config.baseUrl,
+            items: []
         };
     }
 
@@ -36,6 +37,7 @@ export default class BalanceList extends React.Component {
         })
             .then(response => {
                 console.log(response);
+                this.state.items = response.data;
             })
             .catch(error => {
                 console.log(error);
@@ -43,45 +45,49 @@ export default class BalanceList extends React.Component {
     }
 
     render(){
+
         return (
             <section>
                 <Header/>
                 <section>
                     <InfiniteLoader/>
                     <Page className="page gift-card-list" infiniteLoader={true}>
+                        { this.state.items.map( item =>
+                                <MediaBox className="card" type="appmsg">
+                                    <MediaBoxBody>
+                                        <MediaBoxTitle>
+                                            <Cell access>
+                                                <CellBody>
+                                                    Group buy bought $40 Gift Card
+                                                </CellBody>
+                                            </Cell>
+                                        </MediaBoxTitle>
+                                        <div className="weui-media-box__desc">
+                                            <div className="cardBody">
+                                                <Flex>
+                                                    <FlexItem>Time: 2017/10/11 17:53</FlexItem>
+                                                </Flex>
+                                                <Flex>
+                                                    <FlexItem>Paid: $36.00</FlexItem>
+                                                </Flex>
+                                                <Flex>
+                                                    <FlexItem>Type: Group Buy</FlexItem>
+                                                    {/*<FlexItem>Type: Spend In Store</FlexItem>*/}
+                                                    {/*<FlexItem>Type: Direct Buy</FlexItem>*/}
+                                                </Flex>
+                                                <Flex>
+                                                    <FlexItem>Previous Balance: $2.30</FlexItem>
+                                                </Flex>
+                                                <Flex>
+                                                    <FlexItem>New Balance: $42.30</FlexItem>
+                                                </Flex>
+                                            </div>
+                                        </div>
+                                    </MediaBoxBody>
+                                </MediaBox>
+                            )
+                        }
 
-                        <MediaBox className="card" type="appmsg">
-                            <MediaBoxBody>
-                                <MediaBoxTitle>
-                                    <Cell access>
-                                        <CellBody>
-                                            Group buy bought $40 Gift Card
-                                        </CellBody>
-                                    </Cell>
-                                </MediaBoxTitle>
-                                <div className="weui-media-box__desc">
-                                    <div className="cardBody">
-                                        <Flex>
-                                            <FlexItem>Time: 2017/10/11 17:53</FlexItem>
-                                        </Flex>
-                                        <Flex>
-                                            <FlexItem>Paid: $36.00</FlexItem>
-                                        </Flex>
-                                        <Flex>
-                                            <FlexItem>Type: Group Buy</FlexItem>
-                                            {/*<FlexItem>Type: Spend In Store</FlexItem>*/}
-                                            {/*<FlexItem>Type: Direct Buy</FlexItem>*/}
-                                        </Flex>
-                                        <Flex>
-                                            <FlexItem>Previous Balance: $2.30</FlexItem>
-                                        </Flex>
-                                        <Flex>
-                                            <FlexItem>New Balance: $42.30</FlexItem>
-                                        </Flex>
-                                    </div>
-                                </div>
-                            </MediaBoxBody>
-                        </MediaBox>
 
 
                         <Menu/>
