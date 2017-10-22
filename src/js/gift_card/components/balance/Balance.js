@@ -63,7 +63,7 @@ export default class Balance extends React.Component {
                                                 <CellBody>
                                                     {item.shopper.name}
                                                     <Flex>
-                                                        <FlexItem>Balance: ${item.balance}</FlexItem>
+                                                        <FlexItem>Balance: ${item.balance/100}</FlexItem>
                                                     </Flex>
                                                 </CellBody>
                                                 <CellFooter/>
