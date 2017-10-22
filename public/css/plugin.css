@@ -45,6 +45,7 @@ body{
     border-width: 3px;
     border-color: #F8F8F8;
     padding: 10px;
+    cursor: pointer;
 }
 
 .circle {

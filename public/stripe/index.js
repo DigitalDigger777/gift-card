@@ -90,6 +90,7 @@ function registerElements(elements, exampleName) {
               form.appendChild(hiddenInput);
 
               var giftCardId  = window.localStorage.getItem('order_gift_card_id');
+              var isBuyNow    = window.localStorage.getItem('isBuyNow');
               var isGroupBuy  = window.localStorage.getItem('isGroupBuy');
               var isFriendBuy = window.localStorage.getItem('isFriendBuy');
               var groupBuyId  = window.localStorage.getItem('order_group_buy_id');
@@ -143,6 +144,14 @@ function registerElements(elements, exampleName) {
                       isGroupBuyEl.setAttribute('name', 'isGroupBuy');
                       isGroupBuyEl.setAttribute('value', '1');
                       form.appendChild(isGroupBuyEl);
+                  }
+
+                  if (isBuyNow) {
+                      var isBuyNowEl = document.createElement('input');
+                      isBuyNowEl.setAttribute('type', 'hidden');
+                      isBuyNowEl.setAttribute('name', 'isBuyNow');
+                      isBuyNowEl.setAttribute('value', '1');
+                      form.appendChild(isBuyNowEl);
                   }
 
                   if (giftCardId) {

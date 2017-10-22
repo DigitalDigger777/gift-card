@@ -22,7 +22,8 @@ export default class GiftCardModal extends React.Component {
             shopper: '',
             baseUrl: config.baseUrl,
             items: [],
-            amount: 0
+            amount: 0,
+            iterator: 0
         }
     }
 
@@ -42,7 +43,8 @@ export default class GiftCardModal extends React.Component {
                 ];
 
                 this.setState({
-                    items: items
+                    items: items,
+                    iterator: response.data.giftCardValue/25
                 });
                 $('#plugin').modal('show');
 
@@ -62,6 +64,7 @@ export default class GiftCardModal extends React.Component {
 
     buyNow(e, giftCardValue, id) {
         window.localStorage.removeItem('isGroupBuy');
+        window.localStorage.setItem('isBuyNow', 1);
         window.localStorage.setItem('order_amount', giftCardValue);
         window.localStorage.setItem('order_gift_card_id', id);
 
@@ -74,8 +77,49 @@ export default class GiftCardModal extends React.Component {
         }
     }
 
+    buyNowOtherAmount(e, amount){
+        window.localStorage.removeItem('isGroupBuy');
+        window.localStorage.setItem('isBuyNow', 1);
+        window.localStorage.setItem('order_amount', amount);
+        window.localStorage.setItem('order_gift_card_id', 0);
+
+        if (this.state.token) {
+            window.location = '/payment.php';
+        } else {
+            window.localStorage.setItem('order_process', 1);
+            window.localStorage.setItem('order_shopper_id', this.state.shopperId);
+            window.location = '/#/login';
+        }
+    }
+
+    selectAmount(e, amount) {
+
+        const _amount = amount ? amount : e.target.value;
+        this.setState({
+            amount: _amount
+        });
+    }
+
     render(){
         if (this.state.items.length > 0) {
+            let amounts = [];
+
+            for(let i = 1; i <= 3; i++) {
+                amounts.push(
+                    <div key={i} className="col">
+                        <span className="amount" onClick={(e, amount) => this.selectAmount(e, i * 25)}>${i * 25}</span>
+                    </div>
+                );
+            }
+
+            let buyNowAmounts = [];
+
+            for(let i = 1; i <= 20; i++) {
+                buyNowAmounts.push(
+                    <option key={i} value={i * 25}>${i * 25}</option>
+                );
+            }
+
             return (
                 <div>
                     <div className="modal w-100" id="plugin">
@@ -141,19 +185,19 @@ export default class GiftCardModal extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="row gift-card-row center">
+                                                {amounts}
+                                            </div>
+                                            <div className="row gift-card-row">
                                                 <div className="col">
-                                                    <span className="amount">$25</span>
-                                                </div>
-                                                <div className="col">
-                                                    <span className="amount">$50</span>
-                                                </div>
-                                                <div className="col">
-                                                    <span className="amount">$75</span>
+                                                    <select value={this.state.amount} className="form-control" onChange={(e, amount) => this.selectAmount(e, null)} style={{width: '200px', margin: '0 auto'}}>
+                                                        <option></option>
+                                                        {buyNowAmounts}
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div className="row gift-card-row center">
                                                 <div className="col">
-                                                    <button className="btn btn-success">Buy Now</button>
+                                                    <button className="btn btn-success" onClick={ (e, amount) => this.buyNowOtherAmount(e, this.state.amount)}>Buy Now</button>
                                                 </div>
                                             </div>
                                         </div>

@@ -8,6 +8,7 @@ import axios from 'axios';
 import Config from '../Config';
 
 export default class GroupBuyAmount extends React.Component {
+
     constructor(props) {
         super(props);
         const config = new Config();
