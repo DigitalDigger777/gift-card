@@ -28,7 +28,7 @@ export default class BalanceList extends React.Component {
     }
 
     componentWillMount(){
-        axios.get(this.state.baseUrl + 'store-credit/transaction/rest/0', {
+        axios.get(this.state.baseUrl + 'gift-card/rest/transaction/0', {
             params: {
                 shopperId: this.state.shopperId,
                 method: 'LIST'
