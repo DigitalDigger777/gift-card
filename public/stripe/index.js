@@ -152,6 +152,13 @@ function registerElements(elements, exampleName) {
                       isBuyNowEl.setAttribute('name', 'isBuyNow');
                       isBuyNowEl.setAttribute('value', '1');
                       form.appendChild(isBuyNowEl);
+
+                      var shopperId = window.localStorage.getItem('order_shopper_id');
+                      var shopperIdEl = document.createElement('input');
+                      shopperIdEl.setAttribute('type', 'hidden');
+                      shopperIdEl.setAttribute('name', 'shopperId');
+                      shopperIdEl.setAttribute('value', shopperId);
+                      form.appendChild(shopperIdEl);
                   }
 
                   if (giftCardId) {
