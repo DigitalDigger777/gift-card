@@ -63,8 +63,8 @@ export default class BalanceList extends React.Component {
                     <section>
                         <InfiniteLoader/>
                         <Page className="page gift-card-list" infiniteLoader={true}>
-                            { this.state.items.map(item =>
-                                <MediaBox className="card" type="appmsg">
+                            { this.state.items.map((item, i) =>
+                                <MediaBox key={i} className="card" type="appmsg">
                                     <MediaBoxBody>
                                         <MediaBoxTitle>
                                             <Cell access>
