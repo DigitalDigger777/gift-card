@@ -69,17 +69,17 @@ export default class BalanceList extends React.Component {
                                         <MediaBoxTitle>
                                             <Cell access>
                                                 <CellBody>
-                                                    Group buy bought $40 Gift Card
+                                                    {item[0].transactionRoute == 1 ? 'Refill' : 'Reduce' }
                                                 </CellBody>
                                             </Cell>
                                         </MediaBoxTitle>
                                         <div className="weui-media-box__desc">
                                             <div className="cardBody">
                                                 <Flex>
-                                                    <FlexItem>Time: 2017/10/11 17:53</FlexItem>
+                                                    <FlexItem>Time: {item[1]}</FlexItem>
                                                 </Flex>
                                                 <Flex>
-                                                    <FlexItem>Paid: $36.00</FlexItem>
+                                                    <FlexItem>Paid: ${ item[0].transactionValue }</FlexItem>
                                                 </Flex>
                                                 <Flex>
                                                     <FlexItem>Type: Group Buy</FlexItem>
