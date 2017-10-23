@@ -25,11 +25,14 @@ export default class BalanceList extends React.Component {
             shopperId: props.match.params.shopperId,
             baseUrl: config.baseUrl,
             items: [],
-            showLoading: true
+            showLoading: false
         };
     }
 
     componentWillMount(){
+        this.setState({
+            showLoading: true
+        });
         axios.get(this.state.baseUrl + 'gift-card/rest/transaction/0', {
             params: {
                 shopperId: this.state.shopperId,
@@ -38,12 +41,16 @@ export default class BalanceList extends React.Component {
         })
             .then(response => {
                 console.log(response);
-                this.state.items = response.data;
-                this.state.showLoading = false;
+                this.setState({
+                    items: response.data,
+                    showLoading: false
+                });
             })
             .catch(error => {
                 console.log(error);
-                this.state.showLoading = false;
+                this.setState({
+                    showLoading: false
+                });
             });
     }
 
