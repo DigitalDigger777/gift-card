@@ -82,15 +82,15 @@ export default class BalanceList extends React.Component {
                                                     <FlexItem>Paid: ${ item[0].transactionValue }</FlexItem>
                                                 </Flex>
                                                 <Flex>
-                                                    <FlexItem>Type: Group Buy</FlexItem>
+                                                    <FlexItem>Type: {item[0].transactionRoute == 1 ? 'Refill' : 'Reduce' }</FlexItem>
                                                     {/*<FlexItem>Type: Spend In Store</FlexItem>*/}
                                                     {/*<FlexItem>Type: Direct Buy</FlexItem>*/}
                                                 </Flex>
                                                 <Flex>
-                                                    <FlexItem>Previous Balance: $2.30</FlexItem>
+                                                    <FlexItem>Previous Balance: ${item[0].prevBalance}</FlexItem>
                                                 </Flex>
                                                 <Flex>
-                                                    <FlexItem>New Balance: $42.30</FlexItem>
+                                                    <FlexItem>New Balance: ${item[0].newBalance}</FlexItem>
                                                 </Flex>
                                             </div>
                                         </div>
