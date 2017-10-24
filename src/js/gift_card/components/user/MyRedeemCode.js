@@ -9,15 +9,17 @@ import Menu from '../core/Menu';
 import Header from '../core/Header';
 import {Page, Form, FormCell, Cells, Cell, CellBody, CellFooter, Toast} from 'react-weui';
 
-export default class MyAccount extends React.Component {
+export default class MyRedeemCode extends React.Component {
     constructor(props) {
         super(props);
         const config = new Config();
 
         this.state = {
+            userId:         '',
             firstName:      '',
             lastName:       '',
             email:          '',
+            token:          window.localStorage.getItem('token'),
             showLoading:    true,
             baseUrl:        config.baseUrl
         }
@@ -36,6 +38,7 @@ export default class MyAccount extends React.Component {
                     console.log(response);
 
                     this.setState({
+                        userId: response.data.id,
                         nickname:  response.data.socialDataProfile.nickname,
                         email:     response.data.email,
                         showLoading: false
@@ -43,7 +46,8 @@ export default class MyAccount extends React.Component {
                 })
                 .catch(error => {
                     console.log(error);
-                })
+                });
+
         }
     }
 
@@ -51,37 +55,14 @@ export default class MyAccount extends React.Component {
 
         if (this.state.email != '' && typeof this.state.email != 'undefined') {
 
+
             return (
                 <section>
                     <Header/>
                     <section>
                         <Page className="page">
                             <h1 style={{textAlign: 'center'}}>{this.state.nickname}</h1>
-                            <Cells>
-                                <Cell access href="/#/change-name">
-                                    <CellBody>
-                                        Name: {this.state.nickname}
-                                    </CellBody>
-                                    <CellFooter/>
-                                </Cell>
-                                <Cell access>
-                                    <CellBody>
-                                        Email: {this.state.email}
-                                    </CellBody>
-                                </Cell>
-                                <Cell access href="/#/change-password">
-                                    <CellBody>
-                                        Change Password
-                                    </CellBody>
-                                    <CellFooter/>
-                                </Cell>
-                                <Cell access href="/#/my-redeem-code">
-                                    <CellBody>
-                                        Your redeem code
-                                    </CellBody>
-                                    <CellFooter/>
-                                </Cell>
-                            </Cells>
+                            <img src={this.state.baseUrl + `gift-card/consumer-qr-generate?token=${this.state.token}`} style={{margin: '0 auto', display: 'block'}}/>
                             <Menu/>
                         </Page>
                     </section>
