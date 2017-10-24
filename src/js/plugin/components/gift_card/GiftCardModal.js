@@ -149,7 +149,7 @@ export default class GiftCardModal extends React.Component {
                                                         </div>
                                                         <div className="row gift-card-row center">
                                                             <div className="col">
-                                                                Sell: ${item.giftCardValue}
+                                                                Sell: ${item.giftCardValue - (item.giftCardValue * item.giftCardDiscount/100)}
                                                             </div>
                                                         </div>
                                                         <div className="row gift-card-row">
