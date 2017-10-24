@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import Config from '../Config';
 import axios from 'axios';
-import {Page, Form, FormCell, CellBody, CellHeader,
+import {Page, Form, FormCell, CellBody, CellHeader, CellFooter, Icon,
         Label, Input, ButtonArea, Button, Flex, FlexItem, Toast} from 'react-weui';
 
 export default class ChangeName extends React.Component {
@@ -17,6 +17,8 @@ export default class ChangeName extends React.Component {
             email: '',
             password: '',
             showLoading: false,
+            showWarningEmail: false,
+            showWarningPassword: false,
             baseUrl: config.baseUrl
         }
     }
@@ -34,9 +36,11 @@ export default class ChangeName extends React.Component {
     }
 
     login() {
+
         this.setState({
             showLoading: true
         });
+
 
         axios.post(this.state.baseUrl + 'gift-card/rest/consumer/login', {
             email: this.state.email,
@@ -46,7 +50,9 @@ export default class ChangeName extends React.Component {
             console.log(response);
             window.localStorage.setItem('token', response.data.token);
             this.setState({
-                showLoading: false
+                showLoading: false,
+                showWarningEmail: false,
+                showWarningPassword: false
             });
 
             // const orderShopperId = window.localStorage.getItem('order_shopper_id');
@@ -62,7 +68,9 @@ export default class ChangeName extends React.Component {
         .catch(error => {
             console.log(error);
             this.setState({
-                showLoading: false
+                showLoading: false,
+                showWarningEmail: true,
+                showWarningPassword: true
             });
         });
     }
@@ -74,21 +82,27 @@ export default class ChangeName extends React.Component {
                     <h4>Drizzle</h4>
                     <p>Buy gift card with friends and saving!</p>
                     <Form>
-                        <FormCell>
+                        <FormCell warn={this.state.showWarningEmail}>
                             <CellHeader>
                                 <Label>Email</Label>
                             </CellHeader>
                             <CellBody>
                                 <Input type="text" placeholder="Enter email" onChange={ e => this.updateEmail(e)}/>
                             </CellBody>
+                            <CellFooter>
+                                <Icon value="warn" />
+                            </CellFooter>
                         </FormCell>
-                        <FormCell>
+                        <FormCell warn={this.state.showWarningPassword}>
                             <CellHeader>
                                 <Label>Password</Label>
                             </CellHeader>
                             <CellBody>
                                 <Input type="password" placeholder="Enter Password"  onChange={ e => this.updatePassword(e)}/>
                             </CellBody>
+                            <CellFooter>
+                                <Icon value="warn" />
+                            </CellFooter>
                         </FormCell>
                     </Form>
                     <Flex className="weui-flex login-footer">
@@ -103,6 +117,7 @@ export default class ChangeName extends React.Component {
                         <Button onClick={this.login.bind(this)}>Login</Button>
                     </ButtonArea>
                     <Toast icon="loading" show={this.state.showLoading}>Loading...</Toast>
+                    <Toast icon="warn" show={this.state.showWarning}>Loading...</Toast>
                 </Page>
             </section>
         );

@@ -9,7 +9,7 @@ import Config from '../Config';
 import Menu from '../core/Menu';
 import Header from '../core/Header';
 import {Page, Form,
-        FormCell, CellBody, CellHeader,
+        FormCell, CellBody, CellHeader, CellFooter, Icon,
         Label, Input, ButtonArea, Button, Toast} from 'react-weui';
 
 export default class Registration extends React.Component {
@@ -18,12 +18,18 @@ export default class Registration extends React.Component {
         const config = new Config();
 
         this.state = {
-            showLoading: false,
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            baseUrl: config.baseUrl
+            showLoading:          false,
+            showWarningEmail:     false,
+            showWarningFirstName: false,
+            showWarningLastName:  false,
+            showWarningPassword:  false,
+            firstName:            '',
+            lastName:             '',
+            email:                '',
+            password:             '',
+            baseUrl:              config.baseUrl,
+            showWarningToast:     false,
+            warningToastMessage:  ''
         };
     }
 
@@ -31,27 +37,94 @@ export default class Registration extends React.Component {
         this.setState({showLoading: true});
 
         this.state.loadingTimer = setTimeout(()=> {
-            this.setState({showLoading: false});
+            this.setState({
+                showLoading: false
+            });
         }, 2000);
     }
 
     save() {
-        this.setState({showLoading: true});
 
-        axios.post(this.state.baseUrl + 'gift-card/rest/consumer/0', {
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            email: this.state.email,
-            password: this.state.password
-        })
-        .then(response => {
-            this.setState({showLoading: false});
-            window.location = '/#/login';
-        })
-        .catch(function(error){
-            console.log(error);
-            this.setState({showLoading: false});
-        });
+        let allowSave = true;
+
+        if (this.state.firstName == '') {
+            this.setState({
+                showWarningFirstName: true
+            });
+            allowSave = false;
+        } else {
+            this.setState({
+                showWarningFirstName: false
+            });
+        }
+
+        if (this.state.lastName == '') {
+            this.setState({
+                showWarningLastName: true
+            });
+            allowSave = false;
+        } else {
+            this.setState({
+                showWarningLastName: false
+            });
+        }
+
+        if (this.state.email == '') {
+            this.setState({
+                showWarningEmail: true
+            });
+            allowSave = false;
+        } else {
+            this.setState({
+                showWarningEmail: false
+            });
+        }
+
+        if (this.state.password == '') {
+            this.setState({
+                showWarningPassword: true
+            });
+            allowSave = false;
+        } else {
+            this.setState({
+                showWarningPassword: false
+            });
+        }
+
+        if (allowSave) {
+            this.setState({
+                showLoading: true
+            });
+
+            axios.post(this.state.baseUrl + 'gift-card/rest/consumer/0', {
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                email: this.state.email,
+                password: this.state.password
+            })
+                .then(response => {
+                    this.setState({
+                        showLoading: false,
+                        showWarningEmail: false
+                    });
+                    window.location = '/#/login';
+                })
+                .catch(error => {
+                    console.log(error.response.data.message);
+                    this.setState({
+                        showLoading: false,
+                        showWarningEmail: true,
+                        showWarningToast: true,
+                        warningToastMessage: error.response.data.message
+                    });
+
+                    setTimeout(() => {
+                        this.setState({
+                            showWarningToast: false
+                        });
+                    }, 3000);
+                });
+        }
     }
 
     updateFirstName(e) {
@@ -85,37 +158,49 @@ export default class Registration extends React.Component {
                 <section>
                     <Page className="page">
                         <Form>
-                            <FormCell>
+                            <FormCell warn={this.state.showWarningFirstName}>
                                 <CellHeader>
                                     <Label>First Name</Label>
                                 </CellHeader>
                                 <CellBody>
                                     <Input type="text" name="firstName" placeholder="Enter First Name" onChange={e => this.updateFirstName(e) }/>
                                 </CellBody>
+                                <CellFooter>
+                                    <Icon value="warn" />
+                                </CellFooter>
                             </FormCell>
-                            <FormCell>
+                            <FormCell warn={this.state.showWarningLastName}>
                                 <CellHeader>
                                     <Label>Last Name</Label>
                                 </CellHeader>
                                 <CellBody>
                                     <Input type="text" name="lastName" placeholder="Enter Last Name" onChange={e => this.updateLastName(e) }/>
                                 </CellBody>
+                                <CellFooter>
+                                    <Icon value="warn" />
+                                </CellFooter>
                             </FormCell>
-                            <FormCell>
+                            <FormCell warn={this.state.showWarningEmail}>
                                 <CellHeader>
                                     <Label>Email</Label>
                                 </CellHeader>
                                 <CellBody>
                                     <Input type="email" name="email" placeholder="Enter Email" onChange={e => this.updateEmail(e) }/>
                                 </CellBody>
+                                <CellFooter>
+                                    <Icon value="warn" />
+                                </CellFooter>
                             </FormCell>
-                            <FormCell>
+                            <FormCell warn={this.state.showWarningPassword}>
                                 <CellHeader>
                                     <Label>Password</Label>
                                 </CellHeader>
                                 <CellBody>
                                     <Input type="password" name="password" placeholder="Enter Password" onChange={e => this.updatePassword(e) }/>
                                 </CellBody>
+                                <CellFooter>
+                                    <Icon value="warn" />
+                                </CellFooter>
                             </FormCell>
                         </Form>
 
@@ -123,6 +208,7 @@ export default class Registration extends React.Component {
                             <Button onClick={this.save.bind(this)}>Save</Button>
                         </ButtonArea>
                         <Toast icon="loading" show={this.state.showLoading}>Loading...</Toast>
+                        <Toast icon="warn" show={this.state.showWarningToast}>{this.state.warningToastMessage}</Toast>
                         {/*<Menu/>*/}
                     </Page>
                 </section>
