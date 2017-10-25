@@ -76,7 +76,7 @@ export default class GiftCardList extends React.Component {
                                         <MediaBoxHeader>{appMsgIcon}</MediaBoxHeader>
                                         <MediaBoxBody>
                                             <MediaBoxTitle>
-                                                <Cell access href={`/#/gift-card/${item.id}`}>
+                                                <Cell access href={`/#/gift-card/${item.giftCardGroupBuy.id}`}>
                                                     <CellBody>
                                                         {item.giftCardGroupBuy.giftCard.shopper.name}
                                                     </CellBody>
@@ -89,7 +89,7 @@ export default class GiftCardList extends React.Component {
                                                         <FlexItem>${item.giftCardGroupBuy.giftCard.giftCardValue} Gift Card</FlexItem>
                                                     </Flex>
                                                     <Flex>
-                                                        <FlexItem>Sell: <span className="price">${item.amount}</span></FlexItem>
+                                                        <FlexItem>Sell: <span className="price">${item.giftCardGroupBuy.giftCard.giftCardValue }</span></FlexItem>
                                                         <FlexItem className="status">
                                                             <Badge className="badge-ongoing" preset="body">
                                                                 Ongoing

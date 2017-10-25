@@ -25,9 +25,12 @@ export default class GiftCard extends React.Component {
         this.state = {
             id: props.match.params.id,
             shopper: '',
+            timeLeft: '',
             showLoading: false,
             baseUrl: config.baseUrl
-        }
+        };
+
+        this.timer = this.timer.bind(this);
     }
 
     componentWillMount(){
@@ -35,29 +38,91 @@ export default class GiftCard extends React.Component {
             showLoading: true
         });
 
-        axios.get(this.state.baseUrl + 'gift-card/rest/partner/' + this.state.id)
+        axios.get(this.state.baseUrl + 'gift-card/rest/group-buy/' + this.state.id)
             .then(response => {
-                console.log(response);
-                let sell = 0;
-                // response.data.partners.map(item => {
-                //     sell += item.amount;
-                // });
+                //         let sell = 0;
+                //         // response.data.partners.map(item => {
+                //         //     sell += item.amount;
+                //         // });
+                //
+                const bought = response.data.bought ? response.data.bought : 0;
 
                 this.setState({
-                    shopper: response.data.giftCardGroupBuy.giftCard.shopper.name,
-                    giftCardValue: response.data.giftCardGroupBuy.giftCard.giftCardValue,
-                    owner: response.data.giftCardGroupBuy.ownerConsumer.socialDataProfile.nickname,
-                    totalUsers: 0,
-                    sell: sell,
-                    percentOfGoal: function(){
-                        return Math.round(sell/(response.data.giftCardGroupBuy.giftCard.giftCardValue/100), 2);
-                    }(),
-                    showLoading: false
+                    shopper:        response.data.giftCard.shopper.name,
+                    giftCardValue:  response.data.giftCard.giftCardValue,
+                    owner:          response.data.ownerConsumer.socialDataProfile.nickname,
+                    totalUsers:     response.data.countPartners,
+                    sell:           response.data.giftCard.giftCardValue,
+                    countDownDate: new Date(response.data.dateExpired.date).getTime(),
+                    percentOfGoal:  bought/(response.data.giftCard.giftCardValue/100),
+                    bought:         bought,
+                    showLoading:    false
                 });
             })
             .catch(error => {
-                console.log(error);
+
             });
+
+        // axios.get(this.state.baseUrl + 'gift-card/rest/partner/' + this.state.id)
+        //     .then(response => {
+        //         console.log(response);
+        //         let sell = 0;
+        //         // response.data.partners.map(item => {
+        //         //     sell += item.amount;
+        //         // });
+        //
+        //         this.setState({
+        //             shopper: response.data.giftCardGroupBuy.giftCard.shopper.name,
+        //             giftCardValue: response.data.giftCardGroupBuy.giftCard.giftCardValue,
+        //             owner: response.data.giftCardGroupBuy.ownerConsumer.socialDataProfile.nickname,
+        //             totalUsers: 0,
+        //             sell: sell,
+        //             percentOfGoal: function(){
+        //                 return Math.round(sell/(response.data.giftCardGroupBuy.giftCard.giftCardValue/100), 2);
+        //             }(),
+        //             showLoading: false
+        //         });
+        //     })
+        //     .catch(error => {
+        //         console.log(error);
+        //     });
+
+    }
+
+    componentDidMount(){
+
+        // Update the count down every 1 second
+        this.interval = setInterval(this.timer, 1000);
+    }
+
+    timer(){
+
+        // Get todays date and time
+        let now = new Date().getTime();
+
+        // Find the distance between now an the count down date
+        let distance = this.state.countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        let days    = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the element with id="demo"
+        if (!isNaN(days)) {
+            this.setState({
+                timeLeft: days + " days " + hours + ":" + minutes + ":" + seconds
+            });
+        }
+        // console.log(this.state.timeLeft);
+        // If the count down is finished, write some text
+        if (distance < 0) {
+            clearInterval(this.interval);
+            this.setState({
+                timeLeft: "EXPIRED"
+            });
+        }
     }
 
     render(){
@@ -87,7 +152,7 @@ export default class GiftCard extends React.Component {
                                 </FlexItem>
                             </Flex>
                             <Flex className="weui-flex gift-card-item">
-                                <FlexItem>Time Left: 14:27:50</FlexItem>
+                                <FlexItem>Time Left: {this.state.timeLeft}</FlexItem>
                             </Flex>
                             <Flex className="weui-flex gift-card-item">
                                 <FlexItem>
@@ -97,7 +162,7 @@ export default class GiftCard extends React.Component {
                             </Flex>
                             <Flex className="weui-flex gift-card-item">
                                 <FlexItem>{this.state.percentOfGoal}% of ${this.state.giftCardValue} goal</FlexItem>
-                                <FlexItem>${this.state.sell} Bought by {this.state.totalUsers} Users</FlexItem>
+                                <FlexItem>${this.state.bought} Bought by {this.state.totalUsers} Users</FlexItem>
                             </Flex>
                             <Flex className="weui-flex gift-card-invite">
                                 <FlexItem>Invite your friend to buy together:</FlexItem>
