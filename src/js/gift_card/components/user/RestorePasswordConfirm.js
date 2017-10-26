@@ -25,17 +25,14 @@ export default class RestorePasswordConfirm extends React.Component {
     render(){
         return (
             <section>
-                <Header/>
-                <section>
-                    <Page className="page">
-                        <p>
-                            To your email send email with instruction by restore
-                        </p>
-                        <ButtonArea>
-                            <Button onClick={this.goToLogin()}>Ok</Button>
-                        </ButtonArea>
-                    </Page>
-                </section>
+                <Page className="page">
+                    <p>
+                        To your email send email with instruction by restore
+                    </p>
+                    <ButtonArea>
+                        <Button onClick={this.goToLogin}>Ok</Button>
+                    </ButtonArea>
+                </Page>
             </section>
         );
     }
