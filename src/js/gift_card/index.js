@@ -10,6 +10,8 @@ import GiftCard from './components/gift_card/GiftCard';
 import Login from './components/user/Login';
 import Registration from './components/user/Registration';
 import RestorePassword from './components/user/RestorePassword';
+import RestorePasswordConfirm from './components/user/RestorePasswordConfirm';
+import RestorePasswordForm from './components/user/RestorePasswordForm';
 import ChangeName from './components/user/ChangeName';
 import ChangePassword from './components/user/ChangePassword';
 import MyAccount from './components/user/MyAccount';
@@ -37,6 +39,8 @@ export default class Index extends React.Component{
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/registration" component={Registration}/>
                     <Route exact path="/restore-password" component={RestorePassword}/>
+                    <Route exact path="/restore-password-confirm" component={RestorePasswordConfirm}/>
+                    <Route exact path="/restore-password-form" component={RestorePasswordForm}/>
                     <Route exact path="/change-name" component={ChangeName}/>
                     <Route exact path="/change-password" component={ChangePassword}/>
                     <Route exact path="/my-account" component={MyAccount}/>

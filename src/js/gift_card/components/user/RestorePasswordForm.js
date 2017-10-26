@@ -9,10 +9,10 @@ import Config from '../Config';
 import Menu from '../core/Menu';
 import Header from '../core/Header';
 import {Page, Form,
-        FormCell, CellBody, CellHeader, CellFooter, Icon,
-        Label, Input, ButtonArea, Button, Toast} from 'react-weui';
+    FormCell, CellBody, CellHeader, CellFooter, Icon,
+    Label, Input, ButtonArea, Button, Toast} from 'react-weui';
 
-export default class RestorePassword extends React.Component {
+export default class RestorePasswordForm extends React.Component {
     constructor(props) {
         super(props);
         const config = new Config();
@@ -23,10 +23,8 @@ export default class RestorePassword extends React.Component {
             showWarningFirstName: false,
             showWarningLastName:  false,
             showWarningPassword:  false,
-            firstName:            '',
-            lastName:             '',
-            email:                '',
-            password:             '',
+            newPassword:          '',
+            confirmPassword:      '',
             baseUrl:              config.baseUrl,
             showWarningToast:     false,
             warningToastMessage:  ''
@@ -88,9 +86,15 @@ export default class RestorePassword extends React.Component {
         }
     }
 
-    updateEmail(e) {
+    updateNewPassword(e) {
         this.setState({
-            email: e.target.value
+            newPassword: e.target.value
+        });
+    }
+
+    updateConfirmPassword(e) {
+        this.setState({
+            confirmPassword: e.target.value
         });
     }
 
@@ -103,10 +107,21 @@ export default class RestorePassword extends React.Component {
                         <Form>
                             <FormCell warn={this.state.showWarningEmail}>
                                 <CellHeader>
-                                    <Label>Email</Label>
+                                    <Label>New Password</Label>
                                 </CellHeader>
                                 <CellBody>
-                                    <Input type="email" name="email" placeholder="Enter Email" onChange={e => this.updateEmail(e) }/>
+                                    <Input type="password" name="new_password" placeholder="Enter New Password" onChange={e => this.updateEmail(e) }/>
+                                </CellBody>
+                                <CellFooter>
+                                    <Icon value="warn" />
+                                </CellFooter>
+                            </FormCell>
+                            <FormCell warn={this.state.showWarningEmail}>
+                                <CellHeader>
+                                    <Label>Confirm Password</Label>
+                                </CellHeader>
+                                <CellBody>
+                                    <Input type="password" name="confirm_password" placeholder="Enter Confirm Password" onChange={e => this.updateEmail(e) }/>
                                 </CellBody>
                                 <CellFooter>
                                     <Icon value="warn" />
