@@ -107,7 +107,7 @@ export default class ChangeName extends React.Component {
                     </Form>
                     <Flex className="weui-flex login-footer">
                         <FlexItem>
-                            <a href="">Forgot Password?</a>
+                            <a href="/#/restore-password">Forgot Password?</a>
                         </FlexItem>
                         <FlexItem>
                             <a href="/#/registration">Registration</a>
