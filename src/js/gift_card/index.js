@@ -9,6 +9,7 @@ import GiftCardList from './components/gift_card/GiftCardList';
 import GiftCard from './components/gift_card/GiftCard';
 import Login from './components/user/Login';
 import Registration from './components/user/Registration';
+import ShopperRegistration from './components/shopper/ShopperRegistration';
 import RestorePassword from './components/user/RestorePassword';
 import RestorePasswordConfirm from './components/user/RestorePasswordConfirm';
 import RestorePasswordForm from './components/user/RestorePasswordForm';
@@ -38,6 +39,7 @@ export default class Index extends React.Component{
                     <Route exact path="/gift-card/:id" component={GiftCard}/>
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/registration" component={Registration}/>
+                    <Route exact path="/shopper-registration" component={ShopperRegistration}/>
                     <Route exact path="/restore-password" component={RestorePassword}/>
                     <Route exact path="/restore-password-confirm" component={RestorePasswordConfirm}/>
                     <Route exact path="/restore-password-form" component={RestorePasswordForm}/>
@@ -57,7 +59,13 @@ export default class Index extends React.Component{
 const auth = new Auth();
 console.log(window.location.hash);
 console.log(auth.checkAuth());
-if (!auth.checkAuth() && window.location.hash != '#/login') {
+const guestPages = [
+    '#/login',
+    '#/restore-password-confirm',
+    '#/restore-password-form'
+];
+
+if (!auth.checkAuth() && !guestPages.indexOf(window.location.hash)) {
     window.location = '/#/login';
 }
 
