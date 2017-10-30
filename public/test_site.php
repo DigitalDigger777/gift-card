@@ -15,10 +15,13 @@
         }
     </script>
 
+
 </head>
 <body>
 <div class="container">
-    <a class="btn btn-success" href="/order.php/#/98">Gift Card</a>
+    <label for="shopperId">ShopperId</label>
+    <input type="hidden" name="shopperId" value="147" placeholder="order"/>
+    <a id="gift-card" class="btn btn-success" href="/order.php/#/147">Gift Card</a>
     <a id="logout" class="btn btn-danger" href="/" style="display: none">Logout</a>
 </div>
 <div id="root" class="container"></div>
@@ -39,6 +42,13 @@
                    window.location.reload();
                });
            }
+
+           $('#gift-card').click(function (e) {
+               e.preventDefault();
+               var shopperId = $('[name="shopperId"]').val();
+               $(this).attr('href', '/order.php/#/' + shopperId);
+               window.location = '/order.php/#/' + shopperId;
+           });
         });
     })(jQuery);
 </script>
