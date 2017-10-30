@@ -10,8 +10,9 @@ import Config from '../Config';
 export default class PaymentConfirmGroupBuy extends React.Component {
     constructor(props) {
         super(props);
-        const shareUrl = '/order.php/#/friend-buy/' + props.match.params.giftCardGroupBuyId;
         const config = new Config();
+        const shareUrl = config.baseFrontUrl + 'order.php/#/friend-buy/' + props.match.params.giftCardGroupBuyId;
+
         this.state = {
             giftCardId: props.match.params.giftCardId,
             giftCardGroupBuyId: props.match.params.giftCardGroupBuyId,
