@@ -95,6 +95,10 @@ export default class GiftCard extends React.Component {
         this.interval = setInterval(this.timer, 1000);
     }
 
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
     timer(){
 
         // Get todays date and time

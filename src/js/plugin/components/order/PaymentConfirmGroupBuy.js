@@ -14,12 +14,12 @@ export default class PaymentConfirmGroupBuy extends React.Component {
         const shareUrl = config.baseFrontUrl + 'order.php/#/friend-buy/' + props.match.params.giftCardGroupBuyId;
 
         this.state = {
-            giftCardId: props.match.params.giftCardId,
+            giftCardId:         props.match.params.giftCardId,
             giftCardGroupBuyId: props.match.params.giftCardGroupBuyId,
-            shareFbUrl: 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl) + '&t=Friend share Gift Card',
+            shareFbUrl:         'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl) + '&t=Friend share Gift Card',
             shareGooglePlusUrl: 'https://plus.google.com/share?url='+ encodeURIComponent(shareUrl),
-            shareTwitterUrl: 'https://twitter.com/share?url=' + encodeURIComponent(shareUrl) + '&via=TWITTER_HANDLE&text=Friend share Gift Card',
-            baseUrl: config.baseUrl
+            shareTwitterUrl:    'https://twitter.com/share?url=' + encodeURIComponent(shareUrl) + '&via=TWITTER_HANDLE&text=Friend share Gift Card',
+            baseUrl:            config.baseUrl
         }
     }
 
