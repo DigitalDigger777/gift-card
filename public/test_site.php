@@ -19,8 +19,13 @@
 </head>
 <body>
 <div class="container">
-    <label for="shopperId">ShopperId</label>
-    <input type="hidden" name="shopperId" value="147" placeholder="order"/>
+    <div class="row">
+        <div class="col">
+            <label for="shopperId">ShopperId</label>
+            <input type="text" class="form-control" name="shopperId" value="147" placeholder="order"/>
+        </div>
+    </div>
+
     <a id="gift-card" class="btn btn-success" href="/order.php/#/147">Gift Card</a>
     <a id="logout" class="btn btn-danger" href="/" style="display: none">Logout</a>
 </div>
