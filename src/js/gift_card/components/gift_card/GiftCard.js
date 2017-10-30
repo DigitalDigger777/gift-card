@@ -20,7 +20,7 @@ export default class GiftCard extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(props);
+        //console.log(props);
         const config = new Config();
         this.state = {
             id: props.match.params.id,
@@ -90,12 +90,12 @@ export default class GiftCard extends React.Component {
     }
 
     componentDidMount(){
-
         // Update the count down every 1 second
         this.interval = setInterval(this.timer, 1000);
     }
 
     componentWillUnmount() {
+        console.log('unmount')
         clearInterval(this.interval);
     }
 
@@ -130,7 +130,7 @@ export default class GiftCard extends React.Component {
     }
 
     render(){
-        console.log(this.state);
+        //console.log(this.state);
 
         if (this.state.shopper != '') {
             return (
