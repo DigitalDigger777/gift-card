@@ -46,6 +46,8 @@ export default class GiftCardFriendBuy extends React.Component {
                     countDownDate: new Date(response.data.dateExpired.date).getTime(),
                 });
 
+                console.log(this.state);
+
             }).catch(error => {
                 console.log(error);
             });
