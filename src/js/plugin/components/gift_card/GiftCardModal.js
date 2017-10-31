@@ -23,7 +23,8 @@ export default class GiftCardModal extends React.Component {
             baseUrl: config.baseUrl,
             items: [],
             amount: 0,
-            iterator: 0
+            iterator: 0,
+            status: 'Load...'
         }
     }
 
@@ -37,15 +38,27 @@ export default class GiftCardModal extends React.Component {
         })
             .then(response => {
                 console.log(response.data);
-                const items = [
-                    response.data[0],
-                    response.data[1]
-                ];
 
-                this.setState({
-                    items: items,
-                    iterator: response.data.giftCardValue/25
-                });
+                if (typeof response.data.message != 'undefined') {
+
+                    this.setState({
+                        status: response.data.message
+                    });
+
+                } else {
+
+                    const items = [
+                        response.data[0],
+                        response.data[1]
+                    ];
+
+                    this.setState({
+                        items: items,
+                        iterator: response.data.giftCardValue/25
+                    });
+
+                }
+
                 $('#plugin').modal('show');
             })
             .catch(error => {
@@ -282,7 +295,7 @@ export default class GiftCardModal extends React.Component {
             );
         } else {
             return (
-                <div>Load...</div>
+                <div>{this.state.status}</div>
             )
         }
     }
