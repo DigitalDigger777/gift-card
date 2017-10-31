@@ -27,6 +27,7 @@ export default class ShopperRegistration extends React.Component {
             email:                  '',
             password:               '',
             baseUrl:                config.baseUrl,
+            baseFrontUrl:           config.baseFrontUrl,
             showWarningToast:       false,
             warningToastMessage:    ''
         };
@@ -94,7 +95,7 @@ export default class ShopperRegistration extends React.Component {
                         showLoading: false,
                         showWarningEmail: false
                     });
-                    window.location = '/#/login';
+                    window.location = this.state.baseUrl + 'login';
                 })
                 .catch(error => {
                     console.log(error.response.data.message);

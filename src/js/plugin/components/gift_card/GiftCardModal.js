@@ -47,7 +47,6 @@ export default class GiftCardModal extends React.Component {
                     iterator: response.data.giftCardValue/25
                 });
                 $('#plugin').modal('show');
-
             })
             .catch(error => {
                 console.log(error);
