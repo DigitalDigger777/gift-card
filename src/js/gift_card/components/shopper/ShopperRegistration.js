@@ -95,7 +95,7 @@ export default class ShopperRegistration extends React.Component {
                         showLoading: false,
                         showWarningEmail: false
                     });
-                    window.location = this.state.baseUrl + 'login';
+                    window.location = this.state.baseUrl + 'user/login';
                 })
                 .catch(error => {
                     console.log(error.response.data.message);
