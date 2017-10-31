@@ -181,7 +181,7 @@ export default class GiftCardFriendBuy extends React.Component {
                                         <p className="text-center">How much you want to buy:</p>
                                     </div>
                                     <div className="col">
-                                        <input type="text" className="form-control" onChange={e => this.changeAmount(e)}/>
+                                        {/*<input type="text" className="form-control" onChange={e => this.changeAmount(e)}/>*/}
                                         <select className="form-control" id="how-mach" name="how-mach" onChange={ e => this.changeHowMach(e) }>
                                             {options}
                                         </select>
