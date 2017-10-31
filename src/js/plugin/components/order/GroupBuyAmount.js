@@ -38,7 +38,6 @@ export default class GroupBuyAmount extends React.Component {
             });
     }
 
-
     pay() {
         const amount = this.state.amount;
         window.localStorage.setItem('order_amount', amount);
@@ -63,6 +62,7 @@ export default class GroupBuyAmount extends React.Component {
         if (this.state.iterator > 0) {
             ///console.log('sd');
             let options = [];
+
             for (let i = 1; i <= this.state.iterator; i++) {
                 options.push(<option key={i} value={i * 25}>${i * 25}</option>);
             }

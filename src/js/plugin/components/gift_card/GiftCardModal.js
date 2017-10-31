@@ -75,38 +75,49 @@ export default class GiftCardModal extends React.Component {
     }
 
     buyNow(e, giftCardValue, id) {
+
         window.localStorage.removeItem('isGroupBuy');
         window.localStorage.setItem('isBuyNow', 1);
         window.localStorage.setItem('order_amount', giftCardValue);
         window.localStorage.setItem('order_gift_card_id', id);
 
         if (this.state.token) {
+
             window.location = '/payment.php';
+
         } else {
+
             window.localStorage.setItem('order_process', 1);
             window.localStorage.setItem('order_shopper_id', this.state.shopperId);
             window.location = '/#/login';
+
         }
     }
 
     buyNowOtherAmount(e, amount){
+
         window.localStorage.removeItem('isGroupBuy');
         window.localStorage.setItem('isBuyNow', 1);
         window.localStorage.setItem('order_amount', amount);
         window.localStorage.setItem('order_gift_card_id', 0);
 
         if (this.state.token) {
+
             window.location = '/payment.php';
+
         } else {
+
             window.localStorage.setItem('order_process', 1);
             window.localStorage.setItem('order_shopper_id', this.state.shopperId);
             window.location = '/#/login';
+
         }
     }
 
     selectAmount(e, amount) {
 
         const _amount = amount ? amount : e.target.value;
+
         this.setState({
             amount: _amount
         });

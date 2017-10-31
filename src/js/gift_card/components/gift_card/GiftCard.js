@@ -58,6 +58,7 @@ export default class GiftCard extends React.Component {
                     bought:         bought,
                     showLoading:    false
                 });
+
             })
             .catch(error => {
 
