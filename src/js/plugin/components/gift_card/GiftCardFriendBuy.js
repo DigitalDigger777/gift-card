@@ -26,14 +26,17 @@ export default class GiftCardFriendBuy extends React.Component {
             baseUrl:            config.baseUrl,
             amount:             25,
             timeLeft:           '',
-            iterator:           0
+            iterator:           0,
+            countDownDate:      null
         };
     }
 
     componentWillMount(){
+
         axios.get(this.state.baseUrl + 'gift-card/rest/group-buy/' + this.state.giftCardGroupBuyId)
             .then(response => {
                 console.log(response);
+                console.log(response.data.dateExpired.date);
 
                 this.setState({
                     item: response.data,
@@ -44,6 +47,7 @@ export default class GiftCardFriendBuy extends React.Component {
             }).catch(error => {
                 console.log(error);
             });
+
     }
 
     componentDidMount(){

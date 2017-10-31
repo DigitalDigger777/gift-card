@@ -53,7 +53,7 @@ export default class GiftCard extends React.Component {
                     owner:          response.data.ownerConsumer.socialDataProfile.nickname,
                     totalUsers:     response.data.countPartners,
                     sell:           response.data.giftCard.giftCardValue,
-                    countDownDate: new Date(response.data.dateExpired.date).getTime(),
+                    countDownDate:  new Date(response.data.dateExpired.date).getTime(),
                     percentOfGoal:  bought/(response.data.giftCard.giftCardValue/100),
                     bought:         bought,
                     showLoading:    false
