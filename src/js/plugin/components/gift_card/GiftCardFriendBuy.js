@@ -39,11 +39,12 @@ export default class GiftCardFriendBuy extends React.Component {
             .then(response => {
                 console.log(response);
                 console.log(response.data.dateExpired.date);
+                console.log(result.data.giftCard.giftCardValue);
 
                 this.setState({
-                    item: response.data,
-                    iterator: result.data.giftCard.giftCardValue/25,
-                    countDownDate: new Date(response.data.dateExpired.date).getTime(),
+                    item:           response.data,
+                    iterator:       result.data.giftCard.giftCardValue/25,
+                    countDownDate:  new Date(response.data.dateExpired.date).getTime(),
                 });
 
                 console.log(this.state);
