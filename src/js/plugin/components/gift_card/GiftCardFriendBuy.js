@@ -29,6 +29,8 @@ export default class GiftCardFriendBuy extends React.Component {
             iterator:           0,
             countDownDate:      null
         };
+
+        this.timer = this.timer.bind(this);
     }
 
     componentWillMount(){
