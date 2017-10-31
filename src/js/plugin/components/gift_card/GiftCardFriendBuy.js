@@ -79,7 +79,6 @@ export default class GiftCardFriendBuy extends React.Component {
 
     timer(){
 
-        if (this.state.item) {
             // Get todays date and time
             let now = new Date().getTime();
 
@@ -106,7 +105,6 @@ export default class GiftCardFriendBuy extends React.Component {
                     timeLeft: "EXPIRED"
                 });
             }
-        }
     }
 
     changeHowMach(e) {
