@@ -42,7 +42,7 @@ export default class Index extends React.Component{
                     <Route exact path="/shopper-registration" component={ShopperRegistration}/>
                     <Route exact path="/restore-password" component={RestorePassword}/>
                     <Route exact path="/restore-password-confirm" component={RestorePasswordConfirm}/>
-                    <Route exact path="/restore-password-form" component={RestorePasswordForm}/>
+                    <Route exact path="/restore-password-form/:token" component={RestorePasswordForm}/>
                     <Route exact path="/change-name" component={ChangeName}/>
                     <Route exact path="/change-password" component={ChangePassword}/>
                     <Route exact path="/my-account" component={MyAccount}/>

@@ -27,7 +27,8 @@ export default class RestorePasswordForm extends React.Component {
             confirmPassword:      '',
             baseUrl:              config.baseUrl,
             showWarningToast:     false,
-            warningToastMessage:  ''
+            warningToastMessage:  '',
+            restorePasswordToken: props.match.params.token
         };
     }
 
@@ -62,8 +63,10 @@ export default class RestorePasswordForm extends React.Component {
                 showLoading: true
             });
 
-            axios.post(this.state.baseUrl + 'gift-card/rest/consumer/restore-password', {
-                email: this.state.email
+            axios.post(this.state.baseUrl + 'gift-card/rest/consumer/change-restore-password', {
+                token: this.state.restorePasswordToken,
+                password: this.state.newPassword,
+                confirmPassword: this.state.confirmPassword
             })
                 .then(response => {
                     window.location = '/#/restore-password-confirm';
