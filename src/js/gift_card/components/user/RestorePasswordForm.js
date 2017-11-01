@@ -113,7 +113,7 @@ export default class RestorePasswordForm extends React.Component {
                                     <Label>New Password</Label>
                                 </CellHeader>
                                 <CellBody>
-                                    <Input type="password" name="new_password" placeholder="Enter New Password" onChange={e => this.updateEmail(e) }/>
+                                    <Input type="password" name="new_password" placeholder="Enter New Password" onChange={e => this.updateNewPassword(e) }/>
                                 </CellBody>
                                 <CellFooter>
                                     <Icon value="warn" />
@@ -124,7 +124,7 @@ export default class RestorePasswordForm extends React.Component {
                                     <Label>Confirm Password</Label>
                                 </CellHeader>
                                 <CellBody>
-                                    <Input type="password" name="confirm_password" placeholder="Enter Confirm Password" onChange={e => this.updateEmail(e) }/>
+                                    <Input type="password" name="confirm_password" placeholder="Enter Confirm Password" onChange={e => this.updateConfirmPassword(e) }/>
                                 </CellBody>
                                 <CellFooter>
                                     <Icon value="warn" />
