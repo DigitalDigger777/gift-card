@@ -11,6 +11,7 @@ import Login from './components/user/Login';
 import Registration from './components/user/Registration';
 import ShopperRegistration from './components/shopper/ShopperRegistration';
 import RestorePassword from './components/user/RestorePassword';
+import RestorePasswordSuccessful from './components/user/RestorePasswordSuccessful';
 import RestorePasswordConfirm from './components/user/RestorePasswordConfirm';
 import RestorePasswordForm from './components/user/RestorePasswordForm';
 import ChangeName from './components/user/ChangeName';
@@ -42,6 +43,7 @@ export default class Index extends React.Component{
                     <Route exact path="/shopper-registration" component={ShopperRegistration}/>
                     <Route exact path="/restore-password" component={RestorePassword}/>
                     <Route exact path="/restore-password-confirm" component={RestorePasswordConfirm}/>
+                    <Route exact path="/restore-password-successful" component={RestorePasswordSuccessful}/>
                     <Route exact path="/restore-password-form/:token" component={RestorePasswordForm}/>
                     <Route exact path="/change-name" component={ChangeName}/>
                     <Route exact path="/change-password" component={ChangePassword}/>

@@ -69,7 +69,7 @@ export default class RestorePasswordForm extends React.Component {
                 confirmPassword: this.state.confirmPassword
             })
                 .then(response => {
-                    window.location = '/#/restore-password-confirm';
+                    window.location = '/#/restore-password-successful';
                 })
                 .catch(error => {
                     console.log(error.response.data.message);

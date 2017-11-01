@@ -12,12 +12,12 @@ import {Page, Form,
         FormCell, CellBody, CellHeader, CellFooter, Icon,
         Label, Input, ButtonArea, Button, Toast} from 'react-weui';
 
-export default class RestorePasswordConfirm extends React.Component {
+export default class RestorePasswordSuccessful extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            message: 'To your email send email with instruction by restore'
+            message: 'Your password was be changed'
         };
     }
 
