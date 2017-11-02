@@ -88,8 +88,8 @@ export default class GiftCardFriendBuy extends React.Component {
             let distance = this.state.countDownDate - now;
 
             // Time calculations for days, hours, minutes and seconds
-            let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let days    = Math.floor(distance / (1000 * 60 * 60 * 24));
+            let hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
@@ -165,14 +165,15 @@ export default class GiftCardFriendBuy extends React.Component {
                                 <div className="row" style={{marginTop: '40px'}}>
                                     <div className="col">
                                         <h5 className="text-center">
-                                            {nickname} Paid $50
+
+                                            {nickname} Paid $
                                         </h5>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col">
                                         <h5 className="text-center">
-                                            To buy this gift card successfully, {nickname} need find someone to buy another $50
+                                            To buy this gift card successfully, {nickname} need find someone to buy another ${this.state.item.giftCard.giftCardTransactions[this.state.item.giftCard.giftCardTransactions.length - 1].newBalance }
                                         </h5>
                                     </div>
                                 </div>
