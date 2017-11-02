@@ -173,7 +173,7 @@ export default class GiftCardFriendBuy extends React.Component {
                                 <div className="row">
                                     <div className="col">
                                         <h5 className="text-center">
-                                            To buy this gift card successfully, {nickname} need find someone to buy another ${this.state.item.giftCard.giftCardTransactions[this.state.item.giftCard.giftCardTransactions.length - 1].newBalance }
+                                            To buy this gift card successfully, {nickname} need find someone to buy another ${this.state.item.giftCard.giftCardValue.bought}
                                         </h5>
                                     </div>
                                 </div>
