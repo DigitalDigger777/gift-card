@@ -9,6 +9,7 @@ import Config from '../Config';
 
 export default class PaymentConfirmGroupBuy extends React.Component {
     constructor(props) {
+
         super(props);
         const config = new Config();
         const shareUrl = config.baseFrontUrl + 'order.php/#/friend-buy/' + props.match.params.giftCardGroupBuyId;
@@ -20,7 +21,10 @@ export default class PaymentConfirmGroupBuy extends React.Component {
             shareGooglePlusUrl: 'https://plus.google.com/share?url='+ encodeURIComponent(shareUrl),
             shareTwitterUrl:    'https://twitter.com/share?url=' + encodeURIComponent(shareUrl) + '&via=TWITTER_HANDLE&text=Friend share Gift Card',
             baseUrl:            config.baseUrl
-        }
+        };
+
+        window.localStorage.removeItem('isBuyNow');
+        window.localStorage.removeItem('order_process');
     }
 
     componentDidMount(){

@@ -14,7 +14,11 @@ export default class PaymentConfirm extends React.Component {
         this.state = {
             giftCardId: props.match.params.giftCardId,
             baseUrl: config.baseUrl
-        }
+        };
+
+        //clear loacal stoarge
+        window.localStorage.removeItem('isBuyNow');
+        window.localStorage.removeItem('order_process');
     }
 
     componentDidMount(){
