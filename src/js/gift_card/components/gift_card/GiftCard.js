@@ -167,7 +167,7 @@ export default class GiftCard extends React.Component {
                             </Flex>
                             <Flex className="weui-flex gift-card-item">
                                 <FlexItem>{this.state.percentOfGoal}% of ${this.state.giftCardValue} goal</FlexItem>
-                                <FlexItem>${this.state.bought} Bought by {this.state.totalUsers} Users</FlexItem>
+                                <FlexItem>${this.state.bought/100} Bought by {this.state.totalUsers} Users</FlexItem>
                             </Flex>
                             <Flex className="weui-flex gift-card-invite">
                                 <FlexItem>Invite your friend to buy together:</FlexItem>
